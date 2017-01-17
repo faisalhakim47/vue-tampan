@@ -2,7 +2,10 @@ import { isNumber, isString } from '../../tools/typecheck'
 
 export default {
   name: 'input-select',
-  props: ['options', 'value'],
+  props: {
+    options: { type: Array, default: [] },
+    value: { type: String, required: true }
+  },
   methods: {
     change({ target }) {
       const { value } = target

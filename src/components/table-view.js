@@ -2,7 +2,12 @@ import { isString } from '../tools/typecheck'
 
 export default {
   name: 'table-view',
-  props: ['items', 'columnMap', 'visibleColumns', 'indexes'],
+  props: {
+    items: { type: Array, required: true },
+    columnMap: { type: Object, required: true },
+    visibleColumns: { type: Array },
+    indexes: { type: Array }
+  },
   data() {
     const indexes = this.indexes || []
     return {

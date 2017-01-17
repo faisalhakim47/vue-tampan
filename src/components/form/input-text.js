@@ -1,6 +1,8 @@
 export default {
   name: 'input-text',
-  props: ['value'],
+  props: {
+    value: { type: String, required: true }
+  },
   methods: {
     input({ target }) {
       const { value } = target

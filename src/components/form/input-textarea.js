@@ -1,6 +1,8 @@
 export default {
   name: 'input-textarea',
-  props: ['value'],
+  props: {
+    value: { type: String, required: true }
+  },
   methods: {
     input({ target }) {
       const { value } = target

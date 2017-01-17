@@ -3,7 +3,11 @@ import { randomChar } from '../../tools/string'
 
 export default {
   name: 'input-checkbox',
-  props: ['options', 'value', 'direction'],
+  props: {
+    options: { type: Array, default: [] },
+    value: { type: String, required: true },
+    direction: { type: String, default: 'vertical' }
+  },
   data() {
     let value = this.value || []
     if (isNumber(value) || isString(value)) {
@@ -26,7 +30,7 @@ export default {
     }
   },
   render(e) {
-    return e('div', { staticClass: `input input-checkbox-list is-${this.direction || 'vertical'} is-frameless` },
+    return e('div', { staticClass: `input input-checkbox-list is-${this.direction} is-frameless` },
       this.options.map((opt, index) => {
         if (isString(opt) || isNumber(opt)) opt = { value: opt, label: opt }
         const checked = this.value.indexOf(opt.value) !== -1

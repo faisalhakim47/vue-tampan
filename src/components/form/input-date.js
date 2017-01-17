@@ -4,6 +4,14 @@ import InputSelect from './input-select'
 
 export default {
   props: ['value'],
+  props: {
+    value: {
+      required: true,
+      validator: function (value) {
+        return value instanceof Date
+      }
+    }
+  },
   components: [InputSelect],
   data() {
     let date = new Date(this.value || value)

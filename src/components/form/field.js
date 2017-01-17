@@ -1,7 +1,10 @@
 export default {
   name: 'field',
   functional: true,
-  props: ['label', 'info'],
+  props: {
+    label: { type: String },
+    info: { type: String }
+  },
   render(e, { props, children }) {
     return e('div', { staticClass: 'field' }, [
       props.label

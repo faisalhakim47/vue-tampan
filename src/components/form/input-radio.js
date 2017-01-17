@@ -3,7 +3,11 @@ import { randomChar } from '../../tools/string'
 
 export default {
   name: 'input-radio',
-  props: ['options', 'value', 'direction'],
+  props: {
+    options: { type: Array, default: [] },
+    value: { type: String, required: true },
+    direction: { type: String, default: 'vertical' }
+  },
   data() {
     return {
       name: randomChar(5)
