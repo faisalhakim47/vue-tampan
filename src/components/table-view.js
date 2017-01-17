@@ -70,9 +70,9 @@ export default {
             return e('th', columnTitle)
           }))
         ]),
-        e('tbody', this.slicedItems.map((item) => {
+        e('tbody', this.slicedItems.map((item, index) => {
           return e('tr', this.columnTitles.map((columnTitle) => {
-            return e('td', this.columnMap[columnTitle](item))
+            return e('td', this.columnMap[columnTitle](item, index))
           }))
         }))
       ]),
