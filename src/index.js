@@ -12,14 +12,13 @@ export * from './tools/number'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 
-let alertCount = 0
-
 export default function VueTampan({ el, initialState, router }) {
-  Vue.prototype.$tampan = new Vue({
+  VueTampan.Vue.prototype.$tampan = new VueTampan.Vue({
     data() {
       const client = getClienInfo()
       return {
         client,
+        alertCount: 0,
         alerts: [],
         confirmation: null,
         isSidebarShow: client.isLargeScreen,
@@ -45,7 +44,7 @@ export default function VueTampan({ el, initialState, router }) {
             type,
             title,
             text,
-            key: (++alertCount) + '-' + randomChar(3),
+            key: (++this.alertCount) + '-' + randomChar(3),
             callback: (index) => {
               this.alerts.splice(index, 1)
               this.$nextTick(resolve)
@@ -76,18 +75,21 @@ export default function VueTampan({ el, initialState, router }) {
 
   App.router = router
 
-  const app = new Vue(App).$mount(el)
+  const app = new VueTampan.Vue(App).$mount(el)
 
-  initialLayout(app, Vue.prototype.$tampan)
+  initialLayout(app, VueTampan.Vue.prototype.$tampan)
 
   return app
 }
 
-VueTampan.install = (RealVue) => {
-  installComponents(RealVue)
-  Vue = RealVue
+VueTampan.install = (Vue) => {
+  installComponents(Vue)
+  VueTampan.Vue = Vue
 }
 
-if (!!window.Vue) {
-  Vue.use(VueTampan)
-}
+(() => {
+  try {
+    if (this && this.Vue)
+      Vue.use(VueTampan)
+  } catch (e) { }
+})()

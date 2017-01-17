@@ -4,6 +4,7 @@ const path = require('path')
 module.exports = {
   entry: {
     'vue-tampan': './src/index.js',
+    'vue-tampan.min': './src/index.js',
     'example-app': './example/main.js'
   },
   output: {
@@ -18,9 +19,10 @@ module.exports = {
     ]
   },
   plugins: [
-    // new webpack.optimize.UglifyJsPlugin({
-    //   sourceMap: false,
-    //   warnings: false
-    // })
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      sourceMap: true,
+      warnings: false
+    })
   ]
 }

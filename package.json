@@ -1,6 +1,6 @@
 {
   "name": "vue-tampan",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Vue Template",
   "author": "Faisal Hakim <faisalhakim47@gmail.com>",
   "main": "dist/vue-tampan.js",
@@ -23,7 +23,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "babel-plugin-transform-remove-console": "^6.8.0",
     "babel-preset-env": "^1.1.8",
-    "babili": "0.0.9",
     "live-server": "^1.2.0",
     "webpack": "^2.2.0-rc.7"
   }
