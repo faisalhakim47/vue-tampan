@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Vue Template",
   "author": "Faisal Hakim <faisalhakim47@gmail.com>",
-  "private": true,
   "main": "./src/tampan.js",
   "repository": {
     "type": "git",
