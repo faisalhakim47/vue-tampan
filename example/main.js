@@ -1,16 +1,8 @@
-import './styles/index.css'
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import VueTampan from './tampan'
-
 import About from './pages/about'
 import Button from './pages/button'
 import Form from './pages/form'
 import Table from './pages/table'
 import Alert from './pages/alert'
-
-Vue.use(VueRouter)
-Vue.use(VueTampan)
 
 const router = new VueRouter({
   linkActiveClass: 'is-active',
@@ -59,7 +51,7 @@ const initialState = {
   ]
 }
 
-new VueTampan({
+VueTampan.default({
   router,
   initialState,
   el: '#app'

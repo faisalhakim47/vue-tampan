@@ -12,7 +12,6 @@ export * from './tools/number'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 
-let Vue
 let alertCount = 0
 
 export default function VueTampan({ el, initialState, router }) {
@@ -87,4 +86,8 @@ export default function VueTampan({ el, initialState, router }) {
 VueTampan.install = (RealVue) => {
   installComponents(RealVue)
   Vue = RealVue
+}
+
+if (!!window.Vue) {
+  Vue.use(VueTampan)
 }

@@ -1,4 +1,4 @@
-# vue-interface
+# vue-tampan
 
 > A Vue.js project
 

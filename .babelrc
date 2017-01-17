@@ -4,15 +4,13 @@
       "env",
       {
         "targets": {
-          "browsers": [
-            "last 2 versions"
-          ]
+          "android": 4.4
         }
       }
     ]
+    // "babili"
   ],
   "plugins": [
-    // "transform-runtime",
     [
       "transform-remove-console"
     ],
@@ -26,14 +24,7 @@
   "comments": false,
   "env": {
     "production": {
-      "presets": [
-        "babili"
-      ]
-    },
-    "test": {
-      "plugins": [
-        "istanbul"
-      ]
+      "presets": []
     }
   }
 }
