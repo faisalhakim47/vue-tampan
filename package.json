@@ -5,6 +5,10 @@
   "author": "Faisal Hakim <faisalhakim47@gmail.com>",
   "private": true,
   "main": "./src/tampan.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/faisalhakim47/vue-tampan.git"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"
