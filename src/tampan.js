@@ -6,11 +6,9 @@ import { initialLayout } from './layout'
 import App from './App'
 
 export * from './tools/array'
-export * from './tools/client-platform-info'
 export * from './tools/date'
 export * from './tools/fullscreen'
 export * from './tools/number'
-export * from './tools/string'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 

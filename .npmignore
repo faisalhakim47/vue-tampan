@@ -3,4 +3,5 @@ config
 node_modules
 .babelrc
 .gitignore
+.editorconfig
 index.html

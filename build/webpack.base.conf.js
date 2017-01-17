@@ -12,7 +12,9 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    // https://github.com/webpack/webpack/issues/300
+    tampan: ['./src/tampan.js'],
   },
   output: {
     path: config.build.assetsRoot,
