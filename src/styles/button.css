@@ -1,0 +1,80 @@
+.button {
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  height: 36px;
+  padding: 0px 10px;
+  margin: 3px 6px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  transform: scale(1);
+  transition-duration: 80ms;
+  transition-property: transform;
+  text-transform: uppercase;
+  line-height: 36px;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: 14px;
+  background-color: #FFF;
+  color: #616161;
+}
+
+.button:hover {
+  background-color: #EEEEEE;
+}
+
+.button:active {
+  transform: scale(.96);
+}
+
+.button:first-child {
+  margin-left: 0px;
+}
+
+.button:last-child {
+  margin-right: 0px;
+}
+
+/* from https://material.angular.io/components/component/button */
+.button.is-raised {
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.button.is-primary {
+  background-color: #1E88E5;
+  color: #fff;
+}
+
+.button.is-primary:hover {
+  background-color: #2196F3;
+}
+
+.button.is-positive {
+  background-color: #388E3C;
+  color: #fff;
+}
+
+.button.is-positive:hover {
+  background-color: #43A047;
+}
+
+.button.is-negative {
+  background-color: #E53935;
+  color: #fff;
+}
+
+.button.is-negative:hover {
+  background-color: #F44336;
+}
+
+.button > .icon {
+  font-size: 24px;
+  margin: auto 4px;
+}
+
+.button > .icon:first-child {
+  margin-left: 0px;
+}

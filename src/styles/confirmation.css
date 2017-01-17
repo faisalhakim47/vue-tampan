@@ -1,0 +1,39 @@
+.confirmation {
+  display: none;
+}
+.confirmation.is-active {
+  display: block;
+}
+
+.confirmation.is-active > .confirmation-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.4);
+  z-index: 10;
+}
+
+.confirmation-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-container {
+  box-sizing: border-box;
+  min-width: 300px;
+  max-width: 480px;
+  width: 50%;
+  padding: 16px 24px;
+  background-color: #FFF;
+}
+
+.confirmation-body {
+  font-size: 18px;
+}
+
+.confirmation-footer > button {
+  float: right;
+}

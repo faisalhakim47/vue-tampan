@@ -1,0 +1,45 @@
+.table {
+  min-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.table td,
+.table th {
+  box-sizing: border-box;
+  height: 44px;
+  padding: 12px;
+  border-bottom: 1px solid #E0E0E0;
+  text-align: left;
+}
+
+.table tbody > tr:hover {
+  background-color: #EEE;
+  border-bottom: 1px solid #EEE;
+}
+
+.table-view-navigate {
+  padding: 4px 24px;
+}
+
+.table-view-navigate > * {
+  float: right;
+}
+
+.table-view-navigate::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.box-body > .table-view {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.box-body > .table-view th:first-child,
+.box-body > .table-view td:first-child,
+.box-body > .table-view td:last-child,
+.box-body > .table-view td:last-child {
+  padding-left: 24px;
+}

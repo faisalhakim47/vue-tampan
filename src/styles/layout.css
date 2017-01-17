@@ -1,0 +1,143 @@
+#app {
+  font-size: 14px;
+}
+
+.main-header {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 48px;
+  width: 100%;
+  z-index: 11;
+}
+
+.main-header > div {
+  float: left;
+}
+
+.brand {
+  display: flex;
+  width: 240px;
+}
+
+.is-smallscreen .brand {
+  width: 120px;
+}
+
+.brand-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  padding: 0px 8px;
+}
+
+.brand-name > h1 {
+  margin: 0px;
+  font-size: 16px;
+  line-height: 48px;
+}
+
+.is-smallscreen .brand-name-long,
+.is-mediumscreen .brand-name-long {
+  display: none;
+}
+
+.is-largescreen .brand-name-short {
+  display: none;
+}
+
+.main-navbar-item {
+  cursor: pointer;
+  display: flex;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  outline: none;
+  font-size: 28px;
+}
+
+.is-largescreen .sidebar-toggle {
+  display: none;
+}
+
+.is-fullscreen .fullscreen-icon {
+  display: none;
+}
+
+#app:not(.is-fullscreen) .fullscreen-exit-icon {
+  display: none;
+}
+
+.main-sidebar,
+.main-content {
+  box-sizing: border-box;
+  margin-top: 48px;
+  height: inherit;
+  overflow-y: scroll;
+}
+
+.main-sidebar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 240px;
+  transition-property: transform;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  transform: translateX(-256px);
+  z-index: 10;
+}
+
+.is-sidebarshow .main-sidebar {
+  transform: translateX(-0px);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.4);
+  visibility: hidden;
+}
+
+.is-sidebarshow.is-smallscreen .sidebar-overlay,
+.is-sidebarshow.is-mediumscreen .sidebar-overlay {
+  visibility: visible;
+}
+
+.menu-item {
+  display: flex;
+  height: 48px;
+  text-decoration: none;
+}
+
+.menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  height: 48px;
+  width: 48px;
+}
+
+.menu-item-name {
+  display: inline-block;
+  line-height: 48px;
+}
+
+.main-content {
+  padding-bottom: 240px;
+}
+
+.is-largescreen .main-content {
+  padding-left: 240px;
+}

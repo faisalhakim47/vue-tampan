@@ -1,0 +1,59 @@
+.alert-list {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+
+#app:not(.is-smallscreen) .alert-list {
+  margin: 72px 32px;
+}
+
+.is-smallscreen .alert-list {
+  width: 100%;
+  margin: 64px 0px;
+}
+
+.alert-item {
+  box-sizing: border-box;
+  width: 280px;
+  margin: auto;
+  margin-bottom: 16px;
+  border-radius: 2px;
+  background-color: #FFF;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+
+.is-smallscreen .alert-item {
+  width: 95%;
+  margin-bottom: 2.5%;
+}
+
+.alert-header {
+  line-height: 36px;
+}
+
+.alert-header::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.alert-title {
+  float: left;
+  margin: 0px;
+  padding-left: 12px;
+}
+
+.alert-close {
+  cursor: pointer;
+  float: right;
+  padding: 0px 12px;
+}
+
+.alert-close:hover {
+  background-color: #EEE;
+}
+
+.alert-body {
+  padding: 12px;
+}

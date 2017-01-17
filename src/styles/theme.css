@@ -1,0 +1,55 @@
+#app {
+  color: #424242;
+  font-family: Roboto, Noto, 'Ubuntu', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', sans-serif;
+}
+
+.main-header {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+  background-color: #1E88E5;
+}
+
+.brand {
+  background-color: #1976D2;
+}
+
+.brand-icon {
+  color: #fff;
+}
+
+.brand-name > h1 {
+  color: #fff;
+}
+
+.main-navbar-item {
+  background-color: #1E88E5;
+  color: #f1f1f1;
+}
+
+.main-navbar-item:hover {
+  background-color: #1976D2;
+  color: #fff;
+}
+
+.main-container {
+  background-color: #f1f1f1;
+}
+
+.main-sidebar {
+  box-shadow: 3px 0 6px rgba(0,0,0,0.24);
+  background-color: #f1f1f1;
+}
+
+.menu-item {
+  color: #616161;
+}
+
+.menu-item:hover {
+  color: #212121;
+  background-color: #E0E0E0;
+}
+
+.menu-item.is-active {
+  color: #1E88E5;
+  background-color: #EEEEEE;
+  font-weight: bold;
+}
