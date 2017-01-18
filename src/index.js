@@ -74,6 +74,7 @@ export default function VueTampan({ el, initialState, router }) {
   })
 
   App.router = router
+  App.router.linkActiveClass = 'is-active'
 
   const app = new VueTampan.Vue(App).$mount(el)
 

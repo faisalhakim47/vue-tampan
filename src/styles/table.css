@@ -7,8 +7,10 @@
 .table td,
 .table th {
   box-sizing: border-box;
-  height: 44px;
-  padding: 12px;
+  height: 45px; /* min-height + 1px border */
+  padding-top: 4px;
+  padding-bottom: 4px;
+  vertical-align: middle;
   border-bottom: 1px solid #E0E0E0;
   text-align: left;
 }
@@ -37,9 +39,27 @@
   margin-right: -24px;
 }
 
+.is-smallscreen .box-body > .table-view {
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
 .box-body > .table-view th:first-child,
-.box-body > .table-view td:first-child,
+.box-body > .table-view td:first-child {
+  padding-left: 24px;
+}
+
+.is-smallscreen .box-body > .table-view th:first-child,
+.is-smallscreen .box-body > .table-view td:first-child {
+  padding-left: 16px;
+}
+
 .box-body > .table-view td:last-child,
 .box-body > .table-view td:last-child {
-  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.is-smallscreen .box-body > .table-view td:last-child,
+.is-smallscreen .box-body > .table-view td:last-child {
+  padding-right: 16px;
 }
