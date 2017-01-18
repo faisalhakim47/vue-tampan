@@ -1,6 +1,8 @@
 .button {
   cursor: pointer;
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   display: inline-flex;
   justify-content: center;
   align-content: center;

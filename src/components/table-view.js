@@ -93,20 +93,24 @@ export default {
         }))
       ]),
       e('div', { staticClass: 'table-view-navigate' }, [
-        e('input-select', {
-          props: {
-            options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
-            value: this.limit
-          },
-          on: {
-            change: ({ value }) => this.limit = value
-          }
-        }),
-        e('button', { staticClass: 'button right', on: { click: this.nextPage } }, [
-          e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
+        e('div', { staticClass: 'table-view-navigate-left' }, [
+          e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
+            e('input-select', {
+              props: {
+                options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
+                value: this.limit
+              },
+              on: { change: ({ value }) => this.limit = value }
+            }),
+          ])
         ]),
-        e('button', { staticClass: 'button right', on: { click: this.prevPage } }, [
-          e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
+        e('div', { staticClass: 'table-view-navigate-right' }, [
+          e('button', { staticClass: 'button', on: { click: this.prevPage } }, [
+            e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
+          ]),
+          e('button', { staticClass: 'button', on: { click: this.nextPage } }, [
+            e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
+          ])
         ])
       ])
     ])

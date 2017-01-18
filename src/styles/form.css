@@ -8,21 +8,31 @@ textarea {
 }
 
 .field {
-  padding: 12px;
-  /*background-color: #E57373;*/
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.box-body > .field {
+/*.box-body > .field {
   margin-left: -16px;
   margin-right: -16px;
   padding: 12px 16px;
+} */
+
+.is-inline.field,
+.is-inline > .field-label,
+.is-inline > .field-input {
+  display: inline-block;
+}
+
+.is-inline > .field-input {
+  margin-left: 12px;
 }
 
 .field-label {
   font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
-  margin: 6px 0px 3px;
+  margin: 12px 0px 8px;
 }
 
 .field-input > input,
