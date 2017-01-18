@@ -37,7 +37,14 @@ export default {
                 'Nama': item => item.name,
                 'Tanggal': item => item.date.toString(),
                 'Kota': item => item.city,
-                'Departemen': item => item.department
+                'Departemen': item => item.department,
+                'Show': [
+                  {
+                    iconClass: 'material-icons',
+                    iconText: 'show',
+                    callback: () => this.$tampan.alert({ title: 'Halo', text: JSON.stringify(item, null, 2) })
+                  }
+                ]
               }
             }
           })

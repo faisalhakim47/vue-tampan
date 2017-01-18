@@ -72,7 +72,22 @@ export default {
         ]),
         e('tbody', this.slicedItems.map((item, index) => {
           return e('tr', this.columnTitles.map((columnTitle) => {
-            return e('td', this.columnMap[columnTitle](item, index))
+            const column = this.columnMap[columnTitle]
+            if (Array.isArray(column))
+              return e('td', column.map((btn) => {
+                return e('button', { staticClass: 'button' }, [
+                  e('i', {
+                    staticClass: 'icon ' + btn.iconClass,
+                    on: { click: () => btn.callback(item, index) }
+                  }, btn.iconText)
+                ])
+              }))
+
+            else if (typeof column === 'function')
+              return e('td', column(item, index))
+
+            else
+              return e('td', column)
           }))
         }))
       ]),

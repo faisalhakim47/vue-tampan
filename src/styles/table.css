@@ -54,12 +54,12 @@
   padding-left: 16px;
 }
 
-.box-body > .table-view td:last-child,
+.box-body > .table-view th:last-child,
 .box-body > .table-view td:last-child {
   padding-right: 24px;
 }
 
-.is-smallscreen .box-body > .table-view td:last-child,
+.is-smallscreen .box-body > .table-view th:last-child,
 .is-smallscreen .box-body > .table-view td:last-child {
   padding-right: 16px;
 }
