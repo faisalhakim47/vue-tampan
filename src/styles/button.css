@@ -80,3 +80,8 @@
 .button > .icon:first-child {
   margin-left: 0px;
 }
+
+td .button {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
