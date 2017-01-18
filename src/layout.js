@@ -30,7 +30,7 @@ export function initialLayout(app, tampan) {
     if (isSmallScreen) elApp.classList.add('is-smallscreen')
     else elApp.classList.remove('is-smallscreen')
 
-    document.querySelector('.main-container').style.height = (height - 48) + 'px'
+    // document.querySelector('.main-container').style.height = (height - 48) + 'px'
   }
   updateClientViewState()
   tampan.$watch('client', updateClientViewState)

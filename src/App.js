@@ -12,14 +12,14 @@ export default {
   },
   render(e) {
     return e('div', { attrs: { id: 'app' } }, [
-      e('MainHeader'),
-      e('div', { staticClass: 'main-container' }, [
-        e('MainSidebar'),
+      e('div', { staticClass: 'app-container' }, [
+        e('MainHeader'),
         e('div', { staticClass: 'main-content' }, [
           e('transition', { props: { name: 'slide', mode: 'out-in' } }, [
             e('router-view', { props: { key: this.$route.path } })
           ])
-        ])
+        ]),
+        e('MainSidebar')
       ]),
       e('div', { staticClass: 'sidebar-overlay', on: { click: this.$tampan.toggleSidebar } }),
       e('Alert'),

@@ -2,13 +2,16 @@
   font-size: 14px;
 }
 
+.app-container {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+}
+
 .main-header {
-  position: fixed;
-  top: 0px;
-  left: 0px;
   height: 48px;
   width: 100%;
-  z-index: 11;
+  z-index: 1000;
 }
 
 .main-header > div {
@@ -38,8 +41,7 @@
   line-height: 48px;
 }
 
-.is-smallscreen .brand-name-long,
-.is-mediumscreen .brand-name-long {
+#app:not(.is-largescreen) .brand-name-long {
   display: none;
 }
 
@@ -75,11 +77,18 @@
   display: none;
 }
 
+.main-container {
+  display: flex;
+  height: 100%;
+}
+
 .main-sidebar,
 .main-content {
   box-sizing: border-box;
-  margin-top: 48px;
-  height: inherit;
+}
+
+.main-content {
+  width: 100%;
   overflow-y: scroll;
 }
 
@@ -88,11 +97,24 @@
   top: 0px;
   left: 0px;
   width: 240px;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
   transition-property: transform;
   transition-duration: 200ms;
   transition-timing-function: ease-in-out;
   transform: translateX(-256px);
   z-index: 10;
+}
+
+.ganjel {
+  min-height: 48px;
+  min-width: 1px;
+}
+
+.sidebar-scroll-container {
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .is-sidebarshow .main-sidebar {
@@ -109,8 +131,7 @@
   visibility: hidden;
 }
 
-.is-sidebarshow.is-smallscreen .sidebar-overlay,
-.is-sidebarshow.is-mediumscreen .sidebar-overlay {
+.is-sidebarshow:not(.is-largescreen) .sidebar-overlay {
   visibility: visible;
 }
 
@@ -133,10 +154,6 @@
   display: inline-block;
   line-height: 48px;
 }
-
-/*.main-content {
-  padding-bottom: 240px;
-}*/
 
 .is-largescreen .main-content {
   padding-left: 240px;
