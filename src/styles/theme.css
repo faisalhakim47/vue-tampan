@@ -30,12 +30,11 @@
   color: #fff;
 }
 
-.main-container {
+.main-content {
   background-color: #f1f1f1;
 }
 
 .main-sidebar {
-  box-shadow: 3px 0 6px rgba(0,0,0,0.24);
   background-color: #f1f1f1;
 }
 
