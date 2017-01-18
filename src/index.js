@@ -90,7 +90,7 @@ VueTampan.install = (Vue) => {
 
 (() => {
   try {
-    if (this && this.Vue)
+    if (window && window.Vue)
       Vue.use(VueTampan)
   } catch (e) { }
 })()
