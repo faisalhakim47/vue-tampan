@@ -7,6 +7,7 @@ import App from './App'
 
 export * from './tools/array'
 export * from './tools/date'
+export * from './tools/events'
 export * from './tools/fullscreen'
 export * from './tools/number'
 export * from './tools/throttle'
