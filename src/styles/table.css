@@ -20,20 +20,6 @@
   border-bottom: 1px solid #EEE;
 }
 
-.table-view-navigate {
-  padding: 4px 24px;
-}
-
-.table-view-navigate > * {
-  float: right;
-}
-
-.table-view-navigate::after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
 .box-body > .table-view {
   margin-left: -24px;
   margin-right: -24px;
@@ -62,4 +48,25 @@
 .is-smallscreen .box-body > .table-view th:last-child,
 .is-smallscreen .box-body > .table-view td:last-child {
   padding-right: 16px;
+}
+
+.table-view-navigate {
+  padding: 4px 24px;
+}
+.is-smallscreen .table-view-navigate {
+  padding: 4px 16px;
+}
+
+.table-view-navigate > .right {
+  float: right;
+}
+
+.table-view-navigate > .left {
+  float: left;
+}
+
+.table-view-navigate::after {
+  content: '';
+  display: block;
+  clear: both;
 }

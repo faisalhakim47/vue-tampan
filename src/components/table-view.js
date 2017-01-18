@@ -1,3 +1,4 @@
+import { createArrayWithLength } from '../tools/array'
 import { isString } from '../tools/typecheck'
 
 export default {
@@ -92,10 +93,19 @@ export default {
         }))
       ]),
       e('div', { staticClass: 'table-view-navigate' }, [
-        e('button', { staticClass: 'button', on: { click: this.nextPage } }, [
+        e('input-select', {
+          props: {
+            options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
+            value: this.limit
+          },
+          on: {
+            change: ({ value }) => this.limit = value
+          }
+        }),
+        e('button', { staticClass: 'button right', on: { click: this.nextPage } }, [
           e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
         ]),
-        e('button', { staticClass: 'button', on: { click: this.prevPage } }, [
+        e('button', { staticClass: 'button right', on: { click: this.prevPage } }, [
           e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
         ])
       ])

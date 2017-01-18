@@ -1,7 +1,7 @@
 export default {
   data() {
     const people = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1000; i++) {
       people.push({
         keyforitem: faker.random.uuid(),
         name: faker.name.findName(),
@@ -41,8 +41,8 @@ export default {
                 'Show': [
                   {
                     iconClass: 'material-icons',
-                    iconText: 'show',
-                    callback: () => this.$tampan.alert({ title: 'Halo', text: JSON.stringify(item, null, 2) })
+                    iconText: 'play_arrow',
+                    callback: item => this.$tampan.alert({ title: 'Halo', text: JSON.stringify(item, null, 2) })
                   }
                 ]
               }
