@@ -6,11 +6,12 @@ export default {
   name: 'table-view',
   props: {
     items: { type: Array, required: true },
+    indexes: { type: Array, default: () => [] },
     columnMap: { type: Object, required: true },
     columnWidth: { type: Array, default: () => [] },
-    visibleColumns: { type: Array },
-    indexes: { type: Array, default: () => [] },
     limit: { type: Number, default: 10 },
+    visibleColumns: { type: Array },
+    onrowclick: { type: Function },
     pagination: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false }
   },
@@ -117,7 +118,8 @@ export default {
               }),
               {
                 click: (e) => {
-                  if (e.ctrlKey || this.isSelecting) this.toggleSelect(item)
+                  if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
+                  if (this.onrowclick) return this.onrowclick(item, index)
                 }
               }
             ])
@@ -134,7 +136,8 @@ export default {
                     e('i', {
                       staticClass: 'icon ' + btn.iconClass,
                       on: { click: () => btn.callback(item, index) }
-                    }, btn.iconText)
+                    }, btn.iconText),
+                    btn.text
                   ])
                 }))
             }

@@ -19,6 +19,7 @@ export default {
             e('router-view', { props: { key: this.$route.path } })
           ])
         ]),
+        e('MainControl'),
         e('MainSidebar')
       ]),
       e('div', { staticClass: 'sidebar-overlay', on: { click: this.$tampan.toggleSidebar } }),
