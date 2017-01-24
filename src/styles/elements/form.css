@@ -12,6 +12,10 @@ textarea {
   padding-bottom: 8px;
 }
 
+td > .field {
+  padding: 0px 12px;
+}
+
 .is-inline.field,
 .is-inline > .field-label,
 .is-inline > .field-input {
@@ -196,13 +200,13 @@ textarea {
 }
 
 .input-date > .input-date-date {
-  width: 18%;
+  width: 19%;
 }
 
 .input-date > .input-date-month {
-  width: 48%;
+  width: 50%;
 }
 
 .input-date > .input-date-year {
-  width: 28%;
+  width: 29%;
 }

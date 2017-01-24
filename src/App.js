@@ -2,13 +2,15 @@ import Alert from './components/alert'
 import Confirmation from './components/confirmation'
 import MainHeader from './components/main-header'
 import MainSidebar from './components/main-sidebar'
+import Loading from './components/loading'
 
 export default {
   components: {
     Alert,
     Confirmation,
     MainHeader,
-    MainSidebar
+    MainSidebar,
+    Loading
   },
   render(e) {
     return e('div', { attrs: { id: 'app' } }, [
@@ -24,7 +26,8 @@ export default {
       ]),
       e('div', { staticClass: 'sidebar-overlay', on: { click: this.$tampan.toggleSidebar } }),
       e('Alert'),
-      e('Confirmation')
+      e('Confirmation'),
+      e('Loading')
     ])
   }
 }

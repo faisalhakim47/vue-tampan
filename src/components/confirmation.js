@@ -9,16 +9,16 @@ export default {
           e('transition', { props: { name: 'scale' } }, [
             !!confirmation
               ? e('div', { staticClass: 'confirmation-container' }, [
-                e('p', { staticClass: 'confirmation-body' }, confirmation.title),
+                e('p', { staticClass: 'confirmation-body' }, confirmation.text),
                 e('div', { staticClass: 'confirmation-footer' }, [
                   e('button', {
                     staticClass: 'confirmation-confirm-btn button primary ripple',
                     on: { click: () => confirmation.confirmCallback() }
-                  }, confirmation.confirmText || 'Ok'),
+                  }, confirmation.confirmText),
                   e('button', {
                     staticClass: 'confirmation-cancel-btn button ripple',
                     on: { click: () => confirmation.cancelCallback() }
-                  }, confirmation.cancelText || 'Batal')
+                  }, confirmation.cancelText)
                 ])
               ])
               : undefined

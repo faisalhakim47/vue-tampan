@@ -6,13 +6,29 @@
   padding: 0px;
 }
 
+.boxes-header {
+  display: flex;
+  align-items: center;
+}
+
+.boxes-header > .icon {
+  text-decoration: none;
+  color: #212121;
+  font-size: 24px;
+  padding-right: 16px;
+}
+
+.boxes-header > .icon:hover {
+  color: #0277BD;
+}
+
+.is-smallscreen .boxes-header {
+  padding: 0px 16px;
+}
+
 .boxes-title {
   font-size: 32px;
   font-weight: 300;
-}
-
-.is-smallscreen .boxes-title {
-  padding: 0px 16px;
 }
 
 .box {

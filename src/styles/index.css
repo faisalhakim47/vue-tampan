@@ -7,14 +7,17 @@
 @import './theme.css';
 @import './typography.css';
 
-/* ELEMENT */
-@import './form.css';
-@import './table.css';
-@import './button.css';
-@import './box.css';
-@import './alert.css';
-@import './confirmation.css';
+/* ELEMENTS */
+@import './elements/form.css';
+@import './elements/table.css';
+@import './elements/button.css';
+@import './elements/box.css';
+
+/* COMPONENTS */
+@import './components/alert.css';
+@import './components/confirmation.css';
+@import './components/loading.css';
 
 /* EFECT AND MODIFIER */
-@import './effect/ripple.css';
-@import './effect/vue-transition.css';
+@import './effects/ripple.css';
+@import './effects/vue-transition.css';

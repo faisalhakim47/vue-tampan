@@ -105,7 +105,7 @@
   transition-duration: 200ms;
   transition-timing-function: ease-in-out;
   transform: translateX(-256px);
-  z-index: 10;
+  z-index: 500;
 }
 
 .ganjel {

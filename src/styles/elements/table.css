@@ -88,3 +88,7 @@
 .is-smallscreen .table-view-navigate {
   padding: 4px 16px;
 }
+
+.table-view-spacing {
+  padding: 12px;
+}

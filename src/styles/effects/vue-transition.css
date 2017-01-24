@@ -24,3 +24,10 @@
   transform: translateY(-24px);
 }
 
+.loading-fade-enter-active, .loading-fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 500ms;
+}
+.loading-fade-enter, .loading-fade-leave-to {
+  opacity: 0
+}

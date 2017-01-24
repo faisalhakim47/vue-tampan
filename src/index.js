@@ -22,10 +22,17 @@ export default function VueTampan({ el, initialState, router }) {
         alertCount: 0,
         alerts: [],
         confirmation: null,
+        loadingCount: 0,
         isSidebarShow: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
         sidebarMenus: [],
         ...initialState
+      }
+    },
+
+    computed: {
+      isLoading() {
+        return this.loadingCount !== 0
       }
     },
 
@@ -54,10 +61,16 @@ export default function VueTampan({ el, initialState, router }) {
         })
       },
 
-      confirm(title, { confirmText, cancelText } = {}) {
+      confirm({
+        type = 'default',
+        title = 'Are you sure?',
+        confirmText = 'Ok',
+        cancelText = 'Cancel'
+      }) {
         return new Promise((resolve, reject) => {
           this.confirmation = {
-            title,
+            type,
+            text,
             confirmText,
             cancelText,
             confirmCallback: () => {
@@ -70,7 +83,15 @@ export default function VueTampan({ el, initialState, router }) {
             }
           }
         })
-      }
+      },
+
+      addLoadingState() {
+        this.loadingCount += 1
+      },
+
+      reduceLoadingState() {
+        if (this.loadingCount !== 0) this.loadingCount -= 1
+      },
     }
   })
 

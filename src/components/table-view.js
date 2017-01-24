@@ -173,7 +173,7 @@ export default {
             ])
           ])
         ])
-        : null
+        : e('div', { staticClass: 'table-view-spacing' })
     ])
   }
 }
