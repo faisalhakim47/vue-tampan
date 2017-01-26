@@ -2,5 +2,7 @@ example
 node_modules
 .babelrc
 .gitignore
+.npmignore
 .editorconfig
+.vscode
 webpack.config.js
