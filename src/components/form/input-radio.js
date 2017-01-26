@@ -10,7 +10,8 @@ export default {
   },
   data() {
     return {
-      name: randomChar(5)
+      // class name must be started with alphabet
+      name: 'r' + randomChar(5),
     }
   },
   methods: {

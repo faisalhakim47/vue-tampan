@@ -14,7 +14,8 @@ export default {
       value = [value.toString()]
     }
     return {
-      name: randomChar(5),
+      // class name must be started with alphabet
+      name: 'c' + randomChar(5),
       selected: [...value]
     }
   },
