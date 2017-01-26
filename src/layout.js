@@ -2,6 +2,8 @@ import { throttle } from './tools/throttle'
 import { getClienInfo } from './tools/client-platform-info'
 
 export function initialLayout(app, tampan) {
+  const elApp = document.getElementById('app')
+
   window.addEventListener('resize', throttle(() => {
     tampan.client = getClienInfo()
     tampan.isSidebarShow = tampan.client.isLargeScreen
@@ -12,8 +14,7 @@ export function initialLayout(app, tampan) {
       tampan.isSidebarShow = false
   })
 
-  function updateClientViewState() {
-    const elApp = document.getElementById('app')
+  tampan.$watch(() => {
     const {
       isLargeScreen,
       isMediumScreen,
@@ -29,25 +30,20 @@ export function initialLayout(app, tampan) {
 
     if (isSmallScreen) elApp.classList.add('is-smallscreen')
     else elApp.classList.remove('is-smallscreen')
+  })
 
-    // document.querySelector('.main-container').style.height = (height - 48) + 'px'
-  }
-  updateClientViewState()
-  tampan.$watch('client', updateClientViewState)
-
-  function updateSidebarViewState() {
-    const elApp = document.getElementById('app')
+  tampan.$watch(() => {
     if (tampan.isSidebarShow) elApp.classList.add('is-sidebarshow')
     else elApp.classList.remove('is-sidebarshow')
-  }
-  updateSidebarViewState()
-  tampan.$watch('isSidebarShow', updateSidebarViewState)
+  })
 
-  function updateFullscreenViewState() {
-    const elApp = document.getElementById('app')
+  tampan.$watch(() => {
     if (tampan.isFullscreen) elApp.classList.add('is-fullscreen')
     else elApp.classList.remove('is-fullscreen')
-  }
-  updateFullscreenViewState()
-  tampan.$watch('isFullscreen', updateFullscreenViewState)
+  })
+
+  // tampan.$watch(() => {
+  //   if (tampan.isOverlaid) elApp.classList.add('is-overlaid')
+  //   else elApp.classList.remove('is-overlaid')
+  // })
 }

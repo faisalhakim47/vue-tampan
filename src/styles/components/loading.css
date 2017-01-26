@@ -7,8 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, .4);
-  z-index: 501;
+  z-index: 502;
 }
 
 #loading-container > .spinner {

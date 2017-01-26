@@ -1,0 +1,65 @@
+.box-body > .table-view {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+
+.is-smallscreen .box-body > .table-view {
+  margin-left: -16px;
+  margin-right: -16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.box-body > .table-view th:first-child,
+.box-body > .table-view td:first-child {
+  padding-left: 24px;
+}
+
+.is-smallscreen .box-body > .table-view th:first-child,
+.is-smallscreen .box-body > .table-view td:first-child {
+  padding-left: 16px;
+}
+
+.box-body > .table-view th:last-child,
+.box-body > .table-view td:last-child {
+  padding-right: 24px;
+}
+
+.is-smallscreen .box-body > .table-view th:last-child,
+.is-smallscreen .box-body > .table-view td:last-child {
+  padding-right: 16px;
+}
+
+.table-view tr.is-selected {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.table-view tr .check-icon {
+  float: right;
+}
+
+.table-view tr:not(.is-selected) .check-icon {
+  display: none;
+}
+
+.table-view-navigate {
+  padding: 4px 24px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.table-view-navigate > div {
+  display: flex;
+  align-items: center;
+}
+
+.is-smallscreen .table-view-navigate {
+  padding: 4px 16px;
+}
+
+.table-view-spacing {
+  padding: 12px;
+}

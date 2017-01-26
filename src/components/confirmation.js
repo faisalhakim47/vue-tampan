@@ -1,11 +1,10 @@
 export default {
   render(e) {
     const confirmation = this.$tampan.confirmation
-    return e('div', {
-      staticClass: 'confirmation',
-      class: { 'is-active': confirmation }
-    }, [
-        e('div', { staticClass: 'confirmation-overlay' }, [
+
+    return e('transition', { props: { name: 'fade' } }, [
+      !!confirmation
+        ? e('div', { staticClass: 'confirmation' }, [
           e('transition', { props: { name: 'scale' } }, [
             !!confirmation
               ? e('div', { staticClass: 'confirmation-container' }, [
@@ -24,6 +23,7 @@ export default {
               : undefined
           ])
         ])
-      ])
+        : null
+    ])
   }
 }

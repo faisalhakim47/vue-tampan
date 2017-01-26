@@ -11,20 +11,31 @@ export default {
         e('div', { staticClass: 'box-body' }, [
           e('p', [
             e('button', {
-              staticClass: 'button',
+              staticClass: 'button ripple',
               on: {
-                click: () => this.$tampan.alert({
+                click: () => this.$tampan.notify({
                   title: 'Default',
                   text: 'Default example'
                 })
               }
             }, 'Pemberitauan'),
             e('button', {
-              staticClass: 'button',
+              staticClass: 'button ripple',
               on: {
-                click: () => this.$tampan.confirm('Yakin?')
+                click: () => this.$tampan.confirm({
+                  title: 'yakin?',
+                  text: 'yakin?'
+                })
               }
-            }, 'Konfirmasi')
+            }, 'Konfirmasi'),
+            e('button', {
+              staticClass: 'button ripple',
+              on: {
+                click: () => this.$tampan.useLoadingState(new Promise((resolve) => {
+                  setTimeout(resolve, 3000)
+                }))
+              }
+            }, 'Loading')
           ])
         ])
       ])

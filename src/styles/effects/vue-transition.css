@@ -1,33 +1,50 @@
-.slide-enter-active, .slide-enter {
-  transition: all .2s ease;
-}
-
-.slide-enter, .slide-leave-to {
-  opacity: 0;
-}
-
-.slide-leave, .slide-leave-active {
-  transition: all .3s ease;
-}
-
-.list-item {
+.notification-list-item {
   display: inline-block;
   margin-right: 10px;
 }
-
-.list-enter-active, .list-leave-active {
-  transition: all .3s;
+.notification-list-enter-active, .notification-list-leave-active {
+  transition: all 200ms;
 }
-
-.list-enter, .list-leave-to {
+.notification-list-enter, .notification-list-leave-to {
   opacity: 0;
   transform: translateY(-24px);
 }
 
+.content-fade-enter-active, .content-fade-enter {
+  transition: all 150ms ease;
+}
+.content-fade-enter, .content-fade-leave-to {
+  opacity: 0;
+}
+.content-fade-leave, .content-fade-leave-active {
+  transition: all 200ms ease;
+}
+
 .loading-fade-enter-active, .loading-fade-leave-active {
   transition-property: opacity;
-  transition-duration: 500ms;
+  transition-duration: 300ms;
 }
 .loading-fade-enter, .loading-fade-leave-to {
+  opacity: 0
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 300ms;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
+
+.overlay-fade-enter-active {
+  transition-property: opacity;
+  transition-duration: 1000ms;
+}
+
+.overlay-fade-leave-active {
+  transition-duration: 300ms;
+}
+
+.overlay-fade-enter, .overlay-fade-leave-to {
   opacity: 0
 }

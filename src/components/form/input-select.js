@@ -2,6 +2,7 @@ import { isNumber, isString } from '../../tools/typecheck'
 
 export default {
   name: 'input-select',
+
   props: {
     options: { type: Array, default: [] },
     value: { type: [String, Number], required: true }

@@ -4,6 +4,7 @@ import { isString } from '../tools/typecheck'
 
 export default {
   name: 'table-view',
+
   props: {
     items: { type: Array, required: true },
     indexes: { type: Array, default: () => [] },
@@ -15,6 +16,7 @@ export default {
     pagination: { type: Boolean, default: true },
     selectable: { type: Boolean, default: false }
   },
+
   data() {
     const indexes = this.indexes || []
     return {

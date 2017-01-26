@@ -2,7 +2,7 @@ import About from './pages/about'
 import Button from './pages/button'
 import Form from './pages/form'
 import Table from './pages/table'
-import Alert from './pages/alert'
+import Others from './pages/others'
 
 const router = new VueRouter({
   linkActiveClass: 'is-active',
@@ -11,7 +11,7 @@ const router = new VueRouter({
     { path: '/button', component: Button },
     { path: '/form', component: Form },
     { path: '/table', component: Table },
-    { path: '/alert', component: Alert },
+    { path: '/others', component: Others },
     { path: '/*', redirect: '/about' }
   ]
 })
@@ -43,10 +43,10 @@ const initialState = {
       path: '/table'
     },
     {
-      name: 'Pemberitauan',
+      name: 'Others',
       iconClass: 'material-icons',
       iconText: 'error_outline',
-      path: '/alert'
+      path: '/others'
     }
   ]
 }

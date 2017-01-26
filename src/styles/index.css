@@ -14,9 +14,11 @@
 @import './elements/box.css';
 
 /* COMPONENTS */
-@import './components/alert.css';
+@import './components/notification.css';
 @import './components/confirmation.css';
 @import './components/loading.css';
+@import './components/overlay.css';
+@import './components/table-view.css';
 
 /* EFECT AND MODIFIER */
 @import './effects/ripple.css';

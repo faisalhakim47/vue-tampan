@@ -14,15 +14,18 @@ export * from './tools/throttle'
 export * from './tools/typecheck'
 
 export default function VueTampan({ el, initialState, router }) {
+  if (!VueTampan.Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
+
   VueTampan.Vue.prototype.$tampan = new VueTampan.Vue({
     data() {
       const client = getClienInfo()
       return {
         client,
-        alertCount: 0,
-        alerts: [],
+        notificationCount: 0,
+        notifications: [],
         confirmation: null,
         loadingCount: 0,
+        overlayCount: 0,
         isSidebarShow: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
         sidebarMenus: [],
@@ -33,6 +36,10 @@ export default function VueTampan({ el, initialState, router }) {
     computed: {
       isLoading() {
         return this.loadingCount !== 0
+      },
+
+      isOverlaid() {
+        return this.overlayCount !== 0
       }
     },
 
@@ -46,15 +53,15 @@ export default function VueTampan({ el, initialState, router }) {
         this.$nextTick(() => this.isFullscreen = !getFullscreenStatus())
       },
 
-      alert({ type, title, text }) {
+      notify({ type, title, text }) {
         return new Promise((resolve) => {
-          this.alerts.push({
+          this.notifications.push({
             type,
             title,
             text,
-            key: (++this.alertCount) + '-' + randomChar(3),
+            key: (++this.notificationCount) + '-' + randomChar(3),
             callback: (index) => {
-              this.alerts.splice(index, 1)
+              this.notifications.splice(index, 1)
               this.$nextTick(resolve)
             }
           })
@@ -63,10 +70,16 @@ export default function VueTampan({ el, initialState, router }) {
 
       confirm({
         type = 'default',
-        title = 'Are you sure?',
+        title = 'Attention',
+        text = 'Are you sure?',
         confirmText = 'Ok',
         cancelText = 'Cancel'
       }) {
+        this.addOverlayState()
+        const done = () => {
+          this.confirmation = null
+          this.reduceOverlayState()
+        }
         return new Promise((resolve, reject) => {
           this.confirmation = {
             type,
@@ -75,22 +88,41 @@ export default function VueTampan({ el, initialState, router }) {
             cancelText,
             confirmCallback: () => {
               resolve()
-              this.confirmation = null
+              done()
             },
             cancelCallback: () => {
               reject()
-              this.confirmation = null
+              done()
             }
           }
         })
       },
 
-      addLoadingState() {
-        this.loadingCount += 1
+      addOverlayState() {
+        this.overlayCount += 1
+      },
+      reduceOverlayState() {
+        this.overlayCount -= this.overlayCount !== 0 ? 1 : 0
+      },
+      useOverlayState(promiseWork) {
+        promiseWork.then(() => this.reduceOverlayState())
+        this.addOverlayState()
+        return promiseWork
       },
 
+      addLoadingState() {
+        this.loadingCount += 1
+        this.addOverlayState()
+      },
       reduceLoadingState() {
-        if (this.loadingCount !== 0) this.loadingCount -= 1
+        this.loadingCount -= this.loadingCount !== 0 ? 1 : 0
+        this.reduceOverlayState()
+      },
+      useLoadingState(promiseWork) {
+        this.useOverlayState(promiseWork)
+        promiseWork.then(() => this.reduceLoadingState())
+        this.addLoadingState()
+        return promiseWork
       },
     }
   })
