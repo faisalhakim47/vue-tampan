@@ -1,6 +1,5 @@
 export default {
   render(e) {
-    console.log('main-sidebar')
     return e('main-sidebar-container', [
       e('div', { staticClass: 'main-sidebar' }, [
         e('div', { staticClass: 'ganjel' }),
@@ -14,7 +13,9 @@ export default {
         ])
       ]),
       e('transition', { props: { name: 'overlay-fade' } }, [
-        e('div', { staticClass: 'sidebar-overlay', on: { click: this.$tampan.toggleSidebar } })
+        this.$tampan.isSidebarShow && !this.$tampan.client.isLargeScreen
+          ? e('div', { staticClass: 'sidebar-overlay', on: { click: this.$tampan.toggleSidebar } })
+          : null
       ])
     ])
   }

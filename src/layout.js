@@ -41,9 +41,4 @@ export function initialLayout(app, tampan) {
     if (tampan.isFullscreen) elApp.classList.add('is-fullscreen')
     else elApp.classList.remove('is-fullscreen')
   })
-
-  // tampan.$watch(() => {
-  //   if (tampan.isOverlaid) elApp.classList.add('is-overlaid')
-  //   else elApp.classList.remove('is-overlaid')
-  // })
 }

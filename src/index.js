@@ -91,6 +91,7 @@ export default function VueTampan({ el, initialState, router }) {
               done()
             },
             cancelCallback: () => {
+              console.info('The promise rejection error below is totally normal.')
               reject()
               done()
             }

@@ -128,12 +128,7 @@
   left: 0px;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,.4);
-  visibility: hidden;
-}
-
-.is-sidebarshow:not(.is-largescreen) .sidebar-overlay {
-  visibility: visible;
+  background-color: rgba(0, 0, 0, .4);
 }
 
 .menu-item {
