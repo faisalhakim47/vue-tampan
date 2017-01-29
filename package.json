@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack --config webpack.config.js --watch --progress & live-server",
+    "dev": "webpack --config webpack.config.js --watch --progress & live-server --host='0.0.0.0'",
     "prepublish": "npm run build"
   },
   "engines": {

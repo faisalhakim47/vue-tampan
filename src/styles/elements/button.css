@@ -3,11 +3,8 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  display: inline-flex;
-  justify-content: center;
-  align-content: center;
-  height: 36px;
-  padding: 0px 10px;
+  display: inline-block;
+  padding: 0px 8px;
   margin: 3px 6px;
   border: none;
   border-radius: 2px;
@@ -15,13 +12,17 @@
   transform: scale(1);
   transition-duration: 80ms;
   transition-property: transform;
+  background-color: rgba(0,0,0,0);
+  color: #616161;
+}
+
+.button,
+.button > span {
   text-transform: uppercase;
-  line-height: 36px;
   font-weight: 500;
   font-family: inherit;
   font-size: 14px;
-  background-color: rgba(0,0,0,0);
-  color: #616161;
+  line-height: 36px;
 }
 
 .button:hover {
@@ -79,8 +80,10 @@
 }
 
 .button > .icon {
+  display: block;
+  float: left;
   font-size: 24px;
-  margin: auto 4px;
+  margin: 6px 3px;
 }
 
 .button > .icon:first-child {

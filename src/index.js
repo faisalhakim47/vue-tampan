@@ -21,7 +21,7 @@ export default function VueTampan({ el, initialState, router }) {
       const client = getClienInfo()
       return {
         client,
-        notificationCount: 0,
+        modalList: [],
         notifications: [],
         confirmation: null,
         loadingCount: 0,
@@ -30,16 +30,6 @@ export default function VueTampan({ el, initialState, router }) {
         isFullscreen: getFullscreenStatus(),
         sidebarMenus: [],
         ...initialState
-      }
-    },
-
-    computed: {
-      isLoading() {
-        return this.loadingCount !== 0
-      },
-
-      isOverlaid() {
-        return this.overlayCount !== 0
       }
     },
 
@@ -59,13 +49,42 @@ export default function VueTampan({ el, initialState, router }) {
             type,
             title,
             text,
-            key: (++this.notificationCount) + '-' + randomChar(3),
+            key: (this.notifications.length) + '-' + randomChar(3),
             callback: (index) => {
               this.notifications.splice(index, 1)
               this.$nextTick(resolve)
             }
           })
         })
+      },
+
+      addOverlayState() {
+        this.overlayCount += 1
+      },
+      reduceOverlayState() {
+        this.overlayCount -= this.overlayCount !== 0 ? 1 : 0
+      },
+      useOverlayState(promiseWork) {
+        promiseWork.then(() => this.reduceOverlayState())
+        promiseWork.catch(() => this.reduceOverlayState())
+        this.addOverlayState()
+        return promiseWork
+      },
+
+      addLoadingState() {
+        this.loadingCount += 1
+        this.addOverlayState()
+      },
+      reduceLoadingState() {
+        this.loadingCount -= this.loadingCount !== 0 ? 1 : 0
+        this.reduceOverlayState()
+      },
+      useLoadingState(promiseWork) {
+        this.useOverlayState(promiseWork)
+        promiseWork.then(() => this.reduceLoadingState())
+        promiseWork.catch(() => this.reduceLoadingState())
+        this.addLoadingState()
+        return promiseWork
       },
 
       confirm({
@@ -75,12 +94,8 @@ export default function VueTampan({ el, initialState, router }) {
         confirmText = 'Ok',
         cancelText = 'Cancel'
       }) {
-        this.addOverlayState()
-        const done = () => {
-          this.confirmation = null
-          this.reduceOverlayState()
-        }
-        return new Promise((resolve, reject) => {
+        const done = () => this.confirmation = null
+        const confirmation = new Promise((resolve, reject) => {
           this.confirmation = {
             type,
             text,
@@ -97,34 +112,25 @@ export default function VueTampan({ el, initialState, router }) {
             }
           }
         })
+        this.useOverlayState(confirmation)
+        return confirmation
       },
 
-      addOverlayState() {
-        this.overlayCount += 1
-      },
-      reduceOverlayState() {
-        this.overlayCount -= this.overlayCount !== 0 ? 1 : 0
-      },
-      useOverlayState(promiseWork) {
-        promiseWork.then(() => this.reduceOverlayState())
-        this.addOverlayState()
-        return promiseWork
-      },
-
-      addLoadingState() {
-        this.loadingCount += 1
-        this.addOverlayState()
-      },
-      reduceLoadingState() {
-        this.loadingCount -= this.loadingCount !== 0 ? 1 : 0
-        this.reduceOverlayState()
-      },
-      useLoadingState(promiseWork) {
-        this.useOverlayState(promiseWork)
-        promiseWork.then(() => this.reduceLoadingState())
-        this.addLoadingState()
-        return promiseWork
-      },
+      createModal(modal) {
+        const modalPromise = new Promise((resolve, reject) => {
+          modal.resolve = resolve
+          modal.reject = reject
+          this.modalList.push(modal)
+        })
+        modalPromise.then(() => {
+          this.modalList.splice(this.modalList.indexOf(modal), 1)
+        })
+        modalPromise.catch(() => {
+          this.modalList.splice(this.modalList.indexOf(modal), 1)
+        })
+        this.useOverlayState(modalPromise)
+        return modalPromise
+      }
     }
   })
 
@@ -135,7 +141,7 @@ export default function VueTampan({ el, initialState, router }) {
 
   initialLayout(app, VueTampan.Vue.prototype.$tampan)
 
-  return app
+  return VueTampan.Vue.prototype.$tampan
 }
 
 VueTampan.install = (Vue) => {

@@ -4,6 +4,7 @@ import MainHeader from './components/main-header'
 import MainSidebar from './components/main-sidebar'
 import Loading from './components/loading'
 import Overlay from './components/overlay'
+import Modal from './components/modal'
 
 export default {
   components: {
@@ -12,7 +13,8 @@ export default {
     MainHeader,
     MainSidebar,
     Loading,
-    Overlay
+    Overlay,
+    Modal
   },
   render(e) {
     return e('div', { attrs: { id: 'app' } }, [
@@ -20,7 +22,7 @@ export default {
         e('MainHeader'),
         e('div', { staticClass: 'main-content' }, [
           e('transition', { props: { name: 'content-fade', mode: 'out-in' } }, [
-            e('router-view', { props: { key: this.$route.path } })
+            e('router-view')
           ])
         ]),
         e('MainControl'),
@@ -29,7 +31,8 @@ export default {
       e('Notification'),
       e('Confirmation'),
       e('Loading'),
-      e('Overlay')
+      e('Overlay'),
+      e('Modal')
     ])
   }
 }

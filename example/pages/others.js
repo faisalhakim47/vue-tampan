@@ -19,6 +19,7 @@ export default {
                 })
               }
             }, 'Pemberitauan'),
+
             e('button', {
               staticClass: 'button ripple',
               on: {
@@ -28,6 +29,23 @@ export default {
                 })
               }
             }, 'Konfirmasi'),
+
+            e('button', {
+              staticClass: 'button ripple',
+              on: {
+                click: () => this.$tampan.createModal({
+                  title: 'yakin?',
+                  body: (e) => e('field', { props: { label: 'Label' } }, [
+                    e('input-text')
+                  ]),
+                  foot: (e, { resolve, reject }) => e('button', {
+                    staticClass: 'button',
+                    on: { click: () => resolve(this) }
+                  }, 'yay')
+                }).then((a) => console.log(a))
+              }
+            }, 'Modal'),
+
             e('button', {
               staticClass: 'button ripple',
               on: {

@@ -15,13 +15,17 @@
   min-width: 300px;
   max-width: 480px;
   width: 50%;
-  padding: 16px 24px;
+  padding: 8px 24px;
   border-radius: 2px;
   background-color: #FFF;
 }
 
 .confirmation-body {
   font-size: 18px;
+}
+
+.confirmation-body p {
+  margin: 8px 0px;
 }
 
 .confirmation-footer > button {

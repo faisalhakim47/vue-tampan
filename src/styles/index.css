@@ -19,6 +19,7 @@
 @import './components/loading.css';
 @import './components/overlay.css';
 @import './components/table-view.css';
+@import './components/modal.css';
 
 /* EFECT AND MODIFIER */
 @import './effects/ripple.css';

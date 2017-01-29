@@ -7,6 +7,9 @@ export function requestFullScreen(el = document.documentElement) {
     || el.webkitRequestFullScreen
     || el.mozRequestFullScreen
     || el.msRequestFullscreen
+
+  console.log({ requestMethod, s: getFullscreenStatus() })
+
   if (requestMethod) {
     requestMethod.call(el)
   }

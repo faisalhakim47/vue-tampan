@@ -4,6 +4,7 @@ export default {
       e('div', { staticClass: 'boxes-header' }, [
         e('h2', { staticClass: 'boxes-title' }, 'Tombol')
       ]),
+
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
           e('h3', { staticClass: 'box-title' }, 'Biasa')
@@ -112,8 +113,8 @@ export default {
                 e('span', 'Hapus')
               ])
             ])
-        ])
-      ])
+        ]),
+      ]),
     ])
   }
 }
