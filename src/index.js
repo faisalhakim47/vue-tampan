@@ -13,10 +13,16 @@ export * from './tools/number'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 
-export default function VueTampan({ el, initialState, router }) {
+export default function VueTampan({
+  el,
+  initialState,
+  router
+}) {
   if (!VueTampan.Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
 
-  VueTampan.Vue.prototype.$tampan = new VueTampan.Vue({
+  const { Vue } = VueTampan
+
+  Vue.prototype.$tampan = new Vue({
     data() {
       const client = getClienInfo()
       return {
@@ -29,6 +35,10 @@ export default function VueTampan({ el, initialState, router }) {
         isSidebarShow: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
         sidebarMenus: [],
+        brandName: 'VueTampan',
+        brandIconClass: 'material-icons',
+        brandIconText: 'face',
+        brandImgUrl: false,
         ...initialState
       }
     },
@@ -137,7 +147,7 @@ export default function VueTampan({ el, initialState, router }) {
   App.router = router
   App.router.linkActiveClass = 'is-active'
 
-  const app = new VueTampan.Vue(App).$mount(el)
+  const app = new Vue(App).$mount(el)
 
   initialLayout(app, VueTampan.Vue.prototype.$tampan)
 

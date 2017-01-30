@@ -1,7 +1,8 @@
+import MainHeader from './layout/main-header'
+import MainSidebar from './layout/main-sidebar'
+
 import Notification from './components/notification'
 import Confirmation from './components/confirmation'
-import MainHeader from './components/main-header'
-import MainSidebar from './components/main-sidebar'
 import Loading from './components/loading'
 import Overlay from './components/overlay'
 import Modal from './components/modal'
@@ -25,7 +26,6 @@ export default {
             e('router-view')
           ])
         ]),
-        e('MainControl'),
         e('MainSidebar')
       ]),
       e('Notification'),

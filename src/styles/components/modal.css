@@ -52,10 +52,6 @@
   overflow-x: hidden;
 }
 
-.modal-body > * {
-  height: 1000px;
-}
-
 .modal-foot {
   padding: 8px 24px;
 }

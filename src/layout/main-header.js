@@ -1,14 +1,14 @@
 export default {
   render(e) {
-    console.log('main-header')
     return e('div', { staticClass: 'main-header' }, [
       e('div', { staticClass: 'brand' }, [
         e('div', { staticClass: 'brand-icon' }, [
-          e('span', { staticClass: 'material-icons' }, 'face')
+          this.$tampan.brandImgUrl
+            ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImgUrl } })
+            : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
         ]),
         e('div', { staticClass: 'brand-name' }, [
-          e('h1', { staticClass: 'brand-name-long' }, 'Vue Tampan'),
-          e('h1', { staticClass: 'brand-name-short' }, 'Tampan')
+          e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandName)
         ])
       ]),
       e('div', { staticClass: 'main-navbar-left' }, [

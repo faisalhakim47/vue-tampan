@@ -21,10 +21,11 @@
 .brand {
   display: flex;
   width: 240px;
+  height: 48px;
 }
 
 .is-smallscreen .brand {
-  width: 120px;
+  width: 48px;
 }
 
 .brand-icon {
@@ -41,11 +42,7 @@
   line-height: 48px;
 }
 
-#app:not(.is-largescreen) .brand-name-long {
-  display: none;
-}
-
-.is-largescreen .brand-name-short {
+.is-smallscreen .brand-name-text {
   display: none;
 }
 

@@ -134,13 +134,13 @@ export default {
                 ])
               else
                 return e('td', column.map((btn) => {
-                  return e('button', { staticClass: 'button ripple' }, [
-                    e('i', {
-                      staticClass: 'icon ' + btn.iconClass,
-                      on: { click: () => btn.callback(item, index) }
-                    }, btn.iconText),
-                    btn.text
-                  ])
+                  return e('button', {
+                    staticClass: 'button ripple',
+                    on: { click: () => btn.callback(item, index) }
+                  }, [
+                      e('i', { staticClass: 'icon ' + btn.iconClass }, btn.iconText),
+                      btn.text
+                    ])
                 }))
             }
 

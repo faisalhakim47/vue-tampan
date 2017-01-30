@@ -1,6 +1,6 @@
 export default {
   render(e) {
-    return e('main-sidebar-container', [
+    return e('div', { staticClass: 'main-sidebar-container' }, [
       e('div', { staticClass: 'main-sidebar' }, [
         e('div', { staticClass: 'ganjel' }),
         e('div', { staticClass: 'sidebar-scroll-container' }, [

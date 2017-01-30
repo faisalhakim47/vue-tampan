@@ -1,7 +1,7 @@
 export default {
   computed: {
     modal() {
-      return this.$tampan.modalList[this.$tampan.modalList.length-1]
+      return this.$tampan.modalList[this.$tampan.modalList.length - 1]
     },
     isModalExist() {
       return !!this.modal
@@ -18,10 +18,7 @@ export default {
               e('h3', { staticClass: 'modal-title' }, modal.title),
               e('button', {
                 staticClass: 'button modal-close-btn', on: {
-                  click: () => {
-                    modal.reject()
-                    removeModal(modal)
-                  }
+                  click: modal.reject
                 }
               }, [
                   e('i', { staticClass: 'icon material-icons' }, 'close')
