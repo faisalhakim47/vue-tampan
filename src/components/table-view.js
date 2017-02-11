@@ -7,29 +7,39 @@ export default {
 
   props: {
     items: { type: Array, required: true },
+    emptyText: { type: String },
     indexes: { type: Array, default: () => [] },
     columnMap: { type: Object, required: true },
     columnWidth: { type: Array, default: () => [] },
+    controls: { type: Array, default: () => [] },
     limit: { type: Number, default: 10 },
     visibleColumns: { type: Array },
-    onrowclick: { type: Function },
+    onRowClick: { type: Function },
+    onSelectedChange: { type: Function },
     pagination: { type: Boolean, default: true },
-    selectable: { type: Boolean, default: false }
+    selectable: { type: String, default: 'none' }
   },
 
   data() {
     const indexes = this.indexes || []
+    const columnTitles = Object.keys(this.columnMap)
+
     return {
+      columnTitles,
+      columnLength: columnTitles.length,
       sortBy: null,
       sortDirection: 'asc',
       skip: 0,
       query: '',
-      columnTitles: Object.keys(this.columnMap),
       selectedItems: []
     }
   },
 
   computed: {
+    isEmpty() {
+      return this.items.length === 0
+    },
+
     isIndexed() {
       return !!this.indexes.length
     },
@@ -37,12 +47,13 @@ export default {
     indexedItems() {
       const indexes = this.indexes || []
       return this.items.map((item, index) => {
-        item._fulltext_ = indexes
-          .map((key) => item['key'])
-          .join(' ')
-        item._key_ = index
-        item._isSelected = false
-        return item
+        return Object.assign(
+          {
+            _fulltext_: indexes.map((key) => item[key]).join(' '),
+            _key_: index
+          },
+          item
+        )
       })
     },
 
@@ -72,20 +83,23 @@ export default {
     },
 
     isSelecting() {
-      return !!this.selectedItems.length
+      return this.selectable === 'always' || this.selectedItems.length !== 0
+    },
+
+    bottomLeftControls() {
+      return this.controls
+        .filter(control => control.position === 'bottom-left')
     }
   },
 
   methods: {
     toggleSelect(item) {
-      if (!this.selectable) return
+      if (this.selectable === 'none') return
       const index = this.selectedItems.indexOf(item)
       if (index === -1) {
         this.selectedItems.push(item)
-        item._isSelected = true
       } else {
         this.selectedItems.splice(index, 1)
-        item._isSelected = false
       }
     },
     nextPage() {
@@ -98,84 +112,108 @@ export default {
     }
   },
 
+  watch: {
+    'selectedItems'() {
+      this.onSelectedChange(this.selectedItems)
+    }
+  },
+
   render(e) {
     console.log('table-view')
-    return e('div', { staticClass: 'table-view' }, [
-      e('table', { staticClass: 'table' }, [
-        e('thead', [
-          e('tr', this.columnTitles.map((columnTitle, index) => {
-            return e('th', {
-              attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
-            }, columnTitle)
-          }))
+    return e('div', {
+      staticClass: 'table-view',
+      class: {
+        'is-clickable': this.isSelecting || !!this.onRowClick
+      }
+    }, [
+        e('table', { staticClass: 'table' }, [
+          e('thead', [
+            e('tr', this.columnTitles.map((columnTitle, index) => {
+              return e('th', {
+                attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
+              }, columnTitle)
+            }))
+          ]),
+
+          e('tbody',
+            this.isEmpty
+              ? [
+                e('tr', [
+                  e('td', {
+                    attrs: { colspan: this.columnLength.toString(), style: 'text-align: center;' }
+                  }, [
+                      e('em', this.emptyText || 'Belum ada daftar.')
+                    ])
+                ])
+              ]
+              : this.slicedItems.map((item, index) => {
+                return e('tr', {
+                  class: { 'is-selected': this.selectedItems.indexOf(item) !== -1 },
+                  key: item._index_,
+                  on: mergeEvents([
+                    longpress(() => {
+                      this.toggleSelect(item)
+                    }),
+                    {
+                      click: (e) => {
+                        if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
+                        if (this.onRowClick) return this.onRowClick(item, index)
+                      }
+                    }
+                  ])
+                }, this.columnTitles.map((columnTitle) => {
+                  const column = this.columnMap[columnTitle]
+                  if (Array.isArray(column)) {
+                    if (this.isSelecting)
+                      return e('td', [
+                        e('i', { staticClass: 'material-icons check-icon' }, 'check')
+                      ])
+                    else
+                      return e('td', column.map((btn) => {
+                        return e('button', {
+                          staticClass: 'button ripple',
+                          on: { click: () => btn.callback(item, index) }
+                        }, [
+                            e('i', { staticClass: 'icon ' + btn.iconClass }, btn.iconText),
+                            btn.text
+                          ])
+                      }))
+                  }
+
+                  else if (typeof column === 'function')
+                    return e('td', column(item, index))
+
+                  else
+                    return e('td', column)
+                }))
+              })
+          )
         ]),
 
-        e('tbody', this.slicedItems.map((item, index) => {
-          return e('tr', {
-            class: { 'is-selected': item._isSelected },
-            key: item._index_,
-            on: mergeEvents([
-              longpress(() => {
-                this.toggleSelect(item)
-              }),
-              {
-                click: (e) => {
-                  if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
-                  if (this.onrowclick) return this.onrowclick(item, index)
-                }
-              }
-            ])
-          }, this.columnTitles.map((columnTitle) => {
-            const column = this.columnMap[columnTitle]
-            if (Array.isArray(column)) {
-              if (this.isSelecting)
-                return e('td', [
-                  e('i', { staticClass: 'material-icons check-icon' }, 'check')
-                ])
-              else
-                return e('td', column.map((btn) => {
-                  return e('button', {
-                    staticClass: 'button ripple',
-                    on: { click: () => btn.callback(item, index) }
-                  }, [
-                      e('i', { staticClass: 'icon ' + btn.iconClass }, btn.iconText),
-                      btn.text
-                    ])
-                }))
-            }
-
-            else if (typeof column === 'function')
-              return e('td', column(item, index))
-
-            else
-              return e('td', column)
-          }))
-        }))
-      ]),
-
-      this.pagination
-        ? e('div', { staticClass: 'table-view-navigate' }, [
-          e('div', { staticClass: 'table-view-navigate-left' }, [
-            e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
-              e('input-select', {
-                props: {
-                  options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
-                  value: this.limit
-                },
-                on: { change: ({ value }) => this.limit = value }
-              }),
-            ])
-          ]),
-          e('div', { staticClass: 'table-view-navigate-right' }, [
-            e('button', { staticClass: 'button', on: { click: this.prevPage } }, [
-              e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
+        this.pagination
+          ? e('div', { staticClass: 'table-view-navigate' }, [
+            e('div', { staticClass: 'table-view-navigate-left' }, [
+              e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
+                e('input-select', {
+                  props: {
+                    options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
+                    value: this.limit
+                  },
+                  on: { change: ({ value }) => this.limit = value }
+                }),
+              ])
             ]),
-            e('button', { staticClass: 'button', on: { click: this.nextPage } }, [
-              e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
+            e('div', { staticClass: 'table-view-navigate-right' }, [
+              ...this.bottomLeftControls.map(control => control.render(e)),
+              e('button', { staticClass: 'button', on: { click: this.prevPage } }, [
+                e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
+              ]),
+              e('button', { staticClass: 'button', on: { click: this.nextPage } }, [
+                e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
+              ])
             ])
           ])
-        ])
-        : e('div', { staticClass: 'table-view-spacing' })
-    ])
+          : e('div', { staticClass: 'table-view-spacing' })
+      ])
   }
 }

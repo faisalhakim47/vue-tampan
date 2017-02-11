@@ -5,7 +5,7 @@ export default {
   name: 'input-radio',
   props: {
     options: { type: Array, default: [] },
-    value: { type: String, required: true },
+    value: { type: String },
     direction: { type: String, default: 'vertical' }
   },
   data() {

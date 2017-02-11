@@ -10,13 +10,16 @@ export * from './tools/date'
 export * from './tools/events'
 export * from './tools/fullscreen'
 export * from './tools/number'
+export * from './tools/object'
+export * from './tools/schema'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 
 export default function VueTampan({
   el,
   initialState,
-  router
+  router,
+  mixins = []
 }) {
   if (!VueTampan.Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
 
@@ -145,13 +148,15 @@ export default function VueTampan({
   })
 
   App.router = router
+  App.mixins = App.mixins || (App.mixins = [])
+  App.mixins.push(...mixins)
   App.router.linkActiveClass = 'is-active'
 
   const app = new Vue(App).$mount(el)
 
   initialLayout(app, VueTampan.Vue.prototype.$tampan)
 
-  return VueTampan.Vue.prototype.$tampan
+  return app
 }
 
 VueTampan.install = (Vue) => {

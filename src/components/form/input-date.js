@@ -3,13 +3,9 @@ import { months, getDayLengthInMonth } from '../../tools/date'
 import InputSelect from './input-select'
 
 export default {
-  props: ['value'],
   props: {
     value: {
-      required: true,
-      validator: function (value) {
-        return value instanceof Date
-      }
+      validator: value => value instanceof Date
     }
   },
   components: [InputSelect],

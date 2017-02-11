@@ -3,6 +3,10 @@
   margin-right: -24px;
 }
 
+.is-clickable > table > tbody {
+  cursor: pointer;
+}
+
 .is-smallscreen .box-body > .table-view {
   margin-left: -16px;
   margin-right: -16px;

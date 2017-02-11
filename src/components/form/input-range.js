@@ -4,7 +4,7 @@ export default {
   name: 'input-range',
 
   props: {
-    value: { type: Number, required: true }
+    value: { type: Number }
   },
 
   methods: {
