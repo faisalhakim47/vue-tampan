@@ -28,22 +28,24 @@ export default function Contructor({
   Vue.prototype.$tampan = new Vue({
     data() {
       const client = getClienInfo()
-      return {
-        client,
-        modalList: [],
-        notifications: [],
-        confirmation: null,
-        loadingCount: 0,
-        overlayCount: 0,
-        isSidebarShow: client.isLargeScreen,
-        isFullscreen: getFullscreenStatus(),
-        sidebarMenus: [],
-        brandName: 'VueTampan',
-        brandIconClass: 'material-icons',
-        brandIconText: 'face',
-        brandImgUrl: false,
-        ...initialState
-      }
+      return Object.assign(
+        {
+          client,
+          modalList: [],
+          notifications: [],
+          confirmation: null,
+          loadingCount: 0,
+          overlayCount: 0,
+          isSidebarShow: client.isLargeScreen,
+          isFullscreen: getFullscreenStatus(),
+          sidebarMenus: [],
+          brandName: 'VueTampan',
+          brandIconClass: 'material-icons',
+          brandIconText: 'face',
+          brandImgUrl: false
+        },
+        initialState
+      )
     },
 
     methods: {
@@ -166,11 +168,11 @@ export const plugin = {
   }
 }
 
-export const VueTampan = Contructor
+export const VueTampn = Contructor
 
-(() => {
-  try {
-    if (window && window.Vue)
-      Vue.use(Contructor)
-  } catch (e) { }
-})()
+  (() => {
+    try {
+      if (window && window.Vue)
+        Vue.use(Contructor)
+    } catch (e) { }
+  })()
