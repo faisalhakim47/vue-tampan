@@ -25,10 +25,16 @@ export default {
                 ])
             ]),
             modal.body
-              ? e('div', { staticClass: 'modal-body' }, [modal.body(e, modal)])
+              ? e('div', { staticClass: 'modal-body' }, (() => {
+                const body = modal.body(e, modal)
+                return Array.isArray(body) ? body : [body]
+              })())
               : null,
             modal.foot
-              ? e('div', { staticClass: 'modal-foot' }, [modal.foot(e, modal)])
+              ? e('div', { staticClass: 'modal-foot' }, (() => {
+                const foot = modal.foot(e, modal)
+                return Array.isArray(foot) ? foot : [foot]
+              })())
               : null
           ])
         ])

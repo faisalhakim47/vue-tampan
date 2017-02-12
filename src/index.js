@@ -15,15 +15,15 @@ export * from './tools/schema'
 export * from './tools/throttle'
 export * from './tools/typecheck'
 
-export default function VueTampan({
+export default function Contructor({
   el,
   initialState,
   router,
   mixins = []
 }) {
-  if (!VueTampan.Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
+  if (!Contructor.Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
 
-  const { Vue } = VueTampan
+  const { Vue } = Contructor
 
   Vue.prototype.$tampan = new Vue({
     data() {
@@ -154,19 +154,23 @@ export default function VueTampan({
 
   const app = new Vue(App).$mount(el)
 
-  initialLayout(app, VueTampan.Vue.prototype.$tampan)
+  initialLayout(app, Contructor.Vue.prototype.$tampan)
 
   return app
 }
 
-VueTampan.install = (Vue) => {
-  installComponents(Vue)
-  VueTampan.Vue = Vue
+export const plugin = {
+  install: Contructor.install = (Vue) => {
+    installComponents(Vue)
+    Contructor.Vue = Vue
+  }
 }
+
+export const VueTampan = Contructor
 
 (() => {
   try {
     if (window && window.Vue)
-      Vue.use(VueTampan)
+      Vue.use(Contructor)
   } catch (e) { }
 })()
