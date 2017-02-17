@@ -17,6 +17,7 @@ export default {
     Overlay,
     Modal
   },
+
   render(e) {
     return e('div', { attrs: { id: 'app' } }, [
       e('div', { staticClass: 'app-container' }, [

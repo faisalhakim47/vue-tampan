@@ -4,15 +4,15 @@ import { getClienInfo } from './tools/client-platform-info'
 export function initialLayout(app, tampan) {
   const elApp = document.getElementById('app')
 
-  window.addEventListener('resize', throttle(() => {
-    tampan.client = getClienInfo()
-    tampan.isSidebarShow = tampan.client.isLargeScreen
-  }, 500))
-
   app.$watch('$route', () => {
     if (!tampan.client.isLargeScreen)
       tampan.isSidebarShow = false
   })
+
+  window.addEventListener('resize', throttle(() => {
+    tampan.client = getClienInfo()
+    tampan.isSidebarShow = tampan.client.isLargeScreen
+  }, 500))
 
   tampan.$watch(() => {
     const {

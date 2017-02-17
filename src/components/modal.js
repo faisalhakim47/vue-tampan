@@ -16,13 +16,15 @@ export default {
           e('div', { staticClass: 'modal' }, [
             e('div', { staticClass: 'modal-header' }, [
               e('h3', { staticClass: 'modal-title' }, modal.title),
-              e('button', {
-                staticClass: 'button modal-close-btn', on: {
-                  click: modal.reject
-                }
-              }, [
-                  e('i', { staticClass: 'icon material-icons' }, 'close')
-                ])
+              modal.disableCloseButton
+                ? null
+                : e('button', {
+                  staticClass: 'button modal-close-btn', on: {
+                    click: modal.reject
+                  }
+                }, [
+                    e('i', { staticClass: 'icon material-icons' }, 'close')
+                  ])
             ]),
             modal.body
               ? e('div', { staticClass: 'modal-body' }, (() => {

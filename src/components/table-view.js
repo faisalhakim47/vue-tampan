@@ -12,7 +12,7 @@ export default {
     columnMap: { type: Object, required: true },
     columnWidth: { type: Array, default: () => [] },
     controls: { type: Array, default: () => [] },
-    limit: { type: Number, default: 10 },
+    defaultRowLimit: { type: Number, default: 10 },
     visibleColumns: { type: Array },
     onRowClick: { type: Function },
     onSelectedChange: { type: Function },
@@ -30,6 +30,7 @@ export default {
       sortBy: null,
       sortDirection: 'asc',
       skip: 0,
+      limit: this.defaultRowLimit,
       query: '',
       selectedItems: []
     }

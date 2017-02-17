@@ -32,6 +32,9 @@
 
 .modal-title {
   margin: 0px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
 }
 
 .modal-close-btn {
@@ -47,7 +50,7 @@
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 16px 24px;
   overflow-y: overlay;
   overflow-x: hidden;
 }

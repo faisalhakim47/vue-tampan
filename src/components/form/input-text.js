@@ -1,7 +1,8 @@
 export default {
   name: 'input-text',
   props: {
-    value: { type: String }
+    value: { type: String },
+    type: { type: String }
   },
   methods: {
     input({ target }) {
@@ -12,7 +13,7 @@ export default {
   render(e) {
     return e('input', {
       staticClass: 'input input-text',
-      attrs: { type: 'text' },
+      attrs: { type: this.type || 'text' },
       domProps: { value: this.value },
       on: { input: this.input }
     })
