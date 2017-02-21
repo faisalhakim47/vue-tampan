@@ -1,4 +1,4 @@
-import VueTampan from '../src/index'
+import { VueTampan } from '../src/index'
 import About from './pages/about'
 import Button from './pages/button'
 import Form from './pages/form'
