@@ -7,10 +7,11 @@
 @import './typography.css';
 
 /* ELEMENTS */
-@import './elements/form.css';
-@import './elements/table.css';
-@import './elements/button.css';
 @import './elements/box.css';
+@import './elements/button.css';
+@import './elements/form.css';
+@import './elements/image.css';
+@import './elements/table.css';
 
 /* COMPONENTS */
 @import './components/notification.css';

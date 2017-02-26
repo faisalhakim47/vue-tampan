@@ -1,3 +1,5 @@
+import { ensureArrayType } from '../tools/array'
+
 export default {
   computed: {
     modal() {
@@ -19,23 +21,20 @@ export default {
               modal.disableCloseButton
                 ? null
                 : e('button', {
-                  staticClass: 'button modal-close-btn', on: {
-                    click: modal.reject
-                  }
+                  staticClass: 'button modal-close-btn',
+                  on: { click: modal.resolve }
                 }, [
                     e('i', { staticClass: 'icon material-icons' }, 'close')
                   ])
             ]),
             modal.body
               ? e('div', { staticClass: 'modal-body' }, (() => {
-                const body = modal.body(e, modal)
-                return Array.isArray(body) ? body : [body]
+                return ensureArrayType(modal.body(e, modal))
               })())
               : null,
             modal.foot
               ? e('div', { staticClass: 'modal-foot' }, (() => {
-                const foot = modal.foot(e, modal)
-                return Array.isArray(foot) ? foot : [foot]
+                return ensureArrayType(modal.foot(e, modal))
               })())
               : null
           ])

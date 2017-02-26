@@ -3,7 +3,7 @@
   margin-right: -24px;
 }
 
-.is-clickable > table > tbody {
+.is-clickable > table > tbody > tr {
   cursor: pointer;
 }
 
@@ -33,6 +33,21 @@
 .is-smallscreen .box-body > .table-view th:last-child,
 .is-smallscreen .box-body > .table-view td:last-child {
   padding-right: 16px;
+}
+
+.table-view th, td {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.table-view th {
+  border-top: 1px solid #e0e0e0;
+  background-color: #f5f5f5;
+}
+
+.table-view th:not(:first-child),
+.table-view td:not(:first-child) {
+  border-left: 1px solid #e0e0e0;
 }
 
 .table-view tr.is-selected {

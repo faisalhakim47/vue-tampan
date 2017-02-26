@@ -6,12 +6,12 @@ export function initialLayout(app, tampan) {
 
   app.$watch('$route', () => {
     if (!tampan.client.isLargeScreen)
-      tampan.isSidebarShow = false
+      tampan.isSidebarEnabled = false
   })
 
   window.addEventListener('resize', throttle(() => {
     tampan.client = getClienInfo()
-    tampan.isSidebarShow = tampan.client.isLargeScreen
+    tampan.isSidebarEnabled = tampan.client.isLargeScreen
   }, 500))
 
   tampan.$watch(() => {

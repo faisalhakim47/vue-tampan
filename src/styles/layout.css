@@ -153,6 +153,6 @@
   line-height: 48px;
 }
 
-.is-largescreen .main-content {
+.is-largescreen.is-sidebarshow .main-content {
   padding-left: 240px;
 }

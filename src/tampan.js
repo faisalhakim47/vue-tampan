@@ -21,9 +21,8 @@ export function VueTampan(RootComponent) {
         confirmation: null,
         loadingCount: 0,
         overlayCount: 0,
-        isSidebarShow: client.isLargeScreen,
+        isSidebarEnabled: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
-        sidebarMenus: [],
         brandName: 'VueTampan',
         brandIconClass: 'material-icons',
         brandIconText: 'face',
@@ -31,9 +30,17 @@ export function VueTampan(RootComponent) {
       }
     },
 
+    computed: {
+      isSidebarShow() {
+        // I know it is dumb but it is easier for human to understand.
+        if (this.sidebarMenus.length === 0) return false
+        if (this.isSidebarEnabled) return true
+      }
+    },
+
     methods: {
       toggleSidebar() {
-        this.isSidebarShow = !this.isSidebarShow
+        this.isSidebarEnabled = !this.isSidebarEnabled
       },
 
       toggleFullscreen() {
@@ -115,15 +122,11 @@ export function VueTampan(RootComponent) {
       },
 
       createModal(modal) {
-        const modalPromise = new Promise((resolve, reject) => {
+        const modalPromise = new Promise((resolve) => {
           modal.resolve = resolve
-          modal.reject = reject
           this.modalList.push(modal)
         })
         modalPromise.then(() => {
-          this.modalList.splice(this.modalList.indexOf(modal), 1)
-        })
-        modalPromise.catch(() => {
           this.modalList.splice(this.modalList.indexOf(modal), 1)
         })
         this.useOverlayState(modalPromise)
@@ -137,7 +140,7 @@ export function VueTampan(RootComponent) {
   RootComponent.el = RootComponent.router = undefined
 
   if (App.router) {
-    App.router.linkActiveClass = 'is-active'
+    App.router.options.linkActiveClass = 'is-active'
   }
 
   Vue.prototype.$tampan = new Vue({

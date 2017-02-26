@@ -4,7 +4,7 @@ export default {
   name: 'input-select',
 
   props: {
-    options: { type: Array, default: [] },
+    options: { type: Array, default: () => [] },
     value: { type: [String, Number] }
   },
 

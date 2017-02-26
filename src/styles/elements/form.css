@@ -37,7 +37,7 @@ td > .field {
 .field-input .input {
   box-sizing: border-box;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   outline: none;
   box-shadow: 0px 0px 12px 0px #F5F5F5 inset;
   background-color: #fbfbfb;

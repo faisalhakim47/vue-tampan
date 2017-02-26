@@ -1,4 +1,4 @@
-import { createArrayWithLength } from '../tools/array'
+import { createArrayWithLength, ensureArrayType } from '../tools/array'
 import { longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
 
@@ -17,6 +17,7 @@ export default {
     onRowClick: { type: Function },
     onSelectedChange: { type: Function },
     pagination: { type: Boolean, default: true },
+    limitation: { type: Boolean, default: true },
     selectable: { type: String, default: 'none' }
   },
 
@@ -45,6 +46,10 @@ export default {
       return !!this.indexes.length
     },
 
+    isClickableRow() {
+      return this.isSelecting || !!this.onRowClick
+    },
+    
     indexedItems() {
       const indexes = this.indexes || []
       return this.items.map((item, index) => {
@@ -87,9 +92,12 @@ export default {
       return this.selectable === 'always' || this.selectedItems.length !== 0
     },
 
+    availableControls() {
+      return this.controls.filter(control => control)
+    },
+
     bottomLeftControls() {
-      return this.controls
-        .filter(control => control.position === 'bottom-left')
+      return this.availableControls.filter(control => control.position === 'bottom-left')
     }
   },
 
@@ -124,7 +132,7 @@ export default {
     return e('div', {
       staticClass: 'table-view',
       class: {
-        'is-clickable': this.isSelecting || !!this.onRowClick
+        'is-clickable': this.isClickableRow
       }
     }, [
         e('table', { staticClass: 'table' }, [
@@ -149,7 +157,9 @@ export default {
               ]
               : this.slicedItems.map((item, index) => {
                 return e('tr', {
-                  class: { 'is-selected': this.selectedItems.indexOf(item) !== -1 },
+                  class: {
+                    'is-selected': this.selectedItems.indexOf(item) !== -1
+                  },
                   key: item._index_,
                   on: mergeEvents([
                     longpress(() => {
@@ -163,38 +173,17 @@ export default {
                     }
                   ])
                 }, this.columnTitles.map((columnTitle) => {
-                  const column = this.columnMap[columnTitle]
-                  if (Array.isArray(column)) {
-                    if (this.isSelecting)
-                      return e('td', [
-                        e('i', { staticClass: 'material-icons check-icon' }, 'check')
-                      ])
-                    else
-                      return e('td', column.map((btn) => {
-                        return e('button', {
-                          staticClass: 'button ripple',
-                          on: { click: () => btn.callback(item, index) }
-                        }, [
-                            e('i', { staticClass: 'icon ' + btn.iconClass }, btn.iconText),
-                            btn.text
-                          ])
-                      }))
-                  }
-
-                  else if (typeof column === 'function')
-                    return e('td', column(item, index))
-
-                  else
-                    return e('td', column)
+                  const columnMap = this.columnMap[columnTitle]
+                  return e('td', ensureArrayType(columnMap(item, index, e)))
                 }))
               })
           )
         ]),
 
-        this.pagination
-          ? e('div', { staticClass: 'table-view-navigate' }, [
-            e('div', { staticClass: 'table-view-navigate-left' }, [
-              e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
+        e('div', { staticClass: 'table-view-navigate' }, [
+          e('div', { staticClass: 'table-view-navigate-left' }, [
+            this.pagination && this.limitation
+              ? e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
                 e('input-select', {
                   props: {
                     options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
@@ -203,18 +192,22 @@ export default {
                   on: { change: ({ value }) => this.limit = value }
                 }),
               ])
-            ]),
-            e('div', { staticClass: 'table-view-navigate-right' }, [
-              ...this.bottomLeftControls.map(control => control.render(e)),
-              e('button', { staticClass: 'button', on: { click: this.prevPage } }, [
+              : null
+          ]),
+          e('div', { staticClass: 'table-view-navigate-right' }, [
+            ...this.bottomLeftControls.map(control => control.render(e)),
+            this.pagination
+              ? e('button', { staticClass: 'button ripple', on: { click: this.prevPage } }, [
                 e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
-              ]),
-              e('button', { staticClass: 'button', on: { click: this.nextPage } }, [
+              ])
+              : null,
+            this.pagination
+              ? e('button', { staticClass: 'button ripple', on: { click: this.nextPage } }, [
                 e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
               ])
-            ])
+              : null
           ])
-          : e('div', { staticClass: 'table-view-spacing' })
+        ])
       ])
   }
 }

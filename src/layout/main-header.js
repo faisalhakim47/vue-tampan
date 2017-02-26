@@ -3,8 +3,8 @@ export default {
     return e('div', { staticClass: 'main-header' }, [
       e('div', { staticClass: 'brand' }, [
         e('div', { staticClass: 'brand-icon' }, [
-          this.$tampan.brandImgUrl
-            ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImgUrl } })
+          this.$tampan.brandImageIconUrl
+            ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImageIconUrl } })
             : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
         ]),
         e('div', { staticClass: 'brand-name' }, [
