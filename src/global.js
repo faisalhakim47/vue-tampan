@@ -6,8 +6,8 @@ import InputCheckbox from './components/form/input-checkbox'
 import InputRadio from './components/form/input-radio'
 import InputRange from './components/form/input-range'
 import InputDate from './components/form/input-date'
+import Breadcrumb from './components/breadcrumb'
 import TableView from './components/table-view'
-import Control from './components/control'
 
 export function installComponents(Vue) {
   Vue.component('field', Field)
@@ -18,6 +18,6 @@ export function installComponents(Vue) {
   Vue.component('input-radio', InputRadio)
   Vue.component('input-range', InputRange)
   Vue.component('input-date', InputDate)
+  Vue.component('breadcrumb', Breadcrumb)
   Vue.component('table-view', TableView)
-  Vue.component('control-view', Control)
 }
