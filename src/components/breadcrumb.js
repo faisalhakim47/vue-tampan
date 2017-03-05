@@ -4,35 +4,37 @@ export default {
   },
 
   computed: {
-    firstItem() {
-      return {
-        iconClass: 'material-icons',
-        iconText: 'home',
-        onclick: () => this.$tampan.toggleSidebar()
-      }
-    },
-
     availableItems() {
-      return [
-        this.firstItem,
-        ...this.items
-      ]
+      return this.items
     }
   },
 
+  methods: {
+    toggleSidebar() {
+      return this.$tampan.client.isLargeScreen ? null : this.$tampan.toggleSidebar()
+    },
+  },
+
   render(e) {
-    return e('ul', { staticClass: 'breadcrumb-list' }, this.availableItems((item) => {
-      const itemContent = [
-        item.iconClass
-          ? e('span', { staticClass: `icon ${item.iconClass}` }, item.iconText)
-          : null,
-        item.text
-      ]
-      return e('li', { staticClass: 'breadcrumb-item' }, [
-        item.path
-          ? e('router-link', { props: { to: item.path } }, itemContent)
-          : e('span', itemContent)
-      ])
-    }))
+    return e('ul', { staticClass: 'breadcrumb-list' }, [
+      e('li', { staticClass: 'breadcrumb-item', on: { click: this.toggleSidebar } }, [
+        e('span', { staticClass: 'icon material-icons', attrs: { style:  'padding-left: 0px' } }, 'menu')
+      ]),
+      ...this.availableItems.map((item) => {
+        const itemContent = [
+          item.iconClass
+            ? e('span', { staticClass: `icon ${item.iconClass}` }, item.iconText)
+            : null,
+          item.text
+        ]
+        const event = {}
+        if (item.onclick) event.click = item.onclick
+        return e('li', { staticClass: 'breadcrumb-item', on: event }, [
+          item.path
+            ? e('router-link', { props: { to: item.path } }, itemContent)
+            : e('span', itemContent)
+        ])
+      })
+    ])
   }
 }

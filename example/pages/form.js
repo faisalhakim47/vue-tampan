@@ -122,5 +122,3 @@ export default {
     ])
   }
 }
-
-console.log(new Date(2002, 2, 2))

@@ -12,6 +12,8 @@
 @import './elements/form.css';
 @import './elements/image.css';
 @import './elements/table.css';
+@import './elements/breadcrumb.css';
+@import './elements/float-button.css';
 
 /* COMPONENTS */
 @import './components/notification.css';

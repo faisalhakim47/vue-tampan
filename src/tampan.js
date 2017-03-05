@@ -5,6 +5,25 @@ import { toggleFullscreen, getFullscreenStatus } from './tools/fullscreen'
 import { initialLayout } from './layout'
 import App from './App'
 
+let tampan = null
+let root = null
+let tampanResolver = null
+let tampanPromise = new Promise(resolve => tampanResolver = resolve)
+
+export function getTampan() {
+  if (!tampan) throw '[getTampan] Tampan has not been created.'
+  return tampan
+}
+
+export function getRootInstance() {
+  if (!root) throw '[getRootInstance] Tampan has not been created.'
+  return root
+}
+
+export function whenTampanReady() {
+  return tampanPromise
+}
+
 export function VueTampan(RootComponent) {
   const { Vue } = VueTampan
 
@@ -151,7 +170,12 @@ export function VueTampan(RootComponent) {
     initialLayout(this, Vue.prototype.$tampan)
   }
 
-  return new Vue(App)
+  tampan = Vue.prototype.$tampan
+  root = new Vue(App)
+
+  tampanResolver({ root, tampan })
+
+  return { root, tampan }
 }
 
 VueTampan.install = (Vue) => {

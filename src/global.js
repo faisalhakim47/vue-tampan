@@ -20,4 +20,17 @@ export function installComponents(Vue) {
   Vue.component('input-date', InputDate)
   Vue.component('breadcrumb', Breadcrumb)
   Vue.component('table-view', TableView)
+
+  Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
+    req(this.$route)
+      .then(data => map(this, data))
+      .catch((error) => {
+        const { status } = error.response
+        const tampan = getTampan()
+        tampan.confirm({
+          text: `${status}: Gagal memuat data. Ulangi?`
+        }).catch((error) => void error)
+        console.warn('loadAsyncData', error)
+      })
+  }
 }

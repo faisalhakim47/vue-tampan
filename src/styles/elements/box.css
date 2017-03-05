@@ -1,5 +1,6 @@
 .boxes {
   padding: 24px;
+  padding-bottom: 72px !important;
 }
 
 .is-smallscreen .boxes {
@@ -8,7 +9,25 @@
 
 .boxes-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+
+.is-smallscreen .boxes-header {
+  flex-wrap: wrap;
+}
+
+.boxes-header-left,
+.boxes-header-center,
+.boxes-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.is-smallscreen .boxes-header-left,
+.is-smallscreen .boxes-header-center,
+.is-smallscreen .boxes-header-right {
+  width: 100%;
 }
 
 .boxes-header > .icon {
@@ -22,7 +41,10 @@
   color: #0277BD;
 }
 
-.boxes-header > .button:first-child {
+.boxes-header > .button:first-child,
+.boxes-header-left > .button:first-child,
+.boxes-header-center > .button:first-child,
+.boxes-header-right > .button:first-child {
   padding-left: 0px;
 }
 
@@ -72,6 +94,10 @@
 
 .box-body {
   padding: 0px 24px;
+}
+
+.box-body:last-child {
+  padding-bottom: 16px !important;
 }
 
 .is-smallscreen .box-body {

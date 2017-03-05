@@ -2,7 +2,6 @@ let currentTarget
 export function doubleclick(handler) {
   let timeout
   const click = (event) => {
-    console.log(currentTarget)
     if (currentTarget === event.target) {
       currentTarget = null
       handler(event)

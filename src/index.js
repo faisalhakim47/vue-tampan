@@ -1,4 +1,5 @@
 export * from './tools/array'
+export * from './tools/data'
 export * from './tools/date'
 export * from './tools/events'
 export * from './tools/fullscreen'

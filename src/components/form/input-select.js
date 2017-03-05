@@ -5,7 +5,7 @@ export default {
 
   props: {
     options: { type: Array, default: () => [] },
-    value: { type: [String, Number] }
+    value: { type: [String, Number], default: '' }
   },
 
   data() {
@@ -24,14 +24,20 @@ export default {
   },
 
   render(e) {
-    return e('select', {
+    const selectVdom = e('select', {
+      ref: 'elSelect',
       staticClass: 'input input-select',
       domProps: { value: this.value },
       on: { change: this.change }
     }, this.options.map((opt) => {
       if (isString(opt) || isNumber(opt))
         opt = { value: opt, label: opt }
-      return e('option', { attrs: { value: opt.value } }, opt.label)
+      return e('option', { domProps: { value: opt.value } }, opt.label)
     }))
-  }
+
+    // fix bug on async 'options'
+    this.$nextTick(() => this.$refs.elSelect.value = this.value.toString())
+
+    return selectVdom
+  },
 }

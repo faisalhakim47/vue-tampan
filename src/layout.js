@@ -10,6 +10,7 @@ export function initialLayout(app, tampan) {
   })
 
   window.addEventListener('resize', throttle(() => {
+    tampan.$emit('window:resize')
     tampan.client = getClienInfo()
     tampan.isSidebarEnabled = tampan.client.isLargeScreen
   }, 500))

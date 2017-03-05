@@ -49,7 +49,7 @@ export default {
     isClickableRow() {
       return this.isSelecting || !!this.onRowClick
     },
-    
+
     indexedItems() {
       const indexes = this.indexes || []
       return this.items.map((item, index) => {
@@ -141,13 +141,20 @@ export default {
               return e('th', {
                 attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
               }, columnTitle)
-            }))
+            })),
+            // e('tr', { staticClass: 'table-view-search-box' }, [
+            //   e('th', { attrs: { colspan: this.columnLength } }, [
+            //     e('field', [
+            //       e('input-text')
+            //     ])
+            //   ])
+            // ])
           ]),
 
           e('tbody',
             this.isEmpty
               ? [
-                e('tr', [
+                e('tr', { staticClass: 'empty-row-text' }, [
                   e('td', {
                     attrs: { colspan: this.columnLength.toString(), style: 'text-align: center;' }
                   }, [

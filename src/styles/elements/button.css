@@ -75,6 +75,15 @@
   background-color: #F44336;
 }
 
+.button.is-amber {
+  background-color: #FF6F00;
+  color: #fff;
+}
+
+.button.is-amber:hover {
+  background-color: #FF8F00;
+}
+
 .button > .icon {
   display: block;
   float: left;

@@ -8,8 +8,6 @@ export function requestFullScreen(el = document.documentElement) {
     || el.mozRequestFullScreen
     || el.msRequestFullscreen
 
-  console.log({ requestMethod, s: getFullscreenStatus() })
-
   if (requestMethod) {
     requestMethod.call(el)
   }

@@ -12,19 +12,22 @@ export default {
         ])
       ]),
       e('div', { staticClass: 'main-navbar-left' }, [
-        e('button', {
-          staticClass: 'main-navbar-item sidebar-toggle',
-          on: { click: this.$tampan.toggleSidebar }
-        }, [
-            e('span', { staticClass: 'material-icons' }, 'menu')
-          ]),
-        e('button', {
-          staticClass: 'main-navbar-item',
-          on: { click: this.$tampan.toggleFullscreen }
-        }, [
-            e('span', { staticClass: 'material-icons fullscreen-icon' }, 'fullscreen'),
-            e('span', { staticClass: 'material-icons fullscreen-exit-icon' }, 'fullscreen_exit')
-          ])
+        this.$tampan.sidebarMenus.length
+          ? e('button', {
+            staticClass: 'main-navbar-item sidebar-toggle',
+            on: { click: this.$tampan.toggleSidebar }
+          }, [
+              e('span', { staticClass: 'icon material-icons' }, 'menu'),
+              // e('span', { staticClass: 'text' }, 'Menu')
+            ])
+          : null,
+        // e('button', {
+        //   staticClass: 'main-navbar-item',
+        //   on: { click: this.$tampan.toggleFullscreen }
+        // }, [
+        //     e('span', { staticClass: 'material-icons fullscreen-icon' }, 'fullscreen'),
+        //     e('span', { staticClass: 'material-icons fullscreen-exit-icon' }, 'fullscreen_exit')
+        //   ])
       ])
     ])
   }

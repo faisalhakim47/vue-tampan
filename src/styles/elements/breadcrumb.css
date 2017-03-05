@@ -1,4 +1,5 @@
 .breadcrumb-list {
+  user-select: none;
   display: flex;
   align-items: center;
   list-style: none;
@@ -6,7 +7,13 @@
 }
 
 .is-smallscreen .breadcrumb-list {
-  width: 100%;
+  /* to ensure that breadcrumb is wraped on small screen  */
+  min-width: 300px;
+}
+
+.is-smallscreen .breadcrumb-list:only-child {
+  position: relative;
+  top: -24px;
 }
 
 .breadcrumb-item > * {
@@ -16,6 +23,10 @@
 
 .breadcrumb-item:first-child {
   padding-left: 0px;
+}
+
+.breadcrumb-item:last-child > * {
+  font-weight: bold;
 }
 
 .breadcrumb-item > a {

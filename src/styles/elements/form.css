@@ -39,9 +39,10 @@ td > .field {
   width: 100%;
   padding: 10px;
   outline: none;
-  box-shadow: 0px 0px 12px 0px #F5F5F5 inset;
-  background-color: #fbfbfb;
+  box-shadow: 0px 0px 12px 0px #fafafa inset;
+  background-color: #fdfdfd;
   border: 1px solid #BDBDBD;
+  border-radius: 2px;
 }
 
 .field-input > input:disabled,
@@ -60,8 +61,9 @@ td > .field {
 
 .field-input > input:focus,
 .field-input .input:focus {
-  border-color: #0288D1;
-  background-color: #FFF;
+  border-color: #fff;
+  background-color: #fff;
+  box-shadow: 0 0 4px 0px #0288D1;
 }
 
 .field-info > p {

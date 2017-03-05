@@ -46,8 +46,19 @@
 }
 
 .table-view th:not(:first-child),
-.table-view td:not(:first-child) {
+#app:not(.is-smallscreen) .table-view td:not(:first-child) {
   border-left: 1px solid #e0e0e0;
+}
+
+#app:not(.is-smallscreen) .table-view .table tr.empty-row-text:hover {
+  cursor: unset;
+  background-color: #fff;
+}
+
+.table-view tr.empty-row-text > td {
+  height: 96px;
+  background-color: #fafafa;
+  color: #555;
 }
 
 .table-view tr.is-selected {
