@@ -1,33 +1,32 @@
 export default {
   render(e) {
     return e('div', { staticClass: 'main-header' }, [
-      e('div', { staticClass: 'brand' }, [
-        e('div', { staticClass: 'brand-icon' }, [
-          this.$tampan.brandImageIconUrl
-            ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImageIconUrl } })
-            : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
-        ]),
-        e('div', { staticClass: 'brand-name' }, [
-          e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandName)
-        ])
-      ]),
-      e('div', { staticClass: 'main-navbar-left' }, [
-        this.$tampan.sidebarMenus.length
-          ? e('button', {
-            staticClass: 'main-navbar-item sidebar-toggle',
-            on: { click: this.$tampan.toggleSidebar }
-          }, [
-              e('span', { staticClass: 'icon material-icons' }, 'menu'),
-              // e('span', { staticClass: 'text' }, 'Menu')
+      e('div', { staticClass: 'main-navbar' }, [
+        e('div', { staticClass: 'main-navbar-left' }, [
+          e('div', { staticClass: 'brand' }, [
+            e('div', { staticClass: 'brand-icon' }, [
+              this.$tampan.brandImageIconUrl
+                ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImageIconUrl } })
+                : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
+            ]),
+            e('div', { staticClass: 'brand-name' }, [
+              console.log(this.$tampan.client, this.$tampan.brandShortName),
+              this.$tampan.client.isLargeScreen
+                ? e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandName || '')
+                : e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandShortName || '')
             ])
-          : null,
-        // e('button', {
-        //   staticClass: 'main-navbar-item',
-        //   on: { click: this.$tampan.toggleFullscreen }
-        // }, [
-        //     e('span', { staticClass: 'material-icons fullscreen-icon' }, 'fullscreen'),
-        //     e('span', { staticClass: 'material-icons fullscreen-exit-icon' }, 'fullscreen_exit')
-        //   ])
+          ])
+        ]),
+        e('div', { staticClass: 'main-navbar-right' }, [
+          this.$tampan.sidebarMenus.length
+            ? e('button', {
+              staticClass: 'main-navbar-item sidebar-toggle',
+              on: { click: this.$tampan.toggleSidebar }
+            }, [
+                e('span', { staticClass: 'icon material-icons' }, 'menu')
+              ])
+            : null
+        ])
       ])
     ])
   }

@@ -15,18 +15,10 @@
   box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
 }
 
-.main-header > div {
-  float: left;
-}
-
 .brand {
   display: flex;
   width: 240px;
   height: 48px;
-}
-
-.is-smallscreen .brand {
-  width: 48px;
 }
 
 .brand-icon {
@@ -47,8 +39,9 @@
   line-height: 48px;
 }
 
-.is-smallscreen .brand-name-text {
-  display: none;
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
 }
 
 .main-navbar-item {
