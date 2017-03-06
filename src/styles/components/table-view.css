@@ -15,6 +15,11 @@
   -moz-user-select: none;
 }
 
+/* fix ugly box spacing */
+.box-body:last-child .table-view {
+  margin-bottom: -16px;
+}
+
 .box-body > .table-view th:first-child,
 .box-body > .table-view td:first-child {
   padding-left: 24px;
