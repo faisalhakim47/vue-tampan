@@ -4,7 +4,6 @@
   "description": "Vue Template",
   "author": "Faisal Hakim <faisalhakim47@gmail.com>",
   "main": "dist/vue-tampan.min.js",
-  "module": "src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/faisalhakim47/vue-tampan.git"

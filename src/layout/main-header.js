@@ -10,7 +10,6 @@ export default {
                 : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
             ]),
             e('div', { staticClass: 'brand-name' }, [
-              console.log(this.$tampan.client, this.$tampan.brandShortName),
               this.$tampan.client.isLargeScreen
                 ? e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandName || '')
                 : e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandShortName || '')
