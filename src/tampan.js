@@ -10,19 +10,18 @@ let root = null
 let tampanResolver = null
 let tampanPromise = new Promise(resolve => tampanResolver = resolve)
 
-export function getTampan() {
-  if (!tampan) throw '[getTampan] Tampan has not been created.'
-  return tampan
-}
-
-export function getRootInstance() {
-  if (!root) throw '[getRootInstance] Tampan has not been created.'
-  return root
-}
-
 export function whenTampanReady() {
   return tampanPromise
 }
+
+export function getTampan() {
+  return whenTampanReady().then(({ tampan }) => tampan)
+}
+
+export function getRootInstance() {
+  return whenTampanReady().then(({ root }) => root)
+}
+
 
 export function VueTampan(RootComponent) {
   const { Vue } = VueTampan
