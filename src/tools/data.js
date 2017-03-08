@@ -3,12 +3,14 @@ import { getTampan, whenTampanReady } from '../tampan'
 
 export function loadAsyncRouteData(dataRequests) {
   return (destination, origin, next) => {
-    const reqs = dataRequests.map(({ req, err }) => {
-      return req(destination).catch((error) => {
-        if (typeof err === 'function') err(error)
+    const reqs = dataRequests.map((reqObject) => {
+      return reqObject.req(destination).catch((error) => {
+        if (typeof reqObject.err === 'function') {
+          reqObject.err(error)
+        }
       })
     })
-    const dataMaps = dataRequests.map(({ map }) => map)
+    const dataMaps = dataRequests.map((reqObject) => reqObject.map)
     const reqsPromise = Promise.all(reqs)
       .then(datas => {
         next((vm) => {
