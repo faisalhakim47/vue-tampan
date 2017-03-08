@@ -1,9 +1,13 @@
 import { ensureArrayType } from '../tools/array'
-import { getTampan, getRootInstance, whenTampanReady } from '../tampan'
+import { getTampan, whenTampanReady } from '../tampan'
 
 export function loadAsyncRouteData(dataRequests) {
   return (destination, origin, next) => {
-    const reqs = dataRequests.map(({ req }) => req(destination))
+    const reqs = dataRequests.map(({ req, err }) => {
+      return req(destination).catch((error) => {
+        if (typeof err === 'function') err(error)
+      })
+    })
     const dataMaps = dataRequests.map(({ map }) => map)
     const reqsPromise = Promise.all(reqs)
       .then(datas => {
@@ -12,17 +16,6 @@ export function loadAsyncRouteData(dataRequests) {
             asyncDataFactory(vm, datas[i])
           })
         })
-      })
-      .catch((error) => {
-        console.warn('loadAsyncRouteData', error)
-        const { status } = error.response
-        const tampan = getTampan()
-        const root = getRootInstance()
-        tampan.confirm({
-          text: `${status}: Gagal memuat data. Ulangi?`
-        })
-          .then(() => root.$router.push(destination))
-          .catch(() => root.$router.push(origin))
       })
     whenTampanReady()
       .then(({ tampan }) => {
