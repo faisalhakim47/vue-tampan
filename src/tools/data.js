@@ -6,7 +6,7 @@ export function loadAsyncRouteData(dataRequests) {
     const reqs = dataRequests.map((reqObject) => {
       return reqObject.req(destination).catch((error) => {
         if (typeof reqObject.err === 'function') {
-          reqObject.err(error)
+          reqObject.err(error, destination)
         }
       })
     })
