@@ -15,6 +15,8 @@ export function loadAsyncRouteData(dataRequests) {
       .then(datas => {
         next((vm) => {
           dataMaps.forEach((asyncDataFactory, i) => {
+            const data = datas[i]
+            if (typeof data !== 'object') return
             asyncDataFactory(vm, datas[i])
           })
         })
