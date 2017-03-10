@@ -13,6 +13,7 @@ export default {
     columnWidth: { type: Array, default: () => [] },
     controls: { type: Array, default: () => [] },
     defaultRowLimit: { type: Number, default: 10 },
+    fixedRow: { type: Boolean, default: true },
     visibleColumns: { type: Array },
     onRowClick: { type: Function },
     onSelectedChange: { type: Function },
@@ -27,7 +28,6 @@ export default {
 
     return {
       columnTitles,
-      columnLength: columnTitles.length,
       sortBy: null,
       sortDirection: 'asc',
       skip: 0,
@@ -38,6 +38,10 @@ export default {
   },
 
   computed: {
+    isLargeScreen() {
+      return this.$tampan.client.isLargeScreen
+    },
+
     isEmpty() {
       return this.items.length === 0
     },
@@ -50,10 +54,25 @@ export default {
       return this.isSelecting || !!this.onRowClick
     },
 
+    isSelecting() {
+      return this.selectable === 'always' || this.selectedItems.length !== 0
+    },
+
+    isShowClickableArrowIcon() {
+      return this.isClickableRow && !this.isLargeScreen
+    },
+
+    columnLength() {
+      let length = this.columnTitles.length
+      if (this.isShowClickableArrowIcon) length++
+      return length
+    },
+
     indexedItems() {
       const indexes = this.indexes || []
       return this.items.map((item, index) => {
         return Object.assign(
+          {},
           {
             _fulltext_: indexes.map((key) => item[key]).join(' '),
             _key_: index
@@ -88,8 +107,12 @@ export default {
       return this.filteredItems.slice(this.skip, this.skip + this.limit)
     },
 
-    isSelecting() {
-      return this.selectable === 'always' || this.selectedItems.length !== 0
+    additionalRowsArray() {
+      const itemsLength = this.slicedItems.length
+      if (!this.fixedRow || itemsLength === this.limit) {
+        return []
+      }
+      return createArrayWithLength(this.limit - itemsLength)
     },
 
     availableControls() {
@@ -137,11 +160,16 @@ export default {
     }, [
         e('table', { staticClass: 'table' }, [
           e('thead', [
-            e('tr', this.columnTitles.map((columnTitle, index) => {
-              return e('th', {
-                attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
-              }, columnTitle)
-            })),
+            e('tr', [
+              ...this.columnTitles.map((columnTitle, index) => {
+                return e('th', {
+                  attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
+                }, columnTitle)
+              }),
+              this.isShowClickableArrowIcon
+                ? e('th', { attrs: { style: `width:32px` } })
+                : null
+            ]),
             // e('tr', { staticClass: 'table-view-search-box' }, [
             //   e('th', { attrs: { colspan: this.columnLength } }, [
             //     e('field', [
@@ -150,7 +178,6 @@ export default {
             //   ])
             // ])
           ]),
-
           e('tbody',
             this.isEmpty
               ? [
@@ -162,28 +189,42 @@ export default {
                     ])
                 ])
               ]
-              : this.slicedItems.map((item, index) => {
-                return e('tr', {
-                  class: {
-                    'is-selected': this.selectedItems.indexOf(item) !== -1
-                  },
-                  key: item._index_,
-                  on: mergeEvents([
-                    longpress(() => {
-                      this.toggleSelect(item)
-                    }),
-                    {
-                      click: (e) => {
-                        if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
-                        if (this.onRowClick) return this.onRowClick(item, index)
+              : [
+                ...this.slicedItems.map((item, index) => {
+                  return e('tr', {
+                    class: {
+                      'is-selected': this.selectedItems.indexOf(item) !== -1
+                    },
+                    key: item._index_,
+                    on: mergeEvents([
+                      longpress(() => {
+                        this.toggleSelect(item)
+                      }),
+                      {
+                        click: (e) => {
+                          if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
+                          if (this.onRowClick) return this.onRowClick(item, index)
+                        }
                       }
-                    }
-                  ])
-                }, this.columnTitles.map((columnTitle) => {
-                  const columnMap = this.columnMap[columnTitle]
-                  return e('td', ensureArrayType(columnMap(item, index, e)))
-                }))
-              })
+                    ])
+                  }, [
+                      ...this.columnTitles.map((columnTitle) => {
+                        const columnMap = this.columnMap[columnTitle]
+                        return e('td', ensureArrayType(columnMap(item, index, e)))
+                      }),
+                      this.isShowClickableArrowIcon
+                        ? e('td', [
+                          e('span', { staticClass: 'icon material-icons row-clickable-icon' }, 'keyboard_arrow_right')
+                        ])
+                        : null
+                    ])
+                }),
+                this.additionalRowsArray.map(() => {
+                  return e('tr', { staticClass: 'additional-row' }, createArrayWithLength(this.columnLength).map(() => {
+                    return e('td')
+                  }))
+                })
+              ]
           )
         ]),
 
