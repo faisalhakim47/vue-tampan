@@ -36,7 +36,7 @@ export function loadAsyncRouteData(dataRequests) {
         }
         next(
           opt.vm
-            ? callback(vm)
+            ? callback(opt.vm)
             : callback
         )
       })
