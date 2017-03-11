@@ -25,7 +25,6 @@ export default {
   data() {
     const indexes = this.indexes || []
     const columnTitles = Object.keys(this.columnMap)
-
     return {
       columnTitles,
       sortBy: null,
@@ -113,6 +112,12 @@ export default {
         return []
       }
       return createArrayWithLength(this.limit - itemsLength)
+    },
+
+    paginationLimitOptions() {
+      const options = createArrayWithLength(10).map((_, i) => ((i + 1) * 10))
+      if (options.indexOf(this.defaultRowLimit) === -1) options.unshift(this.defaultRowLimit)
+      return options
     },
 
     availableControls() {
@@ -234,7 +239,7 @@ export default {
               ? e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
                 e('input-select', {
                   props: {
-                    options: createArrayWithLength(10).map((_, i) => ((i + 1) * 10)),
+                    options: this.paginationLimitOptions,
                     value: this.limit
                   },
                   on: { change: ({ value }) => this.limit = value }
