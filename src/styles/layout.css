@@ -143,6 +143,10 @@
   text-decoration: none;
 }
 
+.is-largescreen .menu-item {
+  height: 44px;
+}
+
 .menu-item-icon {
   display: flex;
   align-items: center;
@@ -152,9 +156,18 @@
   width: 48px;
 }
 
+.is-largescreen .item-icon {
+  height: 44px;
+  width: 44px;
+}
+
 .menu-item-name {
   display: inline-block;
   line-height: 48px;
+}
+
+.is-largescreen .menu-item-name {
+  line-height: 44px;
 }
 
 .is-largescreen.is-sidebarshow .main-content {
