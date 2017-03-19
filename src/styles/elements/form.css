@@ -67,8 +67,8 @@ td > .field {
 }
 
 .field-info > p {
-  margin: 4px 0px;
-  font-size: 14px;
+  margin: 0px 0px;
+  font-size: 12px;
   font-style: italic;
   color: #616161;
 }

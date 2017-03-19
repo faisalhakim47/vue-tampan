@@ -13,7 +13,7 @@ export default {
     columnWidth: { type: Array, default: () => [] },
     controls: { type: Array, default: () => [] },
     defaultRowLimit: { type: Number, default: 10 },
-    fixedRow: { type: Boolean, default: true },
+    fixedRowNumber: { type: Boolean, default: true },
     visibleColumns: { type: Array },
     onRowClick: { type: Function },
     onSelectedChange: { type: Function },
@@ -61,6 +61,10 @@ export default {
       return this.isClickableRow && !this.isLargeScreen
     },
 
+    isPaginated() {
+      return this.pagination && this.items.length >= this.limit
+    },
+
     columnLength() {
       let length = this.columnTitles.length
       if (this.isShowClickableArrowIcon) length++
@@ -102,13 +106,13 @@ export default {
     },
 
     slicedItems() {
-      if (!this.pagination) return this.filteredItems
+      if (!this.isPaginated) return this.filteredItems
       return this.filteredItems.slice(this.skip, this.skip + this.limit)
     },
 
     additionalRowsArray() {
       const itemsLength = this.slicedItems.length
-      if (!this.fixedRow || itemsLength === this.limit) {
+      if (!this.isPaginated || !this.fixedRowNumber || itemsLength === this.limit) {
         return []
       }
       return createArrayWithLength(this.limit - itemsLength)
@@ -235,7 +239,7 @@ export default {
 
         e('div', { staticClass: 'table-view-navigate' }, [
           e('div', { staticClass: 'table-view-navigate-left' }, [
-            this.pagination && this.limitation
+            this.isPaginated && this.limitation
               ? e('field', { props: { label: 'Batasi', direction: 'horizontal' } }, [
                 e('input-select', {
                   props: {
@@ -249,12 +253,12 @@ export default {
           ]),
           e('div', { staticClass: 'table-view-navigate-right' }, [
             ...this.bottomLeftControls.map(control => control.render(e)),
-            this.pagination
+            this.isPaginated
               ? e('button', { staticClass: 'button ripple', on: { click: this.prevPage } }, [
                 e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
               ])
               : null,
-            this.pagination
+            this.isPaginated
               ? e('button', { staticClass: 'button ripple', on: { click: this.nextPage } }, [
                 e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
               ])

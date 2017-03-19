@@ -22,7 +22,7 @@ export default {
               staticClass: 'main-navbar-item sidebar-toggle',
               on: { click: this.$tampan.toggleSidebar }
             }, [
-                e('span', { staticClass: 'icon material-icons' }, 'menu')
+                e('span', { staticClass: 'icon material-icons' }, this.$tampan.isSidebarShow ? 'close' : 'menu')
               ])
             : null
         ])

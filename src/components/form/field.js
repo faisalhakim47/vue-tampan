@@ -14,10 +14,10 @@ export default {
         props.label
           ? e('div', { staticClass: 'field-label' }, [e('label', props.label)])
           : '',
-        e('div', { staticClass: 'field-input' }, children),
         props.info
           ? e('div', { staticClass: 'field-info' }, [e('p', props.info)])
-          : ''
+          : '',
+        e('div', { staticClass: 'field-input' }, children)
       ])
   }
 }

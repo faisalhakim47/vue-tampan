@@ -108,7 +108,7 @@
   display: flex;
   flex-flow: column nowrap;
   transition-property: transform;
-  transition-duration: 200ms;
+  transition-duration: 175ms;
   transition-timing-function: ease-in-out;
   transform: translateX(-256px);
   z-index: 500;
