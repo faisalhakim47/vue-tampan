@@ -5,8 +5,8 @@ export default {
         e('div', { staticClass: 'ganjel' }),
         e('div', { staticClass: 'sidebar-scroll-container' }, [
           e('nav', this.$tampan.sidebarMenus.map((menu) => {
-            const isSelfRoute = menu.path.indexOf('http') !== 0
-            return isSelfRoute
+            const isSameDomainRoute = menu.path.indexOf('http') !== 0
+            return isSameDomainRoute
               ? e('router-link', {
                 staticClass: 'menu-item ripple',
                 attrs: { to: menu.path }

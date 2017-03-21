@@ -1,5 +1,5 @@
-const maxMediumSize = 1024
-const maxSmallSize = 768
+const maxMediumSize = 800
+const maxSmallSize = 480
 
 export function getClienInfo() {
   const width = window.innerWidth
