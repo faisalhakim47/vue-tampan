@@ -27,7 +27,9 @@ export default {
       for (let i = 0; i < elLen; i++) {
         value.push(target.item(i).value)
       }
-      this.$emit('change', { target, value })
+      const updateEvent = { value }
+      this.$emit('change', updateEvent)
+      this.$emit('input', updateEvent)
     }
   },
   render(e) {

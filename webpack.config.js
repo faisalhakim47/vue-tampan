@@ -8,14 +8,28 @@ module.exports = {
     'example-app': './example/main.js'
   },
   output: {
-    path: './dist',
+    path: path.join(__dirname, './dist'),
     filename: '[name].js',
     library: 'VueTampan',
     libraryTarget: 'umd'
   },
+  externals: {
+    vue: 'Vue'
+  },
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    rules: [
+      {
+        test: /\.js$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          // vue-loader options
+        }
+      }
     ]
   },
   plugins: [

@@ -1,7 +1,7 @@
 const maxMediumSize = 800
 const maxSmallSize = 480
 
-export function getClienInfo() {
+export function getClienDeviceInfo() {
   const width = window.innerWidth
   const height = window.innerHeight
   const isLandscape = width > height

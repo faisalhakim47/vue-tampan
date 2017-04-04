@@ -1,5 +1,5 @@
 import { throttle } from './tools/throttle'
-import { getClienInfo } from './tools/client-platform-info'
+import { getClienDeviceInfo } from './tools/client-device-info'
 
 export function initialLayout(app, tampan) {
   const elApp = document.getElementById('app')
@@ -11,7 +11,7 @@ export function initialLayout(app, tampan) {
 
   window.addEventListener('resize', throttle(() => {
     tampan.$emit('window:resize')
-    tampan.client = getClienInfo()
+    tampan.client = getClienDeviceInfo()
     tampan.isSidebarEnabled = tampan.client.isLargeScreen
   }, 500))
 

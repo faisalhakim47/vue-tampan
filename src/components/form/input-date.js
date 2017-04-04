@@ -1,14 +1,19 @@
 import { createArrayWithLength } from '../../tools/array'
 import { months, getDayLengthInMonth } from '../../tools/date'
+import { isNumber } from '../../tools/typecheck'
 import InputSelect from './input-select'
 
 export default {
   props: {
     value: {
       validator: value => value instanceof Date
-    }
+    },
+    minYear: { type: Number, default: new Date().getFullYear() - 12 },
+    maxYear: { type: Number, default: new Date().getFullYear() },
   },
+
   components: [InputSelect],
+
   data() {
     let date = new Date(this.value || value)
     if (date.toString() === 'Invalid Date') {
@@ -19,29 +24,43 @@ export default {
       dateLength: getDayLengthInMonth(date.getFullYear(), date.getMonth())
     }
   },
+
+  computed: {
+    yearOptionLength() {
+      return this.maxYear - this.minYear + 1
+    }
+  },
+
   methods: {
-    update({ target, date, month, year }) {
-      if (date) {
+    update({ date, month, year }) {
+      console.log({ date, month, year })
+      console.log(this.date)
+      if (isNumber(date)) {
         this.date.setDate(parseInt(date, 10))
       }
-      else if (month) {
+      else if (isNumber(month)) {
         this.date.setMonth(parseInt(month, 10))
         this.dateLength = getDayLengthInMonth(
           this.date.getFullYear(),
           parseInt(month, 10)
         )
       }
-      else if (year) {
+      else if (isNumber(year)) {
         this.date.setFullYear(parseInt(year, 10))
         this.dateLength = getDayLengthInMonth(
           parseInt(year, 10),
           this.date.getMonth()
         )
       }
-      this.$emit('change', { target, value: this.date })
+      const updateEvent = { value: this.date }
+      console.log(updateEvent)      
+      this.$emit('change', updateEvent)
+      this.$emit('input', updateEvent)
     }
   },
+
   render(e) {
+    console.log('DATE', this.date)
     return e('div', { staticClass: 'input input-date is-frameless' }, [
       e('input-select', {
         staticClass: 'input-date-date',
@@ -50,7 +69,7 @@ export default {
           options: createArrayWithLength(this.dateLength).map((_, i) => i + 1)
         },
         on: {
-          change: ({ target, value }) => this.update({ target, date: value })
+          change: ({ value }) => this.update({ date: value })
         }
       }),
       e('input-select', {
@@ -60,17 +79,17 @@ export default {
           options: months
         },
         on: {
-          change: ({ target, value }) => this.update({ target, month: months.indexOf(value) })
+          change: ({ value }) => this.update({ month: months.indexOf(value) })
         }
       }),
       e('input-select', {
         staticClass: 'input-date-year',
         props: {
           value: this.date.getFullYear(),
-          options: createArrayWithLength(20).map((_, i) => i + 1990)
+          options: createArrayWithLength(this.yearOptionLength).map((_, i) => i + this.minYear)
         },
         on: {
-          change: ({ target, value }) => this.update({ target, year: value })
+          change: ({ value }) => this.update({ year: value })
         }
       }),
     ])

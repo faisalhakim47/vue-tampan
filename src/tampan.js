@@ -1,5 +1,5 @@
 import { installComponents } from './global'
-import { getClienInfo } from './tools/client-platform-info'
+import { getClienDeviceInfo } from './tools/client-device-info'
 import { randomChar } from './tools/string'
 import { toggleFullscreen, getFullscreenStatus } from './tools/fullscreen'
 import { initialLayout } from './layout'
@@ -28,7 +28,7 @@ export function VueTampan(RootComponent) {
 
   if (!Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
 
-  const client = getClienInfo()
+  const client = getClienDeviceInfo()
 
   const Tampan = {
     data() {
@@ -51,7 +51,8 @@ export function VueTampan(RootComponent) {
     computed: {
       isSidebarShow() {
         // I know it is dumb but it is easier for human to understand.
-        if (this.sidebarMenus.length === 0) return false
+        const isSidebarMenuExist = this.sidebarMenus.length !== 0
+        if (!isSidebarMenuExist) return false
         if (this.isSidebarEnabled) return true
       }
     },
@@ -103,10 +104,16 @@ export function VueTampan(RootComponent) {
         this.reduceOverlayState()
       },
       useLoadingState(promiseWork) {
-        this.useOverlayState(promiseWork)
-        promiseWork.then(() => this.reduceLoadingState())
-        promiseWork.catch(() => this.reduceLoadingState())
-        this.addLoadingState()
+        const timer = setTimeout(() => {
+          this.addLoadingState()
+          this.useOverlayState(promiseWork)
+        }, 240)
+        const finish = () => {
+          this.reduceLoadingState()
+          clearTimeout(timer)
+        }
+        promiseWork.then(finish)
+        promiseWork.catch(finish)
         return promiseWork
       },
 

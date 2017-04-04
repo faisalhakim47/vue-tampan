@@ -16,10 +16,13 @@ export default {
 
   methods: {
     change({ target }) {
-      const value = this.valueType === 'number'
-        ? parseInt(target.value, 10)
-        : target.value
-      this.$emit('change', { value, target })
+      const numberValue = parseInt(target.value, 10)
+      const value = isNaN(numberValue)
+        ? target.value
+        : numberValue
+        const updateEvent = { value }
+      this.$emit('change', updateEvent)
+      this.$emit('input', updateEvent)
     }
   },
 

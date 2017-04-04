@@ -15,8 +15,10 @@ export default {
     }
   },
   methods: {
-    change(val) {
-      this.$emit('change', val)
+    change({ value }) {
+      const updateEvent = { value }
+      this.$emit('change', updateEvent)
+      this.$emit('input', updateEvent)
     }
   },
   render(e) {
@@ -39,7 +41,7 @@ export default {
           e('label', {
             attrs: { for: id },
             on: {
-              click: ({ target }) => this.change({ target, value: opt.value })
+              click: () => this.change({ value: opt.value })
             }
           }, [
               opt.label

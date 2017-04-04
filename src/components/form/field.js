@@ -1,12 +1,12 @@
 export default {
   name: 'field',
-  functional: true,
   props: {
     label: { type: String },
     info: { type: String },
     direction: { type: String, default: 'vertical' }
   },
-  render(e, { props, children }) {
+  render(e) {
+    const { $props: props } = this
     return e('div', {
       staticClass: 'field',
       class: { 'is-inline': props.direction === 'horizontal' }
@@ -17,7 +17,7 @@ export default {
         props.info
           ? e('div', { staticClass: 'field-info' }, [e('p', props.info)])
           : '',
-        e('div', { staticClass: 'field-input' }, children)
+        e('div', { staticClass: 'field-input' }, this.$slots.default)
       ])
   }
 }

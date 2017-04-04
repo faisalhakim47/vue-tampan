@@ -1,5 +1,4 @@
 .button {
-  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -16,6 +15,10 @@
   color: #616161;
 }
 
+.button:not(:disabled) {
+  cursor: pointer;
+}
+
 .button,
 .button > span {
   text-transform: uppercase;
@@ -29,7 +32,7 @@
   background-color: #EEEEEE;
 }
 
-.button:active {
+.button:active:not(:disabled) {
   transform: scale(.96);
 }
 
@@ -62,8 +65,13 @@
   color: #fff;
 }
 
-.button.is-positive:hover {
+.button:not(:disabled).is-positive:hover {
   background-color: #43A047;
+}
+
+.button:disabled {
+  background-color: #9E9E9E;
+  color: #ECEFF1;
 }
 
 .button.is-negative {

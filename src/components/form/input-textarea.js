@@ -6,7 +6,7 @@ export default {
   methods: {
     input({ target }) {
       const { value } = target
-      this.$emit('input', { value, target })
+      this.$emit('input', { value })
     }
   },
   render(e) {

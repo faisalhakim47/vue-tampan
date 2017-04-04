@@ -37,12 +37,16 @@
 }
 
 .overlay-fade-enter-active {
+  transition-timing-function: ease-in-out;
   transition-property: opacity;
-  transition-duration: 1000ms;
+  transition-duration: 1200ms;
 }
 
 .overlay-fade-leave-active {
+  transition-timing-function: ease-in-out;
+  transition-property: opacity;
   transition-duration: 300ms;
+  transition-delay: 100ms;
 }
 
 .overlay-fade-enter, .overlay-fade-leave-to {

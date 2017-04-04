@@ -8,23 +8,10 @@
         }
       }
     ]
-    // "babili"
   ],
   "plugins": [
     // [
     //   "transform-remove-console"
-    // ],
-    [
-      "transform-object-rest-spread",
-      {
-        "useBuiltIns": true
-      }
-    ]
-  ],
-  "comments": false,
-  "env": {
-    "production": {
-      "presets": []
-    }
-  }
+    // ]
+  ]
 }

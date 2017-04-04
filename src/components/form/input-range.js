@@ -10,7 +10,9 @@ export default {
   methods: {
     change({ target }) {
       const value = parseInt(target.value, 10)
-      this.$emit('change', { value, target })
+      const updateEvent = { value }
+      this.$emit('change', updateEvent)
+      this.$emit('input', updateEvent)
     }
   },
 

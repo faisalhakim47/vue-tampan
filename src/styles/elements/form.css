@@ -1,3 +1,20 @@
+fieldset {
+  padding: 12px 20px 24px;
+  margin: 8px 0px;
+  border-radius: 2px;
+}
+
+.is-smallscreen fieldset {
+  padding: 6px 10px 12px;
+  margin: 8px 0px;
+}
+
+fieldset > legend {
+  font-size: 18px;
+  margin-left: -4px;
+  padding: 4px;
+}
+
 input, select, textarea {
   color: #424242;
 }
@@ -37,12 +54,13 @@ td > .field {
 .field-input .input {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
+  padding: 8px 10px;
   outline: none;
   box-shadow: 0px 0px 12px 0px #fafafa inset;
   background-color: #fdfdfd;
   border: 1px solid #BDBDBD;
   border-radius: 2px;
+  font-size: 14px;
 }
 
 .field-input > input:disabled,

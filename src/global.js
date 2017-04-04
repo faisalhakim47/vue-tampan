@@ -1,4 +1,5 @@
 import Field from './components/form/field'
+import InputAddress from './components/form/input-address'
 import InputText from './components/form/input-text'
 import InputTextarea from './components/form/input-textarea'
 import InputSelect from './components/form/input-select'
@@ -11,6 +12,7 @@ import TableView from './components/table-view'
 
 export function installComponents(Vue) {
   Vue.component('field', Field)
+  Vue.component('input-address', InputAddress)
   Vue.component('input-text', InputText)
   Vue.component('input-textarea', InputTextarea)
   Vue.component('input-select', InputSelect)
@@ -22,8 +24,10 @@ export function installComponents(Vue) {
   Vue.component('table-view', TableView)
 
   Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
-    req(this.$route)
-      .then(data => map(this, data))
+    const Request = typeof req === 'function'
+      ? req(this.$route)
+      : req
+    Request.then(data => map(this, data))
       .catch((error) => {
         const { status } = error.response
         const tampan = getTampan()
