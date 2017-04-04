@@ -1,5 +1,5 @@
 # Contoh Tampilan
 
 <p align="center">
-  <img src="http://s.4cdn.org/image/title/105.gif">
+  <img src="https://raw.githubusercontent.com/faisalhakim47/vue-tampan/master/static/screenshot.png">
 </p>
