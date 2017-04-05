@@ -18,6 +18,7 @@
 /* COMPONENTS */
 @import './components/notification.css';
 @import './components/confirmation.css';
+@import './components/input-autotext.css';
 @import './components/loading.css';
 @import './components/overlay.css';
 @import './components/table-view.css';

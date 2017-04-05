@@ -1,13 +1,19 @@
 export function throttle(func, duration = 100) {
   let isThrotted = false
-  let isPending = false
-  return () => {
-    if (isThrotted) return isPending = true
+  let pendingFunc = false
+  const throttledFunc = function (...args) {
+    if (isThrotted) {
+      return pendingFunc = () => throttledFunc.apply(this, args)
+    }
     isThrotted = true
     setTimeout(() => {
-      if (isPending) func()
       isThrotted = false
+      if (typeof pendingFunc === 'function') {
+        pendingFunc()
+      }
+      pendingFunc = false
     }, duration)
-    func()
+    func.apply(this, args)
   }
+  return throttledFunc
 }

@@ -81,7 +81,8 @@ td > .field {
 .field-input .input:focus {
   border-color: #fff;
   background-color: #fff;
-  box-shadow: 0 0 4px 0px #0288D1;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.4), 0 0px 1px 0 rgba(0,0,0,.2), 0 1px 1px -1px rgba(0,0,0,.15);
+  /*box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);*/
 }
 
 .field-info > p {

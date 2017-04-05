@@ -1,5 +1,6 @@
 export default {
   name: 'input-text',
+
   props: {
     value: { type: String },
     type: { type: String },
