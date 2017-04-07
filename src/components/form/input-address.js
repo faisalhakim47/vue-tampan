@@ -18,12 +18,6 @@ export default {
     }
   },
 
-  // computed: {
-  //   objectValue() {
-  //     return JSON.parse(this.value)
-  //   }
-  // },
-
   methods: {
     update(patchAddress) {
       const newAddress = Object.assign(this.objectValue, patchAddress)
@@ -34,7 +28,7 @@ export default {
 
   render(e) {
     const isSmallScreen = this.$tampan.client.isSmallScreen
-    const smallcreenSparator = isSmallScreen
+    const smallscreenSparator = isSmallScreen
       ? e('div', {
         attrs: { style: 'width: 100%; height: 8px;' }
       })
@@ -54,7 +48,7 @@ export default {
           on: { input: ev => this.update({ street: ev.value }) }
         }),
 
-        smallcreenSparator,
+        smallscreenSparator,
 
         e('input-text', {
           attrs: { style: isSmallScreen ? 'width: 49%' : 'width: 17%;' },
@@ -76,7 +70,7 @@ export default {
           on: { input: ev => this.update({ village: ev.value }) }
         }),
 
-        smallcreenSparator,
+        smallscreenSparator,
 
         e('input-text', {
           attrs: { style: isSmallScreen ? 'width: 100%;' : 'width: 49.5%;' },

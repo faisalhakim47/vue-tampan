@@ -1,6 +1,6 @@
 import Field from './components/form/field'
 import InputAddress from './components/form/input-address'
-import InputAutotextRemote from './components/form/input-autotext-remote'
+import InputAutotext from './components/form/input-autotext'
 import InputText from './components/form/input-text'
 import InputTextarea from './components/form/input-textarea'
 import InputSelect from './components/form/input-select'
@@ -14,7 +14,7 @@ import TableView from './components/table-view'
 export function installComponents(Vue) {
   Vue.component('field', Field)
   Vue.component('input-address', InputAddress)
-  Vue.component('input-autotext-remote', InputAutotextRemote)
+  Vue.component('input-autotext', InputAutotext)
   Vue.component('input-text', InputText)
   Vue.component('input-textarea', InputTextarea)
   Vue.component('input-select', InputSelect)

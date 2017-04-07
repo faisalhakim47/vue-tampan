@@ -10,12 +10,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack --config webpack.config.js --watch --progress & live-server --host='0.0.0.0'",
+    "dev": "webpack --config webpack.config.js --watch & live-server --host='0.0.0.0'",
     "prepublish": "npm run build"
-  },
-  "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
