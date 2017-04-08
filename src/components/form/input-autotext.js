@@ -1,5 +1,4 @@
 import { isString } from '../../tools/typecheck'
-import { throttle } from '../../tools/throttle'
 
 export default {
   name: 'input-autotext',
@@ -18,16 +17,6 @@ export default {
       isFocusList: false,
       isMouseoverList: false,
       activeItemIndex: 0,
-      provideSuggestions: throttle((text = '') => {
-        let providing = this.suggestionProvider(text)
-        if (!(providing instanceof Promise)) {
-          providing = Promise.resolve(providing)
-        }
-        providing.then((suggestions) => {
-          this.resetActiveItemIndex()
-          this.availableSuggestions = suggestions
-        })
-      }, 750),
       availableSuggestions: []
     }
   },
@@ -51,6 +40,18 @@ export default {
   },
 
   methods: {
+    provideSuggestions(text = '') {
+      let providing = this.suggestionProvider(text)
+      if (!(providing instanceof Promise)) {
+        providing = Promise.resolve(providing)
+      }
+      providing.then((suggestions) => {
+        if (!Array.isArray(suggestions)) return
+        this.resetActiveItemIndex()
+        this.availableSuggestions = suggestions
+      })
+    },
+
     input({ target }) {
       this.$emit('input', { value: target.value })
       this.provideSuggestions(target.value)

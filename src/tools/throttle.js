@@ -1,9 +1,11 @@
 export function throttle(func, duration = 100) {
   let isThrotted = false
   let pendingFunc = false
+  let lastValue = null
   const throttledFunc = function (...args) {
     if (isThrotted) {
-      return pendingFunc = () => throttledFunc.apply(this, args)
+      pendingFunc = () => throttledFunc.apply(this, args)
+      return lastValue
     }
     isThrotted = true
     setTimeout(() => {
@@ -13,7 +15,7 @@ export function throttle(func, duration = 100) {
       }
       pendingFunc = false
     }, duration)
-    func.apply(this, args)
+    return lastValue = func.apply(this, args)
   }
   return throttledFunc
 }

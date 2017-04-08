@@ -1,6 +1,7 @@
 .input-autotext-list-container {
   position: relative;
   height: 0px;
+  top: 4px;
 }
 
 .input-autotext-list {
@@ -9,7 +10,7 @@
   margin-top: 0px;
   margin-bottom: 0px;
   background-color: #FFF;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.4), 0 0px 1px 0 rgba(0,0,0,.2), 0 1px 1px -1px rgba(0,0,0,.15);
 }
 
 .input-autotext-nosuggestion {
@@ -23,6 +24,14 @@
   padding: 8px;
 }
 
-.input-autotext-item.active {
+.is-smallscreen .input-autotext-item + .input-autotext-item {
+  border-top: 1px solid #b1b1b1;
+}
+
+.is-smallscreen .input-autotext-item {
+  padding: 14px;
+}
+
+#app:not(.is-smallscreen) .input-autotext-item.active {
   background-color: #CFD8DC;
 }
