@@ -108,7 +108,9 @@ export default {
       this.activeItemIndex = index
     },
 
-    clickItem() {
+    clickItem(index) {
+      this.activeItemIndex = index
+      this.isMouseoverList = false
       this.selectItem()
     },
 
@@ -188,7 +190,7 @@ export default {
                 return e('li', {
                   staticClass: 'input-autotext-item',
                   on: {
-                    click: () => this.clickItem(),
+                    click: () => this.clickItem(index),
                     mouseenter: () => this.mouseenterItem(index),
                   }
                 }, [

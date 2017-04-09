@@ -23,9 +23,9 @@ export default {
       e('div', { staticClass: 'app-container' }, [
         e('MainHeader'),
         e('div', { staticClass: 'main-content' }, [
-          e('transition', { props: { name: 'content-fade', mode: 'out-in' } }, [
-            e('router-view')
-          ])
+          // e('transition', { props: { name: 'content-fade', mode: 'out-in' } }, [
+          e('router-view')
+          // ])
         ]),
         e('MainSidebar')
       ]),

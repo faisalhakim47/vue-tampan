@@ -8,14 +8,14 @@ export default {
             const isSameDomainRoute = menu.path.indexOf('http') !== 0
             return isSameDomainRoute
               ? e('router-link', {
-                staticClass: 'menu-item ripple',
+                staticClass: 'menu-item',
                 attrs: { to: menu.path }
               }, [
                   e('i', { staticClass: 'menu-item-icon ' + menu.iconClass }, menu.iconText),
                   e('span', { staticClass: 'menu-item-name' }, menu.name)
                 ])
               : e('a', {
-                staticClass: 'menu-item ripple',
+                staticClass: 'menu-item',
                 attrs: { href: menu.path, title: menu.name }
               }, [
                   e('i', { staticClass: 'menu-item-icon ' + menu.iconClass }, menu.iconText),
