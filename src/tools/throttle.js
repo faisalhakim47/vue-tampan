@@ -2,9 +2,11 @@ export function throttle(func, duration = 100) {
   let isThrotted = false
   let pendingFunc = false
   let lastValue = null
-  const throttledFunc = function (...args) {
+  function throttledFunc(...args) {
     if (isThrotted) {
-      pendingFunc = () => throttledFunc.apply(this, args)
+      pendingFunc = () => {
+        return throttledFunc.apply(this, args)
+      }
       return lastValue
     }
     isThrotted = true

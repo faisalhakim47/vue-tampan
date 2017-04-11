@@ -2,7 +2,7 @@ export default {
   name: 'input-text',
 
   props: {
-    value: { type: String },
+    value: { type: [String, Number] },
     type: { type: String },
     placeholder: { type: String },
   },
@@ -18,7 +18,7 @@ export default {
     return e('input', {
       staticClass: 'input input-text',
       attrs: { type: this.type || 'text', placeholder: this.placeholder || '' },
-      domProps: { value: this.value },
+      domProps: { value: '' + this.value },
       on: { input: this.input }
     })
   }

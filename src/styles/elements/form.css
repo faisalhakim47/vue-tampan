@@ -29,6 +29,10 @@ textarea {
   padding-bottom: 8px;
 }
 
+.table-view-search-box .field {
+  padding: 0px;
+}
+
 td > .field {
   padding: 0px 12px;
 }

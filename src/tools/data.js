@@ -7,39 +7,44 @@ export function addAsyncRouteDataErrorHandler(errorHandlerFn) {
   globalErrorHandlers.push(errorHandlerFn)
 }
 
-export function loadAsyncRouteData(dataRequests) {
+export function loadAsyncRouteData(reqObjects) {
   return (destination, origin, next, optional = {}) => {
-    const reqs = dataRequests.map((reqObject) => {
-      const Request = typeof reqObject === 'function'
+    // This is weird. Inside of this function, error doesnt thrown.
+    // Uncomment throw statement below and it will be ignored
+    /* throw { test: true } */
+
+    const reqs = reqObjects.map((reqObject) => {
+      const Request = typeof reqObject.req === 'function'
         ? reqObject.req(destination)
         : reqObject.req
       return Request.catch((error) => {
         const isErrorHandlerExist = typeof reqObject.err === 'function'
         const errorPromise = isErrorHandlerExist
-          ? reqObject.err(error, destination)
+          ? Promise.resolve(reqObject.err(error, destination))
           : Promise.resolve()
-        const isErrorThenable = !!errorPromise.then
-        const thenableError = (fn) => {
-          isErrorThenable
-            ? errorPromise.then(() => fn(error, destination))
-            : fn(error, destination)
-        }
-        globalErrorHandlers.forEach((globalErrorHandlerFn) => thenableError(globalErrorHandlerFn))
+        globalErrorHandlers.forEach((globalErrorHandlerFn) => {
+          errorPromise.then(() => globalErrorHandlerFn(error, destination))
+        })
       })
     })
-    const dataMaps = dataRequests.map((reqObject) => reqObject.map)
+
+    const dataMappers = reqObjects.map((reqObject) => reqObject.map)
+
     const reqsPromise = Promise.all(reqs)
       .then((dataResults) => {
-        const proccesMapping = (vm) => dataMaps.forEach((asyncDataMapper, i) => {
-          const data = dataResults[i]
+        const doDataMapping = (vm) => dataMappers.forEach((dataMapper, index) => {
+          const data = dataResults[index]
           if (typeof data !== 'object') return
-          asyncDataMapper(vm, data)
+          dataMapper(vm, data)
         })
         const isOptionalVMExist = !!optional.vm
         next(
-          isOptionalVMExist ? proccesMapping(optional.vm) : proccesMapping
+          isOptionalVMExist
+            ? doDataMapping(optional.vm)
+            : (vm) => doDataMapping(vm)
         )
       })
+
     whenTampanReady()
       .then(({ tampan }) => {
         tampan.useLoadingState(reqsPromise)

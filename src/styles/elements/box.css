@@ -97,7 +97,7 @@
   padding: 0px 24px;
 }
 
-.box-body:last-child {
+.box-header + .box-body:last-child {
   padding-bottom: 16px !important;
 }
 

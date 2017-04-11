@@ -1,3 +1,4 @@
+export { tableViewDataFactory } from './components/table-view'
 export * from './tools/array'
 export * from './tools/data'
 export * from './tools/date'

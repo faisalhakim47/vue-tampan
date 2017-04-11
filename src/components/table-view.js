@@ -2,13 +2,36 @@ import { createArrayWithLength, ensureArrayType } from '../tools/array'
 import { longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
 
+export function tableViewDataFactory({ items, indexMap }) {
+  const indexedItems = items
+    .map(indexMap)
+    .map((searchTerm, index) => {
+      return Object.assign(
+        {
+          _searchTerm: searchTerm,
+          _index: index
+        },
+        items[index]
+      )
+    })
+  return ({ query, skip, limit }) => {
+    const queryRx = new RegExp(query, 'i')
+    const filteredItems = query && typeof query === 'string'
+      ? indexedItems.filter((indexedItem) => {
+        return queryRx.test(indexedItem._searchTerm)
+      })
+      : indexedItems
+    const slicedItems = filteredItems.slice(skip, skip + limit)
+    return slicedItems
+  }
+}
+
 export default {
   name: 'table-view',
 
   props: {
-    items: { type: Array, required: true },
+    dataProvider: { type: Function, required: true },
     emptyText: { type: String },
-    indexes: { type: Array, default: () => [] },
     columnMap: { type: Object, required: true },
     columnWidth: { type: Array, default: () => [] },
     controls: { type: Array, default: () => [] },
@@ -19,20 +42,22 @@ export default {
     onSelectedChange: { type: Function },
     pagination: { type: Boolean, default: true },
     limitation: { type: Boolean, default: true },
+    searchable: { type: Boolean, default: false },
     selectable: { type: String, default: 'none' }
   },
 
   data() {
-    const indexes = this.indexes || []
     const columnTitles = Object.keys(this.columnMap)
+
     return {
       columnTitles,
-      sortBy: null,
-      sortDirection: 'asc',
+      items: [],
+      selectedItems: [],
+      query: '',
       skip: 0,
       limit: this.defaultRowLimit,
-      query: '',
-      selectedItems: []
+      sortBy: null,
+      sortDirection: 'asc',
     }
   },
 
@@ -45,12 +70,12 @@ export default {
       return this.items.length === 0
     },
 
-    isIndexed() {
-      return !!this.indexes.length
-    },
-
     isClickableRow() {
       return this.isSelecting || !!this.onRowClick
+    },
+
+    isSearching() {
+      return typeof this.query === 'string' && this.query.length > 0
     },
 
     isSelecting() {
@@ -62,7 +87,7 @@ export default {
     },
 
     isPaginated() {
-      return this.pagination && this.items.length >= this.limit
+      return this.pagination
     },
 
     columnLength() {
@@ -71,51 +96,11 @@ export default {
       return length
     },
 
-    indexedItems() {
-      const indexes = this.indexes || []
-      return this.items.map((item, index) => {
-        return Object.assign(
-          {},
-          {
-            _fulltext_: indexes.map((key) => item[key]).join(' '),
-            _key_: index
-          },
-          item
-        )
-      })
-    },
-
-    sortedItems() {
-      if (this.sortBy === null)
-        return this.indexedItems
-      if (this.sortDirection === 'asc')
-        return this.indexedItems
-          .sort((a, b) => a[this.sortBy] > a[this.sortBy])
-      if (this.sortDirection === 'des')
-        return this.indexedItems
-          .sort((a, b) => a[this.sortBy] < a[this.sortBy])
-    },
-
-    filteredItems() {
-      if (!isString(this.query) || this.query === '')
-        return this.sortedItems
-      const filterRex = new RegExp(this.query, 'i')
-      return this.sortedItems.filter(item => {
-        return filterRex.test(item._fulltext_)
-      })
-    },
-
-    slicedItems() {
-      if (!this.isPaginated) return this.filteredItems
-      return this.filteredItems.slice(this.skip, this.skip + this.limit)
-    },
-
     additionalRowsArray() {
-      const itemsLength = this.slicedItems.length
-      if (!this.isPaginated || !this.fixedRowNumber || itemsLength === this.limit) {
+      if (!this.isPaginated || !this.fixedRowNumber) {
         return []
       }
-      return createArrayWithLength(this.limit - itemsLength)
+      return createArrayWithLength(this.limit - this.items.length)
     },
 
     paginationLimitOptions() {
@@ -125,7 +110,7 @@ export default {
     },
 
     availableControls() {
-      return this.controls.filter(control => control)
+      return this.controls.filter(control => !!control)
     },
 
     bottomLeftControls() {
@@ -143,24 +128,56 @@ export default {
         this.selectedItems.splice(index, 1)
       }
     },
+
     nextPage() {
       if (this.skip + this.limit >= this.filteredItems.length) return
       this.skip += this.limit
     },
+
     prevPage() {
       if (this.skip - this.limit < 0) return
       this.skip -= this.limit
+    },
+
+    generateData() {
+      const finding = this.dataProvider({
+        query: this.query,
+        skip: this.skip,
+        limit: this.limit,
+      })
+      if (finding instanceof Promise) {
+        this.$tampan.useLoadingState(finding)
+      }
+      Promise.resolve(finding)
+        .then((resultItems) => {
+          this.items = resultItems
+        })
     }
   },
 
   watch: {
     'selectedItems'() {
       this.onSelectedChange(this.selectedItems)
+    },
+    'dataProvider'() {
+      this.generateData()
+    },
+    'query'() {
+      this.generateData()
+    },
+    'skip'() {
+      this.generateData()
+    },
+    'limit'() {
+      this.generateData()
     }
   },
 
+  mounted() {
+    this.generateData()
+  },
+
   render(e) {
-    console.log('table-view')
     return e('div', {
       staticClass: 'table-view',
       class: {
@@ -179,13 +196,18 @@ export default {
                 ? e('th', { attrs: { style: `width:32px` } })
                 : null
             ]),
-            // e('tr', { staticClass: 'table-view-search-box' }, [
-            //   e('th', { attrs: { colspan: this.columnLength } }, [
-            //     e('field', [
-            //       e('input-text')
-            //     ])
-            //   ])
-            // ])
+            this.searchable
+              ? e('tr', { staticClass: 'table-view-search-box' }, [
+                e('th', { attrs: { colspan: this.columnLength } }, [
+                  e('field', [
+                    e('input-text', {
+                      props: { value: this.query },
+                      on: { input: ev => this.query = ev.value },
+                    })
+                  ])
+                ])
+              ])
+              : null
           ]),
           e('tbody',
             this.isEmpty
@@ -194,12 +216,16 @@ export default {
                   e('td', {
                     attrs: { colspan: this.columnLength.toString(), style: 'text-align: center;' }
                   }, [
-                      e('em', this.emptyText || 'Belum ada daftar.')
+                      e('em', [
+                        this.isSearching
+                          ? 'Hasil pencarian tidak ditemukan.'
+                          : (this.emptyText || 'Belum ada daftar.')
+                      ])
                     ])
                 ])
               ]
               : [
-                ...this.slicedItems.map((item, index) => {
+                ...this.items.map((item, index) => {
                   return e('tr', {
                     class: {
                       'is-selected': this.selectedItems.indexOf(item) !== -1
