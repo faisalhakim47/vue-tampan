@@ -130,7 +130,7 @@ export default {
     },
 
     nextPage() {
-      if (this.skip + this.limit >= this.filteredItems.length) return
+      if (this.skip + this.limit >= this.items.length) return
       this.skip += this.limit
     },
 
