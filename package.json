@@ -1,6 +1,6 @@
 {
   "name": "vue-tampan",
-  "version": "1.4.3",
+  "version": "1.5.0",
   "description": "Vue Template",
   "author": "Faisal Hakim <faisalhakim47@gmail.com>",
   "main": "dist/vue-tampan.min.js",
@@ -19,6 +19,7 @@
     "babel-plugin-transform-remove-console": "^6.8.0",
     "babel-preset-env": "^1.1.8",
     "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "live-server": "^1.2.0",
     "style-loader": "^0.16.1",
