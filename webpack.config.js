@@ -25,9 +25,22 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader', {
+            loader: 'css-loader',
+            options: { minimize: true }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
         options: {
-          // vue-loader options
+          limit: 100
         }
       }
     ]

@@ -1,3 +1,4 @@
+import './styles/index.css'
 import Field from './components/form/field'
 import InputAddress from './components/form/input-address'
 import InputAutotext from './components/form/input-autotext'
