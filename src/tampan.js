@@ -89,8 +89,8 @@ export function VueTampan(RootComponent) {
         this.overlayCount -= this.overlayCount !== 0 ? 1 : 0
       },
       useOverlayState(promiseWork) {
-        promiseWork.then(() => this.reduceOverlayState())
-        promiseWork.catch(() => this.reduceOverlayState())
+        const finish = () => this.reduceOverlayState()
+        promiseWork.catch(finish).then(finish)
         this.addOverlayState()
         return promiseWork
       },
@@ -104,30 +104,29 @@ export function VueTampan(RootComponent) {
         this.reduceOverlayState()
       },
       useLoadingState(promiseWork) {
+        let isLoading = false
         const timer = setTimeout(() => {
           this.addLoadingState()
-          this.useOverlayState(promiseWork)
-        }, 240)
+          isLoading = true
+        }, 100)
         const finish = () => {
-          this.reduceLoadingState()
+          this.$nextTick().then(() => {
+            if (isLoading) this.reduceLoadingState()
+          })
           clearTimeout(timer)
         }
-        promiseWork.then(finish)
-        promiseWork.catch(finish)
+        promiseWork.catch(finish).then(finish)
         return promiseWork
       },
 
       confirm({
-        type = 'default',
-        title = 'Attention',
-        text = 'Are you sure?',
-        confirmText = 'Ok',
-        cancelText = 'Cancel'
+        text = 'Apakah anda yakin?',
+        confirmText = 'Oke',
+        cancelText = 'Batal'
       }) {
         const done = () => this.confirmation = null
         const confirmation = new Promise((resolve, reject) => {
           this.confirmation = {
-            type,
             text,
             confirmText,
             cancelText,

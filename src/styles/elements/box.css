@@ -59,10 +59,16 @@
   margin-bottom: 24px;
 }
 
+.boxes > .box:first-child,
+.boxes > .boxes-body:first-child > .box:first-child {
+  margin-top: 16px;
+}
+
 .box {
   margin-bottom: 24px;
-  box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+  /*box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);*/
   background-color: #fff;
+  border: 1px solid #E0E0E0;
 }
 
 .box-header,

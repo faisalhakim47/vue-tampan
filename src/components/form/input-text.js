@@ -2,7 +2,7 @@ export default {
   name: 'input-text',
 
   props: {
-    value: { type: [String, Number] },
+    value: { type: [String, Number], default: '' },
     type: { type: String },
     placeholder: { type: String },
   },

@@ -1,6 +1,5 @@
 export default {
   render(e) {
-    console.log('notification')
     return e('transition-group', {
       staticClass: 'notification-list',
       props: { name: 'notification-list', mode: 'out-in', tag: 'div' }

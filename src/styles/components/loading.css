@@ -28,7 +28,7 @@
   position: absolute;
   top: 0;
   background-color: #FAFAFA;
-  box-shadow: 0px 0px 12px 2px #BDBDBD;
+  box-shadow: 0px 0px 8px 2px #BDBDBD;
   border-radius: 100%;
   -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
   animation: sk-bounce 2.0s infinite ease-in-out;

@@ -5,22 +5,33 @@ export default {
         e('div', { staticClass: 'ganjel' }),
         e('div', { staticClass: 'sidebar-scroll-container' }, [
           e('nav', this.$tampan.sidebarMenus.map((menu) => {
-            const isSameDomainRoute = menu.path.indexOf('http') !== 0
-            return isSameDomainRoute
-              ? e('router-link', {
-                staticClass: 'menu-item',
-                attrs: { to: menu.path }
-              }, [
-                  e('i', { staticClass: 'menu-item-icon ' + menu.iconClass }, menu.iconText),
-                  e('span', { staticClass: 'menu-item-name' }, menu.name)
-                ])
-              : e('a', {
-                staticClass: 'menu-item',
-                attrs: { href: menu.path, title: menu.name }
-              }, [
-                  e('i', { staticClass: 'menu-item-icon ' + menu.iconClass }, menu.iconText),
-                  e('span', { staticClass: 'menu-item-name' }, menu.name)
-                ])
+            const route = menu.$route = menu.$route
+              || this.$router.options.routes.find((route) => {
+                return route.name === menu.route.name
+              })
+              || {
+                path: menu.path
+              }
+            const isSameDomainRoute = route.path.indexOf('http') !== 0
+            const activeClass = isSameDomainRoute && this.$route.path.indexOf(route.path) === 0
+              ? 'is-active' : ''
+            const href = isSameDomainRoute && this.$router.mode === 'hash'
+              ? `#${route.path}`
+              : route.path
+            return e('a', {
+              staticClass: `menu-item ${activeClass}`,
+              attrs: { href, title: menu.name },
+              on: {
+                click: ev => {
+                  if (!isSameDomainRoute) return
+                  ev.preventDefault()
+                  this.$router.push(route)
+                }
+              }
+            }, [
+                e('i', { staticClass: 'menu-item-icon ' + menu.iconClass }, menu.iconText),
+                e('span', { staticClass: 'menu-item-name' }, menu.name)
+              ])
           }))
         ])
       ]),

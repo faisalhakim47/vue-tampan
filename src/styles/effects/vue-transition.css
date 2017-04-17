@@ -11,13 +11,13 @@
 }
 
 .content-fade-enter-active, .content-fade-enter {
-  transition: all 100ms ease;
+  transition: all 100ms ease-in-out;
 }
 .content-fade-enter, .content-fade-leave-to {
   opacity: 0;
 }
 .content-fade-leave, .content-fade-leave-active {
-  transition: all 100ms ease;
+  transition: all 100ms ease-in-out;
 }
 
 .loading-fade-enter-active, .loading-fade-leave-active {

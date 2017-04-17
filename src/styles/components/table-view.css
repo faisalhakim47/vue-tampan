@@ -46,13 +46,13 @@
 }
 
 .table-view th {
-  border-top: 1px solid #e0e0e0;
-  background-color: #f5f5f5;
+  border-top: 1px solid #E0E0E0;
+  background-color: #F5F5F5;
 }
 
 .table-view th:not(:first-child),
 #app:not(.is-smallscreen) .table-view td:not(:first-child) {
-  border-left: 1px solid #e0e0e0;
+  border-left: 1px solid #E0E0E0;
 }
 
 #app:not(.is-smallscreen) .table-view .table tr.empty-row-text:hover {
@@ -71,8 +71,8 @@
 }
 
 #app:not(.is-smallscreen) .table-view tbody > tr:hover:not(.additional-row) {
-  background-color: #E0E0E0;
-  border-bottom: 1px solid #E0E0E0;
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
 }
 
 .table-view tr.is-selected {

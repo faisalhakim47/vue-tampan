@@ -33,7 +33,7 @@ export default {
     dataProvider: { type: Function, required: true },
     emptyText: { type: String },
     columnMap: { type: Object, required: true },
-    columnWidth: { type: Array, default: () => [] },
+    columnWidth: { type: Object, default: () => ({}) },
     controls: { type: Array, default: () => [] },
     defaultRowLimit: { type: Number, default: 10 },
     fixedRowNumber: { type: Boolean, default: true },
@@ -48,7 +48,6 @@ export default {
 
   data() {
     const columnTitles = Object.keys(this.columnMap)
-
     return {
       columnTitles,
       items: [],
@@ -56,6 +55,7 @@ export default {
       query: '',
       skip: 0,
       limit: this.defaultRowLimit,
+      loadCount: 0,
       sortBy: null,
       sortDirection: 'asc',
     }
@@ -90,6 +90,25 @@ export default {
       return this.pagination
     },
 
+    isLoading() {
+      return this.loadCount !== 0
+    },
+
+    currentColumnWidth() {
+      const defaultColumnWidth = this.columnWidth.default || []
+      return this.$tampan.client.isLargeScreen
+        ? (this.columnWidth.largescreen || defaultColumnWidth)
+        : (
+          this.$tampan.client.isMediumScreen
+            ? (this.columnWidth.madiumscreen || defaultColumnWidth)
+            : (
+              this.$tampan.client.isSmallScreen
+                ? (this.columnWidth.smallscreen || defaultColumnWidth)
+                : defaultColumnWidth
+            )
+        )
+    },
+
     columnLength() {
       let length = this.columnTitles.length
       if (this.isShowClickableArrowIcon) length++
@@ -104,9 +123,9 @@ export default {
     },
 
     paginationLimitOptions() {
-      const options = createArrayWithLength(10).map((_, i) => ((i + 1) * 10))
+      const options = [5, 10, 25, 50, 100]
       if (options.indexOf(this.defaultRowLimit) === -1) options.unshift(this.defaultRowLimit)
-      return options
+      return options.sort((a, b) => a - b)
     },
 
     availableControls() {
@@ -130,7 +149,8 @@ export default {
     },
 
     nextPage() {
-      if (this.skip + this.limit >= this.items.length) return
+      // if (this.skip + this.limit >= this.items.length) return
+      if (this.isLoading) return
       this.skip += this.limit
     },
 
@@ -140,18 +160,24 @@ export default {
     },
 
     generateData() {
-      const finding = this.dataProvider({
-        query: this.query,
-        skip: this.skip,
-        limit: this.limit,
-      })
+      const finding = Promise.resolve(
+        this.dataProvider({
+          query: this.query,
+          skip: this.skip,
+          limit: this.limit,
+        })
+      )
       if (finding instanceof Promise) {
         this.$tampan.useLoadingState(finding)
       }
-      Promise.resolve(finding)
-        .then((resultItems) => {
-          this.items = resultItems
-        })
+      finding.then((resultItems) => {
+        this.items = resultItems
+        this.loadCount--
+      })
+      finding.catch(() => {
+        this.loadCount--
+      })
+      this.loadCount++
     }
   },
 
@@ -188,8 +214,10 @@ export default {
           e('thead', [
             e('tr', [
               ...this.columnTitles.map((columnTitle, index) => {
+                const columnWidth = this.currentColumnWidth[index]
+                if (columnWidth === 0) return null
                 return e('th', {
-                  attrs: { style: this.columnWidth[index] ? `width:${this.columnWidth[index]}px` : null }
+                  attrs: { style: columnWidth ? `width:${columnWidth}px` : null }
                 }, columnTitle)
               }),
               this.isShowClickableArrowIcon
@@ -243,7 +271,8 @@ export default {
                       }
                     ])
                   }, [
-                      ...this.columnTitles.map((columnTitle) => {
+                      ...this.columnTitles.map((columnTitle, index) => {
+                        if (this.currentColumnWidth[index] === 0) return null
                         const columnMap = this.columnMap[columnTitle]
                         return e('td', ensureArrayType(columnMap(item, index, e)))
                       }),
@@ -255,7 +284,10 @@ export default {
                     ])
                 }),
                 this.additionalRowsArray.map(() => {
-                  return e('tr', { staticClass: 'additional-row' }, createArrayWithLength(this.columnLength).map(() => {
+                  return e('tr', {
+                    staticClass: 'additional-row'
+                  }, createArrayWithLength(this.columnLength).map((_, index) => {
+                    if (this.currentColumnWidth[index] === 0) return null
                     return e('td')
                   }))
                 })

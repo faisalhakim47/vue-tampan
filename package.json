@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack --config webpack.config.js --watch & live-server --host='0.0.0.0'",
+    "build-watch": "npm run build -- --watch",
+    "dev": "npm run build-watch & live-server --host='0.0.0.0'",
     "prepublish": "npm run build"
   },
   "devDependencies": {

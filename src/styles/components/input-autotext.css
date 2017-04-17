@@ -10,7 +10,9 @@
   margin-top: 0px;
   margin-bottom: 0px;
   background-color: #FFF;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.4), 0 0px 1px 0 rgba(0,0,0,.2), 0 1px 1px -1px rgba(0,0,0,.15);
+  border: 1px solid #E0E0E0;
+  border-radius: 2px;
+  /*box-shadow: 0 1px 3px 0 rgba(0,0,0,.4), 0 0px 1px 0 rgba(0,0,0,.2), 0 1px 1px -1px rgba(0,0,0,.15);*/
 }
 
 .input-autotext-nosuggestion {
