@@ -4,14 +4,13 @@ import { isString } from '../tools/typecheck'
 
 export function tableViewDataFactory({ items, indexMap }) {
   const indexedItems = items
-    .map(indexMap)
-    .map((searchTerm, index) => {
+    .map((item, index) => {
       return Object.assign(
         {
-          _searchTerm: searchTerm,
+          _searchTerm: indexMap(item),
           _index: index
         },
-        items[index]
+        item
       )
     })
   return ({ query, skip, limit }) => {

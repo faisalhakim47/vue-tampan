@@ -7,7 +7,9 @@ export default {
           e('nav', this.$tampan.sidebarMenus.map((menu) => {
             const route = menu.$route = menu.$route
               || this.$router.options.routes.find((route) => {
-                return route.name === menu.route.name
+                return typeof menu.route === 'object'
+                  ? (route.name === menu.route.name)
+                  : (route.path === menu.path)
               })
               || {
                 path: menu.path

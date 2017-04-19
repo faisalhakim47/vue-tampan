@@ -74,7 +74,7 @@ export function VueTampan(RootComponent) {
             title,
             text,
             key: (this.notifications.length) + '-' + randomChar(3),
-            callback: (index) => {
+            close: (index) => {
               this.notifications.splice(index, 1)
               this.$nextTick(resolve)
             }
@@ -119,34 +119,9 @@ export function VueTampan(RootComponent) {
         return promiseWork
       },
 
-      confirm({
-        text = 'Apakah anda yakin?',
-        confirmText = 'Oke',
-        cancelText = 'Batal'
-      }) {
-        const done = () => this.confirmation = null
-        const confirmation = new Promise((resolve, reject) => {
-          this.confirmation = {
-            text,
-            confirmText,
-            cancelText,
-            confirmCallback: () => {
-              resolve()
-              done()
-            },
-            cancelCallback: () => {
-              console.info('The promise rejection error below is totally normal.')
-              reject()
-              done()
-            }
-          }
-        })
-        this.useOverlayState(confirmation)
-        return confirmation
-      },
-
       createModal(modal) {
-        const modalPromise = new Promise((resolve) => {
+        const modalPromise = new Promise((resolve, reject) => {
+          modal.reject = reject
           modal.resolve = resolve
           this.modalList.push(modal)
         })
@@ -155,7 +130,73 @@ export function VueTampan(RootComponent) {
         })
         this.useOverlayState(modalPromise)
         return modalPromise
-      }
+      },
+
+      alert({
+        title = '',
+        text = '',
+        confirmText = 'Oke'
+      }) {
+        return this.createModal({
+          title,
+          body: e => e('p', text),
+          foot: (e, { resolve }) => e('div', {
+            attrs: {
+              style: 'display: flex; justify-content: flex-end;'
+            }
+          }, [
+              e('button', {
+                staticClass: 'button ripple',
+                on: { click: resolve }
+              }, confirmText),
+            ])
+        })
+      },
+
+      confirm({
+        title = '',
+        text = 'Apakah anda yakin?',
+        confirmText = 'Oke',
+        cancelText = 'Batal'
+      }) {
+        return this.createModal({
+          title,
+          body: e => e('p', text),
+          foot: (e, { resolve, reject }) => e('div', {
+            attrs: {
+              style: 'display: flex; justify-content: flex-end;'
+            }
+          }, [
+              e('button', {
+                staticClass: 'button ripple',
+                on: { click: reject }
+              }, cancelText),
+              e('button', {
+                staticClass: 'button ripple',
+                on: { click: resolve }
+              }, confirmText),
+            ])
+        })
+        // const done = () => this.confirmation = null
+        // const confirmation = new Promise((resolve, reject) => {
+        //   this.confirmation = {
+        //     text,
+        //     confirmText,
+        //     cancelText,
+        //     confirmCallback: () => {
+        //       resolve()
+        //       done()
+        //     },
+        //     cancelCallback: () => {
+        //       console.info('The promise rejection error below is totally normal.')
+        //       reject()
+        //       done()
+        //     }
+        //   }
+        // })
+        // this.useOverlayState(confirmation)
+        // return confirmation
+      },
     }
   }
 
