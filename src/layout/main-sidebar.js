@@ -14,10 +14,13 @@ export default {
               || {
                 path: menu.path
               }
-            const isSameDomainRoute = route.path.indexOf('http') !== 0
+            const isSameDomainRoute = !(
+              typeof route.path === 'string'
+              && route.path.indexOf('http') === 0
+            )
             const activeClass = isSameDomainRoute && this.$route.path.indexOf(route.path) === 0
               ? 'is-active' : ''
-            const href = isSameDomainRoute && this.$router.mode === 'hash'
+            const href = (isSameDomainRoute && this.$router.mode === 'hash')
               ? `#${route.path}`
               : route.path
             return e('a', {

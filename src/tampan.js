@@ -36,7 +36,6 @@ export function VueTampan(RootComponent) {
         client,
         modalList: [],
         notifications: [],
-        confirmation: null,
         loadingCount: 0,
         overlayCount: 0,
         isSidebarEnabled: client.isLargeScreen,
@@ -121,13 +120,15 @@ export function VueTampan(RootComponent) {
 
       createModal(modal) {
         const modalPromise = new Promise((resolve, reject) => {
-          modal.reject = reject
           modal.resolve = resolve
+          modal.reject = reject
           this.modalList.push(modal)
         })
-        modalPromise.then(() => {
+        const closeModal = () => {
           this.modalList.splice(this.modalList.indexOf(modal), 1)
-        })
+        }
+        modalPromise.then(closeModal)
+        modalPromise.catch(closeModal)
         this.useOverlayState(modalPromise)
         return modalPromise
       },
@@ -177,25 +178,6 @@ export function VueTampan(RootComponent) {
               }, confirmText),
             ])
         })
-        // const done = () => this.confirmation = null
-        // const confirmation = new Promise((resolve, reject) => {
-        //   this.confirmation = {
-        //     text,
-        //     confirmText,
-        //     cancelText,
-        //     confirmCallback: () => {
-        //       resolve()
-        //       done()
-        //     },
-        //     cancelCallback: () => {
-        //       console.info('The promise rejection error below is totally normal.')
-        //       reject()
-        //       done()
-        //     }
-        //   }
-        // })
-        // this.useOverlayState(confirmation)
-        // return confirmation
       },
     }
   }

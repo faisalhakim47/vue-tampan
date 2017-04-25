@@ -29,7 +29,7 @@ export default {
   name: 'table-view',
 
   props: {
-    dataProvider: { type: Function, required: true },
+    dataProvider: { type: [Function, Array], required: true },
     emptyText: { type: String },
     columnMap: { type: Object, required: true },
     columnWidth: { type: Object, default: () => ({}) },
@@ -159,13 +159,14 @@ export default {
     },
 
     generateData() {
-      const finding = Promise.resolve(
-        this.dataProvider({
+      const request = Array.isArray(this.dataProvider)
+        ? this.dataProvider
+        : this.dataProvider({
           query: this.query,
           skip: this.skip,
           limit: this.limit,
         })
-      )
+      const finding = Promise.resolve(request)
       if (finding instanceof Promise) {
         this.$tampan.useLoadingState(finding)
       }
