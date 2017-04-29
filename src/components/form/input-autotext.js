@@ -162,7 +162,7 @@ export default {
       e('input', {
         staticClass: 'input',
         attrs: { placeholder: this.placeholder || '' },
-        domProps: { value: this.value },
+        domProps: { value: this.value || '' },
         on: {
           input: this.input,
           keydown: this.keydown,

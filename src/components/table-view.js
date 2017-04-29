@@ -3,8 +3,12 @@ import { longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
 
 export function tableViewDataFactory({ items, indexMap }) {
+  const isIndexMapCallable = typeof indexMap === 'function'
   const indexedItems = items
     .map((item, index) => {
+      if (!isIndexMapCallable) {
+        return item
+      }
       return Object.assign(
         {
           _searchTerm: indexMap(item),
@@ -20,6 +24,7 @@ export function tableViewDataFactory({ items, indexMap }) {
         return queryRx.test(indexedItem._searchTerm)
       })
       : indexedItems
+    if (filteredItems.length <= skip) skip -= limit
     const slicedItems = filteredItems.slice(skip, skip + limit)
     return slicedItems
   }

@@ -12,7 +12,7 @@ export default {
   render(e) {
     return e('textarea', {
       staticClass: 'input input-textarea',
-      domProps: { value: this.value },
+      domProps: { value: '' + (this.value || '') },
       on: { input: this.input }
     })
   }

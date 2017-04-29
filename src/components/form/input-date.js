@@ -5,9 +5,7 @@ import InputSelect from './input-select'
 
 export default {
   props: {
-    value: {
-      validator: value => value instanceof Date
-    },
+    value: [String, Date],
     minYear: { type: Number, default: new Date().getFullYear() - 12 },
     maxYear: { type: Number, default: new Date().getFullYear() },
   },
@@ -15,10 +13,7 @@ export default {
   components: [InputSelect],
 
   data() {
-    let date = new Date(this.value || value)
-    if (date.toString() === 'Invalid Date') {
-      date = new Date()
-    }
+    const date = new Date()
     return {
       date,
       dateLength: getDayLengthInMonth(date.getFullYear(), date.getMonth())
@@ -34,7 +29,6 @@ export default {
   methods: {
     update({ date, month, year }) {
       console.log({ date, month, year })
-      console.log(this.date)
       if (isNumber(date)) {
         this.date.setDate(parseInt(date, 10))
       }
@@ -53,10 +47,18 @@ export default {
         )
       }
       const updateEvent = { value: this.date }
-      console.log(updateEvent)      
       this.$emit('change', updateEvent)
       this.$emit('input', updateEvent)
     }
+  },
+
+  mounted() {
+    this.$nextTick().then(() => {
+      this.date = new Date(this.value)
+      if (this.date.toString() === 'Invalid Date') {
+        this.date = new Date()
+      }
+    })
   },
 
   render(e) {

@@ -56,11 +56,11 @@ export function toTimeHour(date) {
   return `${toDigit(date.getHours(), 2)}:${toDigit(date.getMinutes(), 2)}`
 }
 
-export function toHTML5Date(date) {
+export function toISO8601(date) {
   return `${date.getFullYear()}-${toDigit(date.getMonth() + 1, 2)}-${toDigit(date.getDate(), 2)}`
 }
 
-export function fromHTML5Date(date) {
+export function fromISO8601(date) {
   date = date.split('-')
   return new Date(
     parseInt(date[0], 10),
