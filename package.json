@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-watch": "npm run build -- --watch",
-    "dev": "npm run build-watch & lite-server",
+    "dev": "npm run build-watch & http-server",
     "prepublish": "npm run build"
   },
   "devDependencies": {
@@ -22,7 +22,7 @@
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
-    "lite-server": "^2.3.0",
+    "http-server": "^0.10.0",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
     "vue": "^2.2.6",

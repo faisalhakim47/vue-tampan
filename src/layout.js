@@ -3,6 +3,15 @@ import { getClienDeviceInfo } from './tools/client-device-info'
 
 export function initialLayout(root, tampan) {
   const elApp = document.getElementById('app')
+  const elMainContainer = document.getElementById('main-container')
+  const isFirefox = typeof InstallTrigger !== 'undefined'
+
+  // fix firefox flexbox
+  if (isFirefox) {
+    tampan.$watch(() => {
+      elMainContainer.style.minHeight = `${tampan.client.height - 48}px`
+    })
+  }
 
   root.$watch('$route', () => {
     if (!tampan.client.isLargeScreen)
@@ -16,8 +25,6 @@ export function initialLayout(root, tampan) {
       isSmallScreen,
       height
     } = tampan.client
-
-    performance.mark('SATU')
 
     root.$nextTick().then(() => {
       if (isLargeScreen) elApp.classList.add('is-largescreen')

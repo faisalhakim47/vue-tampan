@@ -31,9 +31,6 @@ export default {
   ]),
   render(e) {
     return e('div', { staticClass: 'boxes' }, [
-      e('div', { staticClass: 'boxes-header' }, [
-        e('h2', { staticClass: 'boxes-title' }, 'Tabel')
-      ]),
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
           e('h3', { staticClass: 'box-title' }, 'Tabel Normal')
