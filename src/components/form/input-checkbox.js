@@ -5,7 +5,7 @@ export default {
   name: 'input-checkbox',
   props: {
     options: { type: Array, default: [] },
-    value: { type: String },
+    value: { type: Array },
     direction: { type: String, default: 'vertical' }
   },
   data() {

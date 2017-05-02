@@ -38,27 +38,31 @@ export function VueTampan(RootComponent) {
         notifications: [],
         loadingCount: 0,
         overlayCount: 0,
-        isSidebarEnabled: client.isLargeScreen,
+        isMainMenuEnabled: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
         brandName: 'VueTampan',
-        brandIconClass: 'material-icons',
-        brandIconText: 'face',
-        brandImageIconUrl: false
+        // brandIconClass: 'material-icons',
+        // brandIconText: 'face',
+        brandImageIconUrl: false,
+        themeColor: null,
       }
     },
 
     computed: {
-      isSidebarShow() {
+      isMainMenuShow() {
         // I know it is dumb but it is easier for human to understand.
-        const isSidebarMenuExist = this.sidebarMenus.length !== 0
-        if (!isSidebarMenuExist) return false
-        if (this.isSidebarEnabled) return true
+        const isMenuItemExist = this.menuItems.length !== 0
+        if (!isMenuItemExist) return false
+        if (this.isMainMenuEnabled) return true
+      },
+      isMainMenuToggleable() {
+        return !this.client.isLargeScreen
       }
     },
 
     methods: {
-      toggleSidebar() {
-        this.isSidebarEnabled = !this.isSidebarEnabled
+      toggleMainMenu() {
+        this.isMainMenuEnabled = !this.isMainMenuEnabled
       },
 
       toggleFullscreen() {

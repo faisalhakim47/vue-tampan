@@ -28,7 +28,6 @@
   min-height: 36px;
   padding: 4px 24px;
   padding-right: 16px;
-  background-color: #F5F5F5;
 }
 
 .modal-title {
@@ -40,7 +39,6 @@
 
 .modal-close-btn {
   cursor: pointer;
-  background-color: #F5F5F5;
   border: none;
   font-size: 24px;
   color: #424242;

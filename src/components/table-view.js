@@ -24,7 +24,7 @@ export function tableViewDataFactory({ items, indexMap }) {
         return queryRx.test(indexedItem._searchTerm)
       })
       : indexedItems
-    if (filteredItems.length <= skip) skip -= limit
+    if (filteredItems.length - limit <= skip) skip -= limit
     const slicedItems = filteredItems.slice(skip, skip + limit)
     return slicedItems
   }
@@ -209,6 +209,7 @@ export default {
   },
 
   render(e) {
+    const rowRole = this.isClickableRow ? 'button' : null
     return e('div', {
       staticClass: 'table-view',
       class: {
@@ -252,7 +253,7 @@ export default {
                       e('em', [
                         this.isSearching
                           ? 'Hasil pencarian tidak ditemukan.'
-                          : (this.emptyText || 'Belum ada daftar.')
+                          : (this.emptyText || 'Tabel kosong.')
                       ])
                     ])
                 ])
@@ -260,6 +261,7 @@ export default {
               : [
                 ...this.items.map((item, index) => {
                   return e('tr', {
+                    attrs: { role: rowRole, tabindex: this.isClickableRow ? index + 1 : null  },
                     class: {
                       'is-selected': this.selectedItems.indexOf(item) !== -1
                     },

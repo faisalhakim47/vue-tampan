@@ -1,32 +1,27 @@
+import { ensureArrayType } from '../tools/array'
+
 export default {
   render(e) {
-    return e('div', { staticClass: 'main-header' }, [
-      e('div', { staticClass: 'main-navbar' }, [
-        e('div', { staticClass: 'main-navbar-left' }, [
-          e('div', { staticClass: 'brand' }, [
-            e('div', { staticClass: 'brand-icon' }, [
-              this.$tampan.brandImageIconUrl
-                ? e('img', { staticClass: this.$tampan.brandIconClass, attrs: { src: this.$tampan.brandImageIconUrl } })
-                : e('span', { staticClass: this.$tampan.brandIconClass }, this.$tampan.brandIconText)
-            ]),
-            e('div', { staticClass: 'brand-name' }, [
-              this.$tampan.client.isLargeScreen
-                ? e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandName || '')
-                : e('h1', { staticClass: 'brand-name-text' }, this.$tampan.brandShortName || '')
-            ])
+    return e('div', { attrs: { id: 'main-header' } }, [
+      e('div', { staticClass: 'item brand' }, [
+        e('img', { staticClass: 'icon', attrs: { src: this.$tampan.brandImageIconUrl } }),
+        e('span', { staticClass: 'text' }, this.$tampan.brandName),
+      ]),
+      ...ensureArrayType(this.$tampan.headerItems),
+      this.$tampan.isMainMenuToggleable
+        ? e('div', {
+          staticClass: 'item mainmenu-toggle',
+          attrs: {
+            role: 'button',
+            style: 'margin-left: auto;'
+          },
+          on: {
+            click: () => this.$tampan.toggleMainMenu()
+          }
+        }, [
+            e('i', { staticClass: 'icon material-icons' }, this.$tampan.isMainMenuShow ? 'close' : 'menu'),
           ])
-        ]),
-        e('div', { staticClass: 'main-navbar-right' }, [
-          this.$tampan.sidebarMenus.length
-            ? e('button', {
-              staticClass: 'main-navbar-item sidebar-toggle',
-              on: { click: this.$tampan.toggleSidebar }
-            }, [
-                e('span', { staticClass: 'icon material-icons' }, this.$tampan.isSidebarShow ? 'close' : 'menu')
-              ])
-            : null
-        ])
-      ])
+        : null,
     ])
   }
 }

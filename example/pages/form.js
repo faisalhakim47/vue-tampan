@@ -5,7 +5,7 @@ export default {
       inputOptions: ['Satu', 'Dua', 'Tiga'],
       inputOptionsValue: 'Satu',
       inputOptionsValues: ['Satu', 'Dua'],
-      inputDate: new Date(2002, 2, 2)
+      inputDate: new Date()
     }
   },
   render(e) {

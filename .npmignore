@@ -6,3 +6,4 @@ node_modules
 .editorconfig
 .vscode
 webpack.config.js
+src/.**

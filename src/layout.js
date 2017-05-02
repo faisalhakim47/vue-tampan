@@ -1,19 +1,13 @@
 import { throttle } from './tools/throttle'
 import { getClienDeviceInfo } from './tools/client-device-info'
 
-export function initialLayout(app, tampan) {
+export function initialLayout(root, tampan) {
   const elApp = document.getElementById('app')
 
-  app.$watch('$route', () => {
+  root.$watch('$route', () => {
     if (!tampan.client.isLargeScreen)
-      tampan.isSidebarEnabled = false
+      tampan.isMainMenuEnabled = false
   })
-
-  window.addEventListener('resize', throttle(() => {
-    tampan.$emit('window:resize')
-    tampan.client = getClienDeviceInfo()
-    tampan.isSidebarEnabled = tampan.client.isLargeScreen
-  }, 500))
 
   tampan.$watch(() => {
     const {
@@ -23,23 +17,39 @@ export function initialLayout(app, tampan) {
       height
     } = tampan.client
 
-    if (isLargeScreen) elApp.classList.add('is-largescreen')
-    else elApp.classList.remove('is-largescreen')
+    performance.mark('SATU')
 
-    if (isMediumScreen) elApp.classList.add('is-mediumscreen')
-    else elApp.classList.remove('is-mediumscreen')
-
-    if (isSmallScreen) elApp.classList.add('is-smallscreen')
-    else elApp.classList.remove('is-smallscreen')
+    root.$nextTick().then(() => {
+      if (isLargeScreen) elApp.classList.add('is-largescreen')
+      else elApp.classList.remove('is-largescreen')
+      if (isMediumScreen) elApp.classList.add('is-mediumscreen')
+      else elApp.classList.remove('is-mediumscreen')
+      if (isSmallScreen) elApp.classList.add('is-smallscreen')
+      else elApp.classList.remove('is-smallscreen')
+    })
   })
 
   tampan.$watch(() => {
-    if (tampan.isSidebarShow) elApp.classList.add('is-sidebarshow')
-    else elApp.classList.remove('is-sidebarshow')
+    if (tampan.isMainMenuShow) root.$nextTick().then(() => {
+      elApp.classList.add('is-mainmenu-show')
+    })
+    else root.$nextTick().then(() => {
+      elApp.classList.remove('is-mainmenu-show')
+    })
   })
 
   tampan.$watch(() => {
-    if (tampan.isFullscreen) elApp.classList.add('is-fullscreen')
-    else elApp.classList.remove('is-fullscreen')
+    if (tampan.isFullscreen) root.$nextTick().then(() => {
+      elApp.classList.add('is-fullscreen')
+    })
+    else root.$nextTick().then(() => {
+      elApp.classList.remove('is-fullscreen')
+    })
   })
+
+  window.addEventListener('resize', throttle(() => {
+    tampan.$emit('window:resize')
+    tampan.client = getClienDeviceInfo()
+    tampan.isMainMenuEnabled = tampan.client.isLargeScreen
+  }, 500))
 }
