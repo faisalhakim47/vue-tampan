@@ -17,7 +17,7 @@ fieldset > legend {
 input, select, textarea {
   font: inherit;
   color: #424242;
-  transition-duration: 180ms;
+  transition-duration: 128ms;
 }
 
 .field-input > input.input:hover,
@@ -25,6 +25,13 @@ input, select, textarea {
 .field-input > textarea.input:hover,
 .field-input > .input > select.input:hover {
   border-color: #212121;
+}
+
+.field-input > input.input:focus:hover,
+.field-input > select.input:focus:hover,
+.field-input > textarea.input:focus:hover,
+.field-input > .input > select.input:focus:hover {
+  border-color: #29B6F6;
 }
 
 textarea {

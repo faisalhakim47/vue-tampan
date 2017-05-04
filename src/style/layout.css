@@ -44,7 +44,7 @@ body, #app {
   transition-property: transform;
   transition-duration: 320ms;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-  z-index: 75;
+  z-index: 51;
 }
 
 #app:not(.is-mainmenu-show) #main-menu {
@@ -54,6 +54,7 @@ body, #app {
 #main-menu-container {
   height: 100%;
   overflow-y: scroll;
+  position: relative;
 }
 
 #main-menu ul {
@@ -99,6 +100,16 @@ body, #app {
 
 .is-mainmenu-show:not(.is-smallscreen) #main-container {
   padding-left: 240px;
+}
+
+#mainmenu-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 50;
 }
 
 #main-content {

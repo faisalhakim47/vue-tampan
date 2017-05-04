@@ -6,6 +6,13 @@ export function initialLayout(root, tampan) {
   const elMainContainer = document.getElementById('main-container')
   const isFirefox = typeof InstallTrigger !== 'undefined'
 
+  function closeModalIfExist() {
+    const currentModal = tampan.modalList[0]
+    const isModalExist = !!currentModal
+    if (currentModal) currentModal.resolve()
+    return isModalExist
+  }
+
   // fix firefox flexbox
   if (isFirefox) {
     tampan.$watch(() => {
@@ -18,6 +25,15 @@ export function initialLayout(root, tampan) {
       tampan.isMainMenuEnabled = false
   })
 
+  root.$router.beforeEach((destination, origin, next) => {
+    const isModalExist = closeModalIfExist()
+    const isMainMenuShow = tampan.isMainMenuShow
+      && tampan.isMainMenuToggleable
+    if (isMainMenuShow) tampan.toggleMainMenu()
+    const isNextRouteAllowed = !isModalExist
+    next(isNextRouteAllowed)
+  })
+
   tampan.$watch(() => {
     const {
       isLargeScreen,
@@ -25,7 +41,6 @@ export function initialLayout(root, tampan) {
       isSmallScreen,
       height
     } = tampan.client
-
     root.$nextTick().then(() => {
       if (isLargeScreen) elApp.classList.add('is-largescreen')
       else elApp.classList.remove('is-largescreen')
@@ -59,4 +74,12 @@ export function initialLayout(root, tampan) {
     tampan.client = getClienDeviceInfo()
     tampan.isMainMenuEnabled = tampan.client.isLargeScreen
   }, 500))
+
+  window.addEventListener('keydown', ({ keyCode }) => {
+    switch (keyCode) {
+      case 27:
+        closeModalIfExist()
+        break
+    }
+  })
 }

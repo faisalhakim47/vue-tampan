@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-watch": "npm run build -- --watch",
-    "dev": "npm run build-watch & http-server",
+    "dev": "npm run build-watch & http-server -c-1",
     "prepublish": "npm run build"
   },
   "devDependencies": {

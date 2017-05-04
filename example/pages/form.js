@@ -12,7 +12,7 @@ export default {
     return e('div', { staticClass: 'boxes' }, [
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
-          e('h3', { staticClass: 'box-title' }, 'Biasa')
+          e('h3', { staticClass: 'box-title' }, 'Input Teks')
         ]),
         e('div', { staticClass: 'box-body' }, [
           e('field', { props: { label: 'Text' } }, [
@@ -32,7 +32,7 @@ export default {
 
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
-          e('h3', { staticClass: 'box-title' }, 'Pilihan')
+          e('h3', { staticClass: 'box-title' }, 'Input Pilihan')
         ]),
         e('div', { staticClass: 'box-body' }, [
           e('field', { props: { label: 'Dropdown' } }, [
@@ -65,7 +65,7 @@ export default {
 
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
-          e('h3', { staticClass: 'box-title' }, 'Pilihan Ganda')
+          e('h3', { staticClass: 'box-title' }, 'Input Pilihan Ganda')
         ]),
         e('div', { staticClass: 'box-body' }, [
           e('field', { props: { label: 'Checkbox Vertikal' } }, [
@@ -99,7 +99,7 @@ export default {
 
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
-          e('h3', { staticClass: 'box-title' }, 'Tanggal')
+          e('h3', { staticClass: 'box-title' }, 'Input Tanggal')
         ]),
         e('div', { staticClass: 'box-body' }, [
           e('field', { props: { label: this.inputDate.toString() } }, [
@@ -111,6 +111,18 @@ export default {
                   this.$forceUpdate()
                 }
               }
+            })
+          ])
+        ])
+      ]),
+      e('div', { staticClass: 'box' }, [
+        e('div', { staticClass: 'box-header' }, [
+          e('h3', { staticClass: 'box-title' }, 'Input Alamat')
+        ]),
+        e('div', { staticClass: 'box-body' }, [
+          e('field', { props: { label: 'Alamat' } }, [
+            e('input-address', {
+              props: { value: '{}' }
             })
           ])
         ])

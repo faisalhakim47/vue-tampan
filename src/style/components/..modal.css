@@ -4,7 +4,7 @@
   left: 0px;
   height: 100vh;
   width: 100vw;
-  z-index: 1001;
+  z-index: 70;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,25 +25,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 36px;
-  padding: 4px 24px;
-  padding-right: 16px;
-  background-color: #F5F5F5;
 }
 
 .modal-title {
   margin: 0px;
-  min-height: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 16px;
 }
 
 .modal-close-btn {
   cursor: pointer;
-  background-color: #F5F5F5;
   border: none;
   font-size: 24px;
   color: #424242;
+  margin: 0px;
 }
 
 .modal-close-btn:hover {
@@ -51,7 +50,7 @@
 }
 
 .modal-body {
-  padding: 16px 24px;
+  padding: 8px 16px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -61,6 +60,6 @@
 }
 
 .modal-foot {
-  min-height: 44px;
-  padding: 4px 24px;
+  height: 44px;
+  padding: 4px 16px;
 }

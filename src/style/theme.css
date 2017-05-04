@@ -39,8 +39,11 @@
 }
 
 #main-menu {
-  background-color: #F2F2F2;
   color: #3C3C3C;
+}
+
+#main-menu-container {
+  background-color: #F2F2F2;
 }
 
 #main-menu-container > .item {

@@ -28,12 +28,6 @@ export default {
     this.controlBodyOverflow()
     this.$watch('modal', this.controlBodyOverflow)
     this.$tampan.$on('window:resize', this.controlBodyOverflow)
-    this.$router.beforeEach((destination, origin, next) => {
-      if (this.isModalExist) {
-        next(false)
-        this.modal.resolve()
-      } else next()
-    })
   },
 
   render(e) {
