@@ -1,4 +1,4 @@
-import './styles/index.css'
+import './style/index.css'
 import Field from './components/form/field'
 import InputAddress from './components/form/input-address'
 import InputAutotext from './components/form/input-autotext'
@@ -25,7 +25,6 @@ export function installComponents(Vue) {
   Vue.component('input-date', InputDate)
   Vue.component('breadcrumb', Breadcrumb)
   Vue.component('table-view', TableView)
-
   Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
     const Request = typeof req === 'function'
       ? req(this.$route)
@@ -34,10 +33,10 @@ export function installComponents(Vue) {
       .catch((error) => {
         const { status } = error.response
         const tampan = getTampan()
-        tampan.confirm({
-          text: `${status}: Gagal memuat data. Ulangi?`
+        tampan.alert({
+          title: 'Gagal Memuat Data'
         }).catch((error) => void error)
-        console.warn('loadAsyncData', error)
+        console.warn('loadAsyncData', status, error)
       })
   }
 }

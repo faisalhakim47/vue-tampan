@@ -21,7 +21,8 @@ VueTampan({
 
   data() {
     return {
-      sidebarMenus: [
+      brandImageIconUrl: '/static/icons/smile.svg',
+      menuItems: [
         {
           name: 'About',
           iconClass: 'material-icons',

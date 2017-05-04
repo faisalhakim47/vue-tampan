@@ -28,7 +28,6 @@ export default {
 
   methods: {
     update({ date, month, year }) {
-      console.log({ date, month, year })
       if (isNumber(date)) {
         this.date.setDate(parseInt(date, 10))
       }
@@ -62,7 +61,6 @@ export default {
   },
 
   render(e) {
-    console.log('DATE', this.date)
     return e('div', { staticClass: 'input input-date is-frameless' }, [
       e('input-select', {
         staticClass: 'input-date-date',

@@ -1,29 +1,36 @@
+import { tableViewDataFactory, loadAsyncRouteData } from '../../src/index'
+
+const people = []
+for (let i = 0; i < 20; i++) {
+  people.push({
+    keyforitem: faker.random.uuid(),
+    name: faker.name.findName(),
+    date: faker.date.past(),
+    city: faker.address.city(),
+    department: faker.commerce.department()
+  })
+}
+
+const peopleReq = {
+  req: () => new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(people)
+    }, 2000)
+  }),
+  map: (vm, result) => vm.people = result
+}
+
 export default {
   data() {
-    const people = []
-    for (let i = 0; i < 1000; i++) {
-      people.push({
-        keyforitem: faker.random.uuid(),
-        name: faker.name.findName(),
-        date: faker.date.past(),
-        city: faker.address.city(),
-        department: faker.commerce.department()
-      })
-    }
     return {
-      people
+      people: []
     }
   },
-  computed: {
-    filteredPeople() {
-      return this.people.slice(this.peopleAttr.skip, this.peopleAttr.limit)
-    }
-  },
+  beforeRouteEnter: loadAsyncRouteData([
+    peopleReq
+  ]),
   render(e) {
     return e('div', { staticClass: 'boxes' }, [
-      e('div', { staticClass: 'boxes-header' }, [
-        e('h2', { staticClass: 'boxes-title' }, 'Tabel')
-      ]),
       e('div', { staticClass: 'box' }, [
         e('div', { staticClass: 'box-header' }, [
           e('h3', { staticClass: 'box-title' }, 'Tabel Normal')
@@ -31,22 +38,21 @@ export default {
         e('div', { staticClass: 'box-body' }, [
           e('table-view', {
             props: {
-              items: this.people,
+              defaultRowLimit: 5,
               key: item => item.keyforitem,
+              dataProvider: tableViewDataFactory({
+                items: this.people
+              }),
               columnMap: {
                 'Nama': item => item.name,
                 'Tanggal': item => item.date.toString(),
                 'Kota': item => item.city,
-                'Departemen': item => item.department,
-                'Show': [
-                  {
-                    iconClass: 'material-icons',
-                    iconText: 'play_arrow',
-                    callback: item => this.$tampan.alert({ title: 'Halo', text: JSON.stringify(item, null, 2) })
-                  }
-                ]
-              }
-            }
+                'Departemen': item => item.department
+              },
+              onRowClick: item => this.$tampan.alert({
+                text: JSON.stringify(item)
+              }),
+            },
           })
         ])
       ])

@@ -1,0 +1,55 @@
+.boxes {
+  padding: 0px 24px;
+}
+
+.is-smallscreen .boxes {
+  padding: 0px 8px;
+}
+
+.box {
+  margin: 24px 0px;
+}
+
+.is-smallscreen .boxes {
+  margin: 8px 0px;
+}
+
+.box-header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0px 24px;
+}
+
+.is-smallscreen .box-header {
+  padding: 0px 16px;
+}
+
+.box-title {
+  margin: 0px;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.box-body {
+  padding: 0px 24px;
+}
+
+.is-smallscreen .box-body {
+  padding: 0px 16px;
+}
+
+.box-footer {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0px 24px;
+}
+
+.box-header + .box-body:last-child {
+  padding-bottom: 12px;
+}
+
+.is-smallscreen .box-footer {
+  padding: 0px 16px;
+}

@@ -17,7 +17,7 @@
 
 /* fix ugly box spacing */
 .box-body:last-child .table-view {
-  margin-bottom: -16px;
+  margin-bottom: -12px;
 }
 
 .box-body > .table-view th:first-child,

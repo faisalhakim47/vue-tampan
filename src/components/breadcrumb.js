@@ -10,14 +10,14 @@ export default {
   },
 
   methods: {
-    toggleSidebar() {
-      return this.$tampan.client.isLargeScreen ? null : this.$tampan.toggleSidebar()
+    toggleMainMenu() {
+      return this.$tampan.client.isLargeScreen ? null : this.$tampan.toggleMainMenu()
     },
   },
 
   render(e) {
     return e('ul', { staticClass: 'breadcrumb-list' }, [
-      e('li', { staticClass: 'breadcrumb-item', on: { click: this.toggleSidebar } }, [
+      e('li', { staticClass: 'breadcrumb-item', on: { click: this.toggleMainMenu } }, [
         e('span', { staticClass: 'icon material-icons', attrs: { style:  'padding-left: 0px' } }, 'menu')
       ]),
       ...this.availableItems.map((item) => {

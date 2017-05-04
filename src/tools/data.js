@@ -14,10 +14,11 @@ export function loadAsyncRouteData(reqObjects) {
     /* throw { test: true } */
 
     const reqs = reqObjects.map((reqObject) => {
-      const Request = typeof reqObject.req === 'function'
+      const requesting = typeof reqObject.req === 'function'
         ? reqObject.req(destination)
         : reqObject.req
-      return Request.catch((error) => {
+      return requesting.catch((error) => {
+        next(false)
         const isErrorHandlerExist = typeof reqObject.err === 'function'
         const errorPromise = isErrorHandlerExist
           ? Promise.resolve(reqObject.err(error, destination))
@@ -28,15 +29,17 @@ export function loadAsyncRouteData(reqObjects) {
       })
     })
 
-    const dataMappers = reqObjects.map((reqObject) => reqObject.map)
-
     const reqsPromise = Promise.all(reqs)
       .then((dataResults) => {
-        const doDataMapping = (vm) => dataMappers.forEach((dataMapper, index) => {
-          const data = dataResults[index]
-          if (typeof data !== 'object') return
-          dataMapper(vm, data)
-        })
+        const dataMappers = reqObjects.map((reqObject) => reqObject.map)
+        const doDataMapping = (vm) => {
+          dataMappers.forEach((dataMapper, index) => {
+            const data = dataResults[index]
+            if (typeof data !== 'object') return
+            dataMapper(vm, data)
+          })
+          return true
+        }
         const isOptionalVMExist = !!optional.vm
         next(
           isOptionalVMExist

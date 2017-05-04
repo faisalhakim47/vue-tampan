@@ -1,7 +1,6 @@
 fieldset {
   padding: 12px 20px 24px;
   margin: 8px 0px;
-  border-radius: 2px;
 }
 
 .is-smallscreen fieldset {
@@ -16,7 +15,23 @@ fieldset > legend {
 }
 
 input, select, textarea {
+  font: inherit;
   color: #424242;
+  transition-duration: 128ms;
+}
+
+.field-input > input.input:hover,
+.field-input > select.input:hover,
+.field-input > textarea.input:hover,
+.field-input > .input > select.input:hover {
+  border-color: #212121;
+}
+
+.field-input > input.input:focus:hover,
+.field-input > select.input:focus:hover,
+.field-input > textarea.input:focus:hover,
+.field-input > .input > select.input:focus:hover {
+  border-color: #29B6F6;
 }
 
 textarea {
@@ -60,23 +75,19 @@ td > .field {
   width: 100%;
   padding: 8px 10px;
   outline: none;
-  /*box-shadow: 0px 0px 12px 0px #fafafa inset;*/
   background-color: #fdfdfd;
   border: 1px solid #BDBDBD;
-  border-radius: 2px;
   font-size: 14px;
 }
 
 .field-input > input:disabled,
 .field-input .input:disabled {
-  /*box-shadow: 0px 0px 12px 0px #EEEEEE inset;*/
   background-color: #ebebeb;
   color: #777;
 }
 
 .field-input > input.is-frameless,
 .field-input .input.is-frameless {
-  /*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);*/
   background-color: rgba(0,0,0,0);
   border-color: rgba(0,0,0,0);
 }
@@ -86,7 +97,6 @@ td > .field {
   border-color: #fff;
   background-color: #fff;
   border: 1px solid #29B6F6;
-  /*box-shadow: 0 1px 3px 0 rgba(0,0,0,.4), 0 0px 1px 0 rgba(0,0,0,.2), 0 1px 1px -1px rgba(0,0,0,.15);*/
 }
 
 .field-info > p {
@@ -101,24 +111,25 @@ td > .field {
   margin-top: 0px;
 }
 
-@keyframes inputradioripple {
-  0% {
-    box-shadow: 0px 0px 0px 1px transparent;
-  }
-  50% {
-    box-shadow: 0px 0px 0px 15px rgba(0, 0, 0, 0.1);
-  }
-  100% {
-    box-shadow: 0px 0px 0px 15px transparent;
-  }
+.input-radio-list.is-horizontal {
+  padding: 8px 12px;
+}
+
+.input-radio-list.is-vertical {
+  padding: 0px 12px;
 }
 
 .input-radio {
-  margin: 20px 0;
+  user-select: none;
+  margin: 6px 0px;
 }
 
 .is-horizontal > .input-radio {
   display: inline-block;
+}
+
+.is-vertical > .input-radio {
+  margin: 16px 0px;
 }
 
 .input-radio input[type="radio"] {
@@ -127,7 +138,6 @@ td > .field {
 
 .input-radio input[type="radio"]:checked + label:before {
   border-color: #337ab7;
-  animation: inputradioripple 200ms linear forwards;
 }
 
 .input-radio input[type="radio"]:checked + label:after {
@@ -171,13 +181,18 @@ td > .field {
 }
 
 .input-checkbox {
+  user-select: none;
   position: relative;
-  height: 20px;
-  margin: 20px 0;
+  height: 16px;
+  margin: 8px 0;
 }
 
 .is-horizontal > .input-checkbox {
   display: inline-block;
+}
+
+.is-vertical > .input-checkbox {
+  margin: 16px 0;
 }
 
 .input-checkbox label {
@@ -199,7 +214,6 @@ td > .field {
   height: 16px;
   background: #fff;
   border: 2px solid rgba(0, 0, 0, 0.54);
-  border-radius: 2px;
   cursor: pointer;
   transition: background .3s;
 }
