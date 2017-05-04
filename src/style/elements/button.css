@@ -1,4 +1,5 @@
-button {
+button,
+.button {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -13,12 +14,15 @@ button {
   color: #616161;
 }
 
-button:not(:disabled) {
+button:not(:disabled),
+.button:not(:disabled) {
   cursor: pointer;
 }
 
 button,
-button > span {
+button > span,
+.button,
+.button > span {
   text-transform: uppercase;
   font-weight: 500;
   font-family: inherit;
@@ -26,81 +30,98 @@ button > span {
   line-height: 36px;
 }
 
-button:hover {
+button:hover,
+.button:hover {
   background-color: #E0E0E0;
 }
 
-button:active:not(:disabled) {
+button:active:not(:disabled),
+.button:active:not(:disabled) {
   transform: scale(.96);
 }
 
-button + button {
+button + button,
+.button + .button {
   margin-left: 6px;
 }
 
-button.is-small {
+button.is-small,
+.button.is-small {
   height: 32px;
   line-height: 32px;
   font-size: 13.5px;
 }
 
-button.is-primary {
+button.is-primary,
+.button.is-primary {
   background-color: #1E88E5;
   color: #fff;
 }
 
-button.is-primary:hover {
+button.is-primary:hover,
+.button.is-primary:hover {
   background-color: #2196F3;
 }
 
-button.is-positive {
+button.is-positive,
+.button.is-positive {
   background-color: #388E3C;
   color: #fff;
 }
 
-button:not(:disabled).is-positive:hover {
+button:not(:disabled).is-positive:hover,
+.button:not(:disabled).is-positive:hover {
   background-color: #43A047;
 }
 
-button:disabled {
+button:disabled,
+.button:disabled {
   background-color: #9E9E9E;
   color: #ECEFF1;
 }
 
-button.is-negative {
+button.is-negative,
+.button.is-negative {
   background-color: #E53935;
   color: #fff;
 }
 
-button.is-negative:hover {
+button.is-negative:hover,
+.button.is-negative:hover {
   background-color: #F44336;
 }
 
-button.is-amber {
+button.is-amber,
+.button.is-amber {
   background-color: #FF6F00;
   color: #fff;
 }
 
-button.is-amber:hover {
+button.is-amber:hover,
+.button.is-amber:hover {
   background-color: #FF8F00;
 }
 
-button > .icon {
+button > .icon,
+.button > .icon {
   display: block;
   float: left;
   font-size: 24px;
   margin: 6px 3px;
 }
 
-button > .icon:first-child {
+button > .icon:first-child,
+.button > .icon:first-child {
   margin-left: 0px;
 }
 
-button > .icon:last-child {
+button > .icon:last-child,
+.button > .icon:last-child {
   margin-right: 0px;
 }
 
-td button {
+td button,
+td .button {
   margin-top: 0px;
   margin-bottom: 0px;
 }

@@ -6,16 +6,15 @@ export default {
     direction: { type: String, default: 'vertical' }
   },
   render(e) {
-    const { $props: props } = this
     return e('div', {
       staticClass: 'field',
-      class: { 'is-inline': props.direction === 'horizontal' }
+      class: { 'is-inline': this.direction === 'horizontal' }
     }, [
-        props.label
-          ? e('div', { staticClass: 'field-label' }, [e('label', props.label)])
+        this.label
+          ? e('div', { staticClass: 'field-label' }, [e('label', this.label)])
           : '',
-        props.info
-          ? e('div', { staticClass: 'field-info' }, [e('p', props.info)])
+        this.info
+          ? e('div', { staticClass: 'field-info' }, [e('p', this.info)])
           : '',
         e('div', { staticClass: 'field-input' }, this.$slots.default)
       ])
