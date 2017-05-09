@@ -1,3 +1,4 @@
+import { VueTampan } from '../tampan'
 import { createArrayWithLength, ensureArrayType } from '../tools/array'
 import { longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
@@ -10,11 +11,11 @@ export function tableViewDataFactory({ items, indexMap }) {
         return item
       }
       return Object.assign(
+        item,
         {
           _searchTerm: indexMap(item),
           _index: index
-        },
-        item
+        }
       )
     })
   return ({ query, skip, limit }) => {
@@ -39,11 +40,11 @@ export default {
     columnMap: { type: Object, required: true },
     columnWidth: { type: Object, default: () => ({}) },
     controls: { type: Array, default: () => [] },
-    defaultRowLimit: { type: Number, default: 10 },
+    defaultRowLimit: { type: Number },
     fixedRowNumber: { type: Boolean, default: true },
     visibleColumns: { type: Array },
     onRowClick: { type: Function },
-    onSelectedChange: { type: Function },
+    onSelectionChange: { type: Function },
     pagination: { type: Boolean, default: true },
     limitation: { type: Boolean, default: true },
     searchable: { type: Boolean, default: false },
@@ -55,10 +56,12 @@ export default {
     return {
       columnTitles,
       items: [],
-      selectedItems: [],
+      // selectedItems: [],
       query: '',
       skip: 0,
-      limit: this.defaultRowLimit,
+      limit: this.defaultRowLimit || (
+        !this.$tampan.client.isSmallScreen ? 10 : 5
+      ),
       loadCount: 0,
       sortBy: null,
       sortDirection: 'asc',
@@ -129,7 +132,7 @@ export default {
     paginationLimitOptions() {
       const options = [5, 10, 25, 50, 100]
       if (options.indexOf(this.defaultRowLimit) === -1) options.unshift(this.defaultRowLimit)
-      return options.sort((a, b) => a - b)
+      return options.filter(option => !!option).sort((a, b) => a - b)
     },
 
     availableControls() {
@@ -142,14 +145,19 @@ export default {
   },
 
   methods: {
-    toggleSelect(item) {
+    toggleSelect(item = {}) {
       if (this.selectable === 'none') return
-      const index = this.selectedItems.indexOf(item)
-      if (index === -1) {
-        this.selectedItems.push(item)
-      } else {
-        this.selectedItems.splice(index, 1)
-      }
+      VueTampan.Vue.set(item, '_isSelected', !item._isSelected)
+      // const index = this.selectedItems.indexOf(item)
+      // if (index === -1) {
+      //   this.selectedItems.push(item)
+      // } else {
+      //   this.selectedItems.splice(index, 1)
+      // }
+    },
+
+    getSelectedItems() {
+      return this.items.filter(item => item._isSelected)
     },
 
     nextPage() {
@@ -171,10 +179,9 @@ export default {
           skip: this.skip,
           limit: this.limit,
         })
-      const finding = Promise.resolve(request)
-      if (finding instanceof Promise) {
-        this.$tampan.useLoadingState(finding)
-      }
+      const finding = this.$tampan.useLoadingState(
+        Promise.resolve(request)
+      )
       finding.then((resultItems) => {
         this.items = resultItems
         this.loadCount--
@@ -183,13 +190,18 @@ export default {
         this.loadCount--
       })
       this.loadCount++
+    },
+
+    rowClick(ev, item) {
+      if (ev.ctrlKey || this.isSelecting) this.toggleSelect(item)
+      if (this.onRowClick) this.onRowClick(item, index)
+      if (typeof this.onSelectionChange !== 'function') return
+      console.log(this.getSelectedItems())
+      this.onSelectionChange(this.getSelectedItems())
     }
   },
 
   watch: {
-    'selectedItems'() {
-      this.onSelectedChange(this.selectedItems)
-    },
     'dataProvider'() {
       this.generateData()
     },
@@ -227,7 +239,7 @@ export default {
                 }, columnTitle)
               }),
               this.isShowClickableArrowIcon
-                ? e('th', { attrs: { style: `width:32px` } })
+                ? e('th', { attrs: { style: `width:32px;border-left:none;` } })
                 : null
             ]),
             this.searchable
@@ -261,21 +273,17 @@ export default {
               : [
                 ...this.items.map((item, index) => {
                   return e('tr', {
-                    attrs: { role: rowRole, tabindex: this.isClickableRow ? index + 1 : null  },
+                    attrs: { role: rowRole, tabindex: this.isClickableRow ? index + 1 : null },
                     class: {
-                      'is-selected': this.selectedItems.indexOf(item) !== -1
+                      'is-selected': item._isSelected
+                      // 'is-selected': this.selectedItems.indexOf(item) !== -1
                     },
                     key: item._index_,
                     on: mergeEvents([
                       longpress(() => {
                         this.toggleSelect(item)
                       }),
-                      {
-                        click: (e) => {
-                          if (e.ctrlKey || this.isSelecting) return this.toggleSelect(item)
-                          if (this.onRowClick) return this.onRowClick(item, index)
-                        }
-                      }
+                      { click: ev => this.rowClick(ev, item) }
                     ])
                   }, [
                       ...this.columnTitles.map((columnTitle, index) => {
@@ -319,14 +327,22 @@ export default {
           e('div', { staticClass: 'table-view-navigate-right' }, [
             ...this.bottomLeftControls.map(control => control.render(e)),
             this.isPaginated
-              ? e('button', { staticClass: 'button ripple', on: { click: this.prevPage } }, [
-                e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
-              ])
+              ? e('button', {
+                attrs: { disabled: this.skip === 0 },
+                staticClass: 'button ripple',
+                on: { click: this.prevPage }
+              }, [
+                  e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
+                ])
               : null,
             this.isPaginated
-              ? e('button', { staticClass: 'button ripple', on: { click: this.nextPage } }, [
-                e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
-              ])
+              ? e('button', {
+                attrs: { disabled: this.additionalRowsArray.length !== 0 },
+                staticClass: 'button ripple',
+                on: { click: this.nextPage }
+              }, [
+                  e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
+                ])
               : null
           ])
         ])
