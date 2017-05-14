@@ -13,7 +13,8 @@ export default {
         return
       }
       this.timer = setTimeout(() => {
-        this.$tampan.notifications[0].close(0)
+        const oldestNotif = this.$tampan.notifications[0]
+        if (oldestNotif) oldestNotif.close(0)
       }, 5000)
     },
     clearTimeout() {
