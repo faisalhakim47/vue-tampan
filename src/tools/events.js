@@ -3,7 +3,15 @@ import { isTouchDevice } from './client-device-info'
 const isTouchEnabled = !!isTouchDevice()
 
 export function click(handler) {
-  if (isTouchEnabled) return { touchstart: handler }
+  if (isTouchEnabled) {
+    let isMoved = false
+    const touchmove = () => isMoved = true
+    const touchend = (ev) => {
+      if (!isMoved) setTimeout(() => handler(ev), 10)
+      isMoved = false
+    }
+    return { touchmove, touchend }
+  }
   else return { click: handler }
 }
 
