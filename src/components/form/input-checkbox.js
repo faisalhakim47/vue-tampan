@@ -1,3 +1,4 @@
+import { click } from '../../tools/events'
 import { isNumber, isString } from '../../tools/typecheck'
 import { randomChar } from '../../tools/string'
 
@@ -40,7 +41,7 @@ export default {
         const id = this.name + index
         return e('div', {
           staticClass: 'input-checkbox',
-          on: { click: this.update }
+          on: click(this.update)
         }, [
             e('input', {
               attrs: { id, type: 'checkbox', name: this.name, value: opt.value },

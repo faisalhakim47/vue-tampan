@@ -18,6 +18,10 @@ body, #app {
   z-index: 100;
 }
 
+.is-smallscreen #main-header {
+  flex-basis: 52px;
+}
+
 #main-header > .item {
   user-select: none;
   cursor: pointer;
@@ -26,6 +30,11 @@ body, #app {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.is-smallscreen #main-header > .item {
+  height: 52px;
+  width: 52px;
 }
 
 #main-header > .item > .icon {
@@ -75,6 +84,10 @@ body, #app {
   display: flex;
   align-items: center;
   text-decoration: none;
+}
+
+.is-smallscreen #main-menu-container > .item {
+  height: 52px;
 }
 
 #main-menu-container > .item:active,

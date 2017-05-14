@@ -20,10 +20,10 @@ input, select, textarea {
   transition-duration: 128ms;
 }
 
-.field-input > input.input:hover,
-.field-input > select.input:hover,
-.field-input > textarea.input:hover,
-.field-input > .input > select.input:hover {
+.field-input > input.input:not(:disabled):hover,
+.field-input > select.input:not(:disabled):hover,
+.field-input > textarea.input:not(:disabled):hover,
+.field-input > .input > select.input:not(:disabled):hover {
   border-color: #212121;
 }
 

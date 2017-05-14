@@ -1,4 +1,5 @@
 import { ensureArrayType } from '../tools/array'
+import { click } from '../tools/events'
 
 export default {
   render(e) {
@@ -15,9 +16,7 @@ export default {
             role: 'button',
             style: 'margin-left: auto;'
           },
-          on: {
-            click: () => this.$tampan.toggleMainMenu()
-          }
+          on: click(() => this.$tampan.toggleMainMenu())
         }, [
             e('i', { staticClass: 'icon material-icons' }, this.$tampan.isMainMenuShow ? 'close' : 'menu'),
           ])

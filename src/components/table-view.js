@@ -1,6 +1,6 @@
 import { VueTampan } from '../tampan'
 import { createArrayWithLength, ensureArrayType } from '../tools/array'
-import { longpress, mergeEvents } from '../tools/events'
+import { click, longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
 
 export function tableViewDataFactory({ items, indexMap }) {
@@ -86,7 +86,7 @@ export default {
     },
 
     isSelecting() {
-      return this.selectable === 'always' || this.selectedItems.length !== 0
+      return this.selectable === 'always' || (this.selectedItems && this.selectedItems.length !== 0)
     },
 
     isShowClickableArrowIcon() {
@@ -148,12 +148,6 @@ export default {
     toggleSelect(item = {}) {
       if (this.selectable === 'none') return
       VueTampan.Vue.set(item, '_isSelected', !item._isSelected)
-      // const index = this.selectedItems.indexOf(item)
-      // if (index === -1) {
-      //   this.selectedItems.push(item)
-      // } else {
-      //   this.selectedItems.splice(index, 1)
-      // }
     },
 
     getSelectedItems() {
@@ -192,11 +186,10 @@ export default {
       this.loadCount++
     },
 
-    rowClick(ev, item) {
+    rowClick(ev, item, index) {
       if (ev.ctrlKey || this.isSelecting) this.toggleSelect(item)
       if (this.onRowClick) this.onRowClick(item, index)
       if (typeof this.onSelectionChange !== 'function') return
-      console.log(this.getSelectedItems())
       this.onSelectionChange(this.getSelectedItems())
     }
   },
@@ -271,25 +264,24 @@ export default {
                 ])
               ]
               : [
-                ...this.items.map((item, index) => {
+                ...this.items.map((item, rowIndex) => {
                   return e('tr', {
-                    attrs: { role: rowRole, tabindex: this.isClickableRow ? index + 1 : null },
+                    attrs: { role: rowRole, tabindex: this.isClickableRow ? rowIndex + 1 : null },
                     class: {
                       'is-selected': item._isSelected
-                      // 'is-selected': this.selectedItems.indexOf(item) !== -1
                     },
                     key: item._index_,
                     on: mergeEvents([
                       longpress(() => {
                         this.toggleSelect(item)
                       }),
-                      { click: ev => this.rowClick(ev, item) }
+                      click(ev => this.rowClick(ev, item, rowIndex))
                     ])
                   }, [
-                      ...this.columnTitles.map((columnTitle, index) => {
-                        if (this.currentColumnWidth[index] === 0) return null
+                      ...this.columnTitles.map((columnTitle, columnIndex) => {
+                        if (this.currentColumnWidth[columnIndex] === 0) return null
                         const columnMap = this.columnMap[columnTitle]
-                        return e('td', ensureArrayType(columnMap(item, index, e)))
+                        return e('td', ensureArrayType(columnMap(item, rowIndex, e)))
                       }),
                       this.isShowClickableArrowIcon
                         ? e('td', [
@@ -330,16 +322,16 @@ export default {
               ? e('button', {
                 attrs: { disabled: this.skip === 0 },
                 staticClass: 'button ripple',
-                on: { click: this.prevPage }
+                on: click(this.prevPage)
               }, [
                   e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
                 ])
               : null,
             this.isPaginated
               ? e('button', {
-                attrs: { disabled: this.additionalRowsArray.length !== 0 },
+                attrs: { disabled: this.items.length < this.limit },
                 staticClass: 'button ripple',
-                on: { click: this.nextPage }
+                on: click(this.nextPage)
               }, [
                   e('i', { staticClass: 'icon material-icons' }, 'navigate_next')
                 ])

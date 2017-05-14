@@ -1,4 +1,5 @@
 import { ensureArrayType } from '../tools/array'
+import { click } from '../tools/events'
 
 export default {
   data() {
@@ -42,7 +43,7 @@ export default {
                 ? null
                 : e('button', {
                   staticClass: 'button modal-close-btn',
-                  on: { click: modal.resolve }
+                  on: click(modal.resolve)
                 }, [
                     e('i', { staticClass: 'icon material-icons' }, 'close')
                   ])

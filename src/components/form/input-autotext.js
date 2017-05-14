@@ -1,3 +1,4 @@
+import { click, mergeEvents } from '../../tools/events'
 import { isString } from '../../tools/typecheck'
 
 export default {
@@ -189,10 +190,10 @@ export default {
               ...this.visibleSuggestions.map((suggestion, index) => {
                 return e('li', {
                   staticClass: 'input-autotext-item',
-                  on: {
-                    click: () => this.clickItem(index),
-                    mouseenter: () => this.mouseenterItem(index),
-                  }
+                  on: mergeEvents([
+                    click(() => this.clickItem(index)),
+                    { mouseenter: () => this.mouseenterItem(index), }
+                  ])
                 }, [
                     typeof suggestion.picture === 'object'
                       ? e('img', {

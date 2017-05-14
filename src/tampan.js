@@ -1,5 +1,6 @@
 import { installComponents } from './global'
 import { getClienDeviceInfo } from './tools/client-device-info'
+import { click } from './tools/events'
 import { randomChar } from './tools/string'
 import { toggleFullscreen, getFullscreenStatus } from './tools/fullscreen'
 import { initialLayout } from './layout'
@@ -152,7 +153,7 @@ export function VueTampan(RootComponent) {
           }, [
               e('button', {
                 staticClass: 'button ripple',
-                on: { click: resolve }
+                on: click(resolve)
               }, confirmText),
             ])
         })
@@ -174,11 +175,11 @@ export function VueTampan(RootComponent) {
           }, [
               e('button', {
                 staticClass: 'button ripple',
-                on: { click: reject }
+                on: click(reject)
               }, cancelText),
               e('button', {
                 staticClass: 'button ripple',
-                on: { click: resolve }
+                on: click(resolve)
               }, confirmText),
             ])
         })

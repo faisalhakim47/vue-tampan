@@ -1,3 +1,5 @@
+import { click } from '../tools/events'
+
 export default {
   props: {
     items: { type: Array, default: () => [] }
@@ -17,7 +19,7 @@ export default {
 
   render(e) {
     return e('ul', { staticClass: 'breadcrumb-list' }, [
-      e('li', { staticClass: 'breadcrumb-item', on: { click: this.toggleMainMenu } }, [
+      e('li', { staticClass: 'breadcrumb-item', on: click(this.toggleMainMenu) }, [
         e('span', { staticClass: 'icon material-icons', attrs: { style:  'padding-left: 0px' } }, 'menu')
       ]),
       ...this.availableItems.map((item) => {

@@ -1,3 +1,5 @@
+import { click } from '../tools/events'
+
 export default {
   computed: {
     isNotificationExist() {
@@ -43,7 +45,7 @@ export default {
           }, [
               e('div', { staticClass: 'notification-header' }, [
                 e('h4', { staticClass: 'notification-title' }, notification.title),
-                e('div', { staticClass: 'notification-close', on: { click: () => notification.close(index) } }, [
+                e('div', { staticClass: 'notification-close', on: click(() => notification.close(index)) }, [
                   e('i', { staticClass: 'icon material-icons' }, 'close')
                 ])
               ]),

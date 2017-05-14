@@ -1,7 +1,16 @@
+import { isTouchDevice } from './client-device-info'
+
+const isTouchEnabled = !!isTouchDevice()
+
+export function click(handler) {
+  if (isTouchEnabled) return { touchstart: handler }
+  else return { click: handler }
+}
+
 let currentTarget
 export function doubleclick(handler) {
   let timeout
-  const click = (event) => {
+  const doubleClickHandler = (event) => {
     if (currentTarget === event.target) {
       currentTarget = null
       handler(event)
@@ -11,17 +20,27 @@ export function doubleclick(handler) {
       timeout = setTimeout(() => currentTarget = null, 500)
     }
   }
-  return { click }
+  return click(doubleClickHandler)
 }
 
 export function longpress(handler) {
   let timeout
-  const mousedown = () =>
+  const startHandler = () =>
     timeout = setTimeout(handler, 500)
-  const mouseup = () =>
+  const endHandler = () =>
     clearTimeout(timeout)
-  const mousemove = mouseup
-  return { mousedown, mouseup, mousemove }
+  const moveHandler = endHandler
+  return isTouchEnabled
+    ? {
+      touchstart: startHandler,
+      touchend: endHandler,
+      touchmove: moveHandler
+    }
+    : {
+      mousedown: startHandler,
+      mouseup: endHandler,
+      mousemove: moveHandler
+    }
 }
 
 export function mergeEvents(events) {

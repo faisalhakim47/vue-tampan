@@ -1,3 +1,5 @@
+import { click } from '../tools/events'
+
 export default {
   render(e) {
     const confirmation = this.$tampan.confirmation
@@ -12,11 +14,11 @@ export default {
                 e('div', { staticClass: 'confirmation-footer' }, [
                   e('button', {
                     staticClass: 'confirmation-confirm-btn button primary ripple',
-                    on: { click: () => confirmation.confirmCallback() }
+                    on: click(() => confirmation.confirmCallback())
                   }, confirmation.confirmText),
                   e('button', {
                     staticClass: 'confirmation-cancel-btn button ripple',
-                    on: { click: () => confirmation.cancelCallback() }
+                    on: click(() => confirmation.cancelCallback())
                   }, confirmation.cancelText)
                 ])
               ])

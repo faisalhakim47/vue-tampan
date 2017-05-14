@@ -1,3 +1,5 @@
+import { click } from '../tools/events'
+
 export default {
 
   methods: {
@@ -25,16 +27,14 @@ export default {
             staticClass: `item`,
             attrs: !isSameDomainRoute ? { href: route.path, title: menu.name } : null,
             props: isSameDomainRoute ? { to: route } : null,
-            on: {
-              click: ev => {
-                if (!isSameDomainRoute) return
-                ev.preventDefault()
-                this.$nextTick().then(() => {
-                  this.$router.push(route)
-                  ev.target.focus()
-                })
-              }
-            }
+            on: click(ev => {
+              if (!isSameDomainRoute) return
+              ev.preventDefault()
+              this.$nextTick().then(() => {
+                this.$router.push(route)
+                ev.target.focus()
+              })
+            })
           }, [
               e('i', { staticClass: 'icon ' + menu.iconClass }, menu.iconText),
               e('span', { staticClass: 'content' }, menu.name)
@@ -43,7 +43,7 @@ export default {
       ]),
       e('transition', { props: { name: 'overlay-fade' } }, [
         this.$tampan.isMainMenuShow && this.$tampan.isMainMenuToggleable
-          ? e('div', { attrs: { id: 'mainmenu-overlay' }, on: { click: this.$tampan.toggleMainMenu } })
+          ? e('div', { attrs: { id: 'mainmenu-overlay' }, on: click(this.$tampan.toggleMainMenu) })
           : null
       ])
     ])

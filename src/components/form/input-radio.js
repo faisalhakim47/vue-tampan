@@ -1,3 +1,4 @@
+import { click } from '../../tools/events'
 import { isNumber, isString } from '../../tools/typecheck'
 import { randomChar } from '../../tools/string'
 
@@ -40,9 +41,7 @@ export default {
           }),
           e('label', {
             attrs: { for: id },
-            on: {
-              click: () => this.change({ value: opt.value })
-            }
+            on: click(() => this.change({ value: opt.value }))
           }, [
               opt.label
             ])

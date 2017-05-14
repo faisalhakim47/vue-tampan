@@ -1,6 +1,11 @@
 const maxMediumSize = 800
 const maxSmallSize = 480
 
+export function isTouchDevice() {
+  return 'ontouchstart' in window 
+    || navigator.maxTouchPoints
+};
+
 export function getClienDeviceInfo() {
   const width = window.innerWidth
   const height = window.innerHeight

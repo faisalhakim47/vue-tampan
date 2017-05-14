@@ -25,6 +25,7 @@ export function installComponents(Vue) {
   Vue.component('input-date', InputDate)
   Vue.component('breadcrumb', Breadcrumb)
   Vue.component('table-view', TableView)
+
   Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
     const Request = typeof req === 'function'
       ? req(this.$route)
