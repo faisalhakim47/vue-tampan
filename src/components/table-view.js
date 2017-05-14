@@ -25,7 +25,6 @@ export function tableViewDataFactory({ items, indexMap }) {
         return queryRx.test(indexedItem._searchTerm)
       })
       : indexedItems
-    if (filteredItems.length - limit <= skip) skip -= limit
     const slicedItems = filteredItems.slice(skip, skip + limit)
     return slicedItems
   }
