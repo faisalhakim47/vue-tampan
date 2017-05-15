@@ -11,7 +11,7 @@ export default {
       const componentInstance = this.$route.matched[0].instances.default
 
       // sometime it is just does not exist.
-      if (componentInstance == undefined) return
+      if (componentInstance == undefined) return []
 
       const footerItemsFactory = footerItems.bind(componentInstance)
 
