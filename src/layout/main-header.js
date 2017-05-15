@@ -2,6 +2,12 @@ import { ensureArrayType } from '../tools/array'
 import { click } from '../tools/events'
 
 export default {
+  watch: {
+    '$tampan.isMainMenuShow'(newVal) {
+      this.$refs.menu_toggle.textContent = newVal ? 'close' : 'menu'
+    }
+  },
+
   render(e) {
     return e('div', { attrs: { id: 'main-header' } }, [
       e('div', { staticClass: 'item brand' }, [
@@ -16,9 +22,13 @@ export default {
             role: 'button',
             style: 'margin-left: auto;'
           },
-          on: click(() => this.$tampan.toggleMainMenu())
+          on: click(() => {
+            this.$tampan.toggleMainMenu()
+            const el_menu_toggle = this.$refs.menu_toggle
+            el_menu_toggle.textContent = el_menu_toggle.textContent === 'close' ? 'menu' : 'close'
+          })
         }, [
-            e('i', { staticClass: 'icon material-icons' }, this.$tampan.isMainMenuShow ? 'close' : 'menu'),
+            e('i', { ref: 'menu_toggle', staticClass: 'icon material-icons' }, 'menu'),
           ])
         : null,
     ])

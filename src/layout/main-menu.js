@@ -2,12 +2,6 @@ import { click } from '../tools/events'
 
 export default {
 
-  methods: {
-    manageActiveMenu() {
-
-    }
-  },
-
   render(e) {
     return e('div', [
       e('div', { attrs: { id: 'main-menu' } }, [
