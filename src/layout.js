@@ -53,7 +53,9 @@ export function initialLayout(root, tampan) {
 
   tampan.$watch(() => {
     if (tampan.isMainMenuShow) root.$nextTick().then(() => {
-      elApp.classList.add('is-mainmenu-show')
+      setTimeout(() => {
+        elApp.classList.add('is-mainmenu-show')
+      }, 50)
     })
     else root.$nextTick().then(() => {
       elApp.classList.remove('is-mainmenu-show')
