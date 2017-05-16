@@ -48,6 +48,10 @@ textarea {
   padding: 0px;
 }
 
+#main-footer .field {
+  padding: 0px;
+}
+
 td > .field {
   padding: 0px 12px;
 }
