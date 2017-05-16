@@ -328,7 +328,7 @@ export default {
               : null,
             this.isPaginated
               ? e('button', {
-                attrs: { disabled: this.items.length <= this.limit },
+                attrs: { disabled: this.items.length < this.limit },
                 staticClass: 'button ripple',
                 on: click(this.nextPage)
               }, [
