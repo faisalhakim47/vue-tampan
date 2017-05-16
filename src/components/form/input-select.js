@@ -1,3 +1,4 @@
+import { isNumeric } from '../../tools/number'
 import { isNumber, isString } from '../../tools/typecheck'
 
 export default {
@@ -16,11 +17,10 @@ export default {
 
   methods: {
     change({ target }) {
-      const numberValue = parseInt(target.value, 10)
-      const value = isNaN(numberValue)
-        ? target.value
-        : numberValue
-        const updateEvent = { value }
+      const value = isNumeric(target.value)
+        ? parseInt(target.value, 10)
+        : target.value
+      const updateEvent = { value }
       this.$emit('change', updateEvent)
       this.$emit('input', updateEvent)
     }

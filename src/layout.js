@@ -26,11 +26,16 @@ export function initialLayout(root, tampan) {
   })
 
   root.$router.beforeEach((destination, origin, next) => {
+    let isNextRouteAllowed = true
     const isModalExist = closeModalIfExist()
+    if (isModalExist) {
+      isNextRouteAllowed = false
+    }
     const isMainMenuShow = tampan.isMainMenuShow
       && tampan.isMainMenuToggleable
-    if (isMainMenuShow) tampan.toggleMainMenu()
-    const isNextRouteAllowed = !isModalExist
+    if (isMainMenuShow) {
+      // isNextRouteAllowed = false
+    }
     next(isNextRouteAllowed)
   })
 

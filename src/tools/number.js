@@ -21,3 +21,8 @@ export function toCurrency(num) {
   num = num.join('')
   return num
 }
+
+const numericRegx = /^-?\d+\.?\d*$/
+export function isNumeric(data) {
+  return numericRegx.test(data)
+}

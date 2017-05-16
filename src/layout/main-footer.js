@@ -1,17 +1,30 @@
 import { ensureArrayType } from '../tools/array'
 
-export default {
-  computed: {
-    footerItems() {
-      const footerItems = this.$route.matched[0].components.default.footerItems
-      if (typeof footerItems !== 'function') {
-        return []
-      }
+let num = 1
 
-      const componentInstance = this.$route.matched[0].instances.default
+export default {
+  data() {
+    return {
+      footerItems: []
+    }
+  },
+
+  methods: {
+    footerItemsFromRoute(route) {
+      const footerItems = route.matched[0].components.default.footerItems
+
+      if (footerItems == undefined || typeof footerItems !== 'function') return []
+      else if (Array.isArray(footerItems)) return footerItems
+
+      const componentInstance = route.matched[0].instances.default
 
       // sometime it is just does not exist.
-      if (componentInstance == undefined) return []
+      if (componentInstance == undefined) {
+        setTimeout(() => {
+          this.footerItems = this.footerItemsFromRoute(route)
+        })
+        return []
+      }
 
       const footerItemsFactory = footerItems.bind(componentInstance)
 
@@ -19,6 +32,19 @@ export default {
         .filter(item => !!item)
     }
   },
+
+  mounted() {
+    this.footerItems = this.footerItemsFromRoute(this.$route)
+    this.$watch(() => {
+    })
+    this.$watch(() => {
+      const route = this.$route
+      this.$nextTick().then(() => {
+        this.footerItems = this.footerItemsFromRoute(route)
+      })
+    })
+  },
+
   render(e) {
     const isEmpty = this.footerItems.length === 0
     return e('div', {

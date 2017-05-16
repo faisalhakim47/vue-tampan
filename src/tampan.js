@@ -63,10 +63,16 @@ export function VueTampan(RootComponent) {
 
     methods: {
       toggleMainMenu() {
-        if (!this.isMainMenuEnabled) this.$nextTick().then(() => {
-          this.isMainMenuEnabled = !this.isMainMenuEnabled
+        return new Promise((resolve) => {
+          if (!this.isMainMenuEnabled) this.$nextTick().then(() => {
+            this.isMainMenuEnabled = !this.isMainMenuEnabled
+            resolve()
+          })
+          else {
+            this.isMainMenuEnabled = !this.isMainMenuEnabled
+            resolve()
+          }
         })
-        else this.isMainMenuEnabled = !this.isMainMenuEnabled
       },
 
       toggleFullscreen() {

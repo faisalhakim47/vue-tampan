@@ -1,12 +1,10 @@
+/*.box-body > .field > .field-input > .table-view,*/
 .box-body > .table-view {
   margin-left: -24px;
   margin-right: -24px;
 }
 
-.is-clickable > table > tbody > tr {
-  cursor: pointer;
-}
-
+/*.is-smallscreen .box-body > .field > .field-input > .table-view,*/
 .is-smallscreen .box-body > .table-view {
   margin-left: -16px;
   margin-right: -16px;
@@ -15,29 +13,41 @@
   -moz-user-select: none;
 }
 
-/* fix ugly box spacing */
-.box-body:last-child .table-view {
-  margin-bottom: -12px;
-}
-
+/*.box-body > .field > .field-input > .table-view th:first-child,
+.box-body > .field > .field-input > .table-view td:first-child,*/
 .box-body > .table-view th:first-child,
 .box-body > .table-view td:first-child {
   padding-left: 24px;
 }
 
-.is-smallscreen .box-body > .table-view th:first-child,
-.is-smallscreen .box-body > .table-view td:first-child {
-  padding-left: 16px;
-}
-
+/*.box-body > .field > .field-input > .table-view th:last-child,
+.box-body > .field > .field-input > .table-view td:last-child,*/
 .box-body > .table-view th:last-child,
 .box-body > .table-view td:last-child {
   padding-right: 24px;
 }
 
+/*.is-smallscreen .box-body > .field > .field-input > .table-view th:first-child,
+.is-smallscreen .box-body > .field > .field-input > .table-view td:first-child,*/
+.is-smallscreen .box-body > .table-view th:first-child,
+.is-smallscreen .box-body > .table-view td:first-child {
+  padding-left: 16px;
+}
+
+/*.is-smallscreen .box-body > .field > .field-input > .table-view th:last-child,
+.is-smallscreen .box-body > .field > .field-input > .table-view td:last-child,*/
 .is-smallscreen .box-body > .table-view th:last-child,
 .is-smallscreen .box-body > .table-view td:last-child {
   padding-right: 16px;
+}
+
+.is-clickable > table > tbody > tr {
+  cursor: pointer;
+}
+
+/* fix ugly box spacing */
+.box-body:last-child .table-view {
+  margin-bottom: -12px;
 }
 
 .table-view th, td {
