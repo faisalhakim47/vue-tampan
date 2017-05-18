@@ -35,7 +35,7 @@ export function loadAsyncRouteData(reqObjects) {
         const doDataMapping = (vm) => {
           dataMappers.forEach((dataMapper, index) => {
             const data = dataResults[index]
-            if (typeof data !== 'object') return
+            if (typeof data !== 'object' || typeof dataMapper !== 'function') return
             dataMapper(vm, data)
           })
           return true

@@ -37,7 +37,7 @@ export default {
                     body: (e) => e('field', { props: { label: 'Label' } }, [
                       e('input-text')
                     ]),
-                    foot: (e, { resolve, reject }) => e('button', {
+                    footer: (e, { resolve, reject }) => e('button', {
                       staticClass: 'button',
                       on: { click: () => resolve(this) }
                     }, 'yay')

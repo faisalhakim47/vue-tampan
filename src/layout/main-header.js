@@ -4,6 +4,8 @@ import { click } from '../tools/events'
 export default {
   watch: {
     '$tampan.isMainMenuShow'(newVal) {
+      const el_menu_toggle = this.$refs.menu_toggle
+      if (!el_menu_toggle) return
       this.$refs.menu_toggle.textContent = newVal ? 'close' : 'menu'
     }
   },

@@ -11,6 +11,8 @@ export default {
 
   methods: {
     footerItemsFromRoute(route) {
+      if (route.matched[0] == undefined) return []
+
       const footerItems = route.matched[0].components.default.footerItems
 
       if (footerItems == undefined || typeof footerItems !== 'function') return []

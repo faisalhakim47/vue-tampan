@@ -27,8 +27,8 @@ export default {
 
   mounted() {
     this.controlBodyOverflow()
-    this.$watch('modal', this.controlBodyOverflow)
-    this.$tampan.$on('window:resize', this.controlBodyOverflow)
+    this.$watch('modal', this.controlBodyOverflow),
+      this.$tampan.$on('window:resize', this.controlBodyOverflow)
   },
 
   render(e) {
@@ -36,29 +36,34 @@ export default {
     return e('transition', { props: { name: 'fade' } }, [
       this.isModalExist
         ? e('div', { staticClass: 'modal-container', class: { 'is-bodyoverflow': this.isBodyOverflow } }, [
-          e('div', { staticClass: 'modal' }, [
-            e('div', { staticClass: 'modal-header' }, [
-              e('h3', { staticClass: 'modal-title' }, modal.title),
-              modal.disableCloseButton
-                ? null
-                : e('button', {
-                  staticClass: 'button modal-close-btn',
-                  on: click(modal.resolve)
-                }, [
-                    e('i', { staticClass: 'icon material-icons' }, 'close')
-                  ])
-            ]),
-            modal.body
-              ? e('div', { ref: 'modalBody', staticClass: 'modal-body' }, (() => {
-                return ensureArrayType(modal.body(e, modal))
-              })())
-              : null,
-            modal.foot
-              ? e('div', { staticClass: 'modal-foot' }, (() => {
-                return ensureArrayType(modal.foot(e, modal))
-              })())
-              : null
-          ])
+          e(modal.type === 'form' ? 'form' : 'div', {
+            staticClass: 'modal',
+            on: typeof modal.onSubmit === 'function'
+              ? { submit: ev => modal.onSubmit(ev, modal) }
+              : {}
+          }, [
+              e('div', { staticClass: 'modal-header' }, [
+                e('h3', { staticClass: 'modal-title' }, modal.title),
+                modal.disableCloseButton
+                  ? null
+                  : e('button', {
+                    staticClass: 'button modal-close-btn',
+                    on: click(modal.resolve)
+                  }, [
+                      e('i', { staticClass: 'icon material-icons' }, 'close')
+                    ])
+              ]),
+              modal.body
+                ? e('div', { ref: 'modalBody', staticClass: 'modal-body' }, (() => {
+                  return ensureArrayType(modal.body(e, modal))
+                })())
+                : null,
+              modal.footer
+                ? e('div', { staticClass: 'modal-footer' }, (() => {
+                  return ensureArrayType(modal.footer(e, modal))
+                })())
+                : null
+            ])
         ])
         : null
     ])

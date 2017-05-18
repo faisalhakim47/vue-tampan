@@ -132,7 +132,10 @@ export function VueTampan(RootComponent) {
         return promiseWork
       },
 
-      createModal(modal) {
+      createModal({ title, type, body, footer, disableCloseButton, onSubmit }) {
+        const modal = {
+          title, type, body, footer, disableCloseButton, onSubmit
+        }
         const modalPromise = new Promise((resolve, reject) => {
           modal.resolve = resolve
           modal.reject = reject
@@ -155,7 +158,7 @@ export function VueTampan(RootComponent) {
         return this.createModal({
           title,
           body: e => e('p', text),
-          foot: (e, { resolve }) => e('div', {
+          footer: (e, { resolve }) => e('div', {
             attrs: {
               style: 'display: flex; justify-content: flex-end;'
             }
@@ -177,7 +180,7 @@ export function VueTampan(RootComponent) {
         return this.createModal({
           title,
           body: e => e('p', text),
-          foot: (e, { resolve, reject }) => e('div', {
+          footer: (e, { resolve, reject }) => e('div', {
             attrs: {
               style: 'display: flex; justify-content: flex-end;'
             }

@@ -326,7 +326,6 @@ export default {
                   e('i', { staticClass: 'icon material-icons' }, 'navigate_before')
                 ])
               : null,
-            console.log(this.items.length, this.limit, this.items.length <= this.limit),
             this.isPaginated
               ? e('button', {
                 attrs: { disabled: this.items.length < this.limit },
