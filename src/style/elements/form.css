@@ -24,7 +24,7 @@ input, select, textarea {
 .field-input > select.input:not(:disabled):hover,
 .field-input > textarea.input:not(:disabled):hover,
 .field-input > .input > select.input:not(:disabled):hover {
-  border-color: #212121;
+  border-color: #81D4FA;
 }
 
 .field-input > input.input:focus:hover,

@@ -39,7 +39,12 @@ export default {
           e(modal.type === 'form' ? 'form' : 'div', {
             staticClass: 'modal',
             on: typeof modal.onSubmit === 'function'
-              ? { submit: ev => modal.onSubmit(ev, modal) }
+              ? {
+                submit: ev => {
+                  ev.preventDefault()
+                  modal.onSubmit(ev, modal)
+                }
+              }
               : {}
           }, [
               e('div', { staticClass: 'modal-header' }, [
@@ -47,6 +52,7 @@ export default {
                 modal.disableCloseButton
                   ? null
                   : e('button', {
+                    attrs: { type: 'button' },
                     staticClass: 'button modal-close-btn',
                     on: click(modal.resolve)
                   }, [
