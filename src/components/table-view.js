@@ -44,6 +44,7 @@ export default {
     visibleColumns: { type: Array },
     onRowClick: { type: Function },
     onSelectionChange: { type: Function },
+    headless: { type: Boolean, default: false },
     pagination: { type: Boolean, default: true },
     limitation: { type: Boolean, default: true },
     searchable: { type: Boolean, default: false },
@@ -55,7 +56,6 @@ export default {
     return {
       columnTitles,
       items: [],
-      // selectedItems: [],
       query: '',
       skip: 0,
       limit: this.defaultRowLimit || (
@@ -146,15 +146,14 @@ export default {
   methods: {
     toggleSelect(item = {}) {
       if (this.selectable === 'none') return
-      VueTampan.Vue.set(item, '_isSelected', !item._isSelected)
+      item.isSelected = !item.isSelected
     },
 
     getSelectedItems() {
-      return this.items.filter(item => item._isSelected)
+      return this.items.filter(item => item.isSelected)
     },
 
     nextPage() {
-      // if (this.skip + this.limit >= this.items.length) return
       if (this.isLoading) return
       this.skip += this.limit
     },
@@ -175,14 +174,20 @@ export default {
       const finding = this.$tampan.useLoadingState(
         Promise.resolve(request)
       )
-      finding.then((resultItems) => {
-        this.items = resultItems
-        this.loadCount--
+      finding.then((items) => {
+        this.items = items.map((item, index) => {
+          return {
+            index,
+            content: item,
+            isSelected: false,
+          }
+        })
+        // this.loadCount--
       })
-      finding.catch(() => {
-        this.loadCount--
-      })
-      this.loadCount++
+      // finding.catch(() => {
+      //   this.loadCount--
+      // })
+      // this.loadCount++
     },
 
     rowClick(ev, item, index) {
@@ -222,18 +227,20 @@ export default {
     }, [
         e('table', { staticClass: 'table' }, [
           e('thead', [
-            e('tr', [
-              ...this.columnTitles.map((columnTitle, index) => {
-                const columnWidth = this.currentColumnWidth[index]
-                if (columnWidth === 0) return null
-                return e('th', {
-                  attrs: { style: columnWidth ? `width:${columnWidth}px` : null }
-                }, columnTitle)
-              }),
-              this.isShowClickableArrowIcon
-                ? e('th', { attrs: { style: `width:32px;border-left:none;` } })
-                : null
-            ]),
+            !this.headless
+              ? e('tr', [
+                ...this.columnTitles.map((columnTitle, index) => {
+                  const columnWidth = this.currentColumnWidth[index]
+                  if (columnWidth === 0) return null
+                  return e('th', {
+                    attrs: { style: columnWidth ? `width:${columnWidth}px` : null }
+                  }, !this.headless ? columnTitle : '')
+                }),
+                this.isShowClickableArrowIcon
+                  ? e('th', { attrs: { style: `width:32px;border-left:none;` } })
+                  : null
+              ])
+              : null,
             this.searchable
               ? e('tr', { staticClass: 'table-view-search-box' }, [
                 e('th', { attrs: { colspan: this.columnLength } }, [
@@ -264,23 +271,29 @@ export default {
               ]
               : [
                 ...this.items.map((item, rowIndex) => {
+                  const itemContent = item.content
                   return e('tr', {
                     attrs: { role: rowRole, tabindex: this.isClickableRow ? rowIndex + 1 : null },
                     class: {
-                      'is-selected': item._isSelected
+                      'is-selected': item.isSelected
                     },
-                    key: item._index_,
+                    key: item.index,
                     on: mergeEvents([
                       longpress(() => {
                         this.toggleSelect(item)
                       }),
-                      click(ev => this.rowClick(ev, item, rowIndex))
+                      click(ev => {
+                        this.rowClick(ev, itemContent, rowIndex)
+                      })
                     ])
                   }, [
                       ...this.columnTitles.map((columnTitle, columnIndex) => {
-                        if (this.currentColumnWidth[columnIndex] === 0) return null
+                        const columnWidth = this.currentColumnWidth[columnIndex]
+                        if (columnWidth === 0) return null
                         const columnMap = this.columnMap[columnTitle]
-                        return e('td', ensureArrayType(columnMap(item, rowIndex, e)))
+                        return e('td', {
+                          attrs: { style: columnWidth ? `width:${columnWidth}px` : null }
+                        }, ensureArrayType(columnMap(itemContent, rowIndex, e)))
                       }),
                       this.isShowClickableArrowIcon
                         ? e('td', [
