@@ -19,17 +19,8 @@ export default {
           )
           return e(isSameDomainRoute ? 'router-link' : 'a', {
             staticClass: `item`,
-            attrs: !isSameDomainRoute ? { href: route.path, title: menu.name } : null,
+            attrs: !isSameDomainRoute ? { href: route.path, title: menu.name, target: '_blank' } : null,
             props: isSameDomainRoute ? { to: route } : null,
-            // on: click(ev => {
-            //   if (!isSameDomainRoute) return
-            //   ev.preventDefault()
-            //   this.$tampan.toggleMainMenu().then(() => {
-            //     this.$router.push(route)
-            //     ev.target.focus()
-            //   })
-            //   ev.target.focus()
-            // })
           }, [
               e('i', { staticClass: 'icon ' + menu.iconClass }, menu.iconText),
               e('span', { staticClass: 'content' }, menu.name)

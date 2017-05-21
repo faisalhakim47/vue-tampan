@@ -2,6 +2,12 @@ import { ensureArrayType } from '../tools/array'
 import { click } from '../tools/events'
 
 export default {
+  computed: {
+    isMenuExist() {
+      return this.$tampan.menuItems.length !== 0
+    }
+   },
+
   watch: {
     '$tampan.isMainMenuShow'(newVal) {
       const el_menu_toggle = this.$refs.menu_toggle
@@ -17,7 +23,7 @@ export default {
         e('span', { staticClass: 'text' }, this.$tampan.brandName),
       ]),
       ...ensureArrayType(this.$tampan.headerItems),
-      this.$tampan.isMainMenuToggleable
+      this.$tampan.isMainMenuToggleable && this.isMenuExist
         ? e('div', {
           staticClass: 'item mainmenu-toggle',
           attrs: {
