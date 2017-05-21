@@ -41,8 +41,8 @@ export default {
   },
 
   methods: {
-    provideSuggestions(text = '') {
-      let providing = this.suggestionProvider(text)
+    provideSuggestions(query = '') {
+      let providing = this.suggestionProvider({ query })
       if (!(providing instanceof Promise)) {
         providing = Promise.resolve(providing)
       }

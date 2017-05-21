@@ -296,7 +296,7 @@ export default {
                         }, ensureArrayType(columnMap(itemContent, rowIndex, e)))
                       }),
                       this.isShowClickableArrowIcon
-                        ? e('td', [
+                        ? e('td', { attrs: { style: `width:32px;border-left:none;text-align: center;` } }, [
                           e('span', { staticClass: 'icon material-icons row-clickable-icon' }, 'keyboard_arrow_right')
                         ])
                         : null
