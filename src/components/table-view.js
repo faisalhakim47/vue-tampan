@@ -3,29 +3,31 @@ import { createArrayWithLength, ensureArrayType } from '../tools/array'
 import { click, longpress, mergeEvents } from '../tools/events'
 import { isString } from '../tools/typecheck'
 
-export function tableViewDataFactory({ items, indexMap }) {
+export function tableViewDataFactory({ items = [], indexMap = item => `${item}`, selectedItems = [] }) {
   const isIndexMapCallable = typeof indexMap === 'function'
   const indexedItems = items
     .map((item, index) => {
       if (!isIndexMapCallable) {
         return item
       }
-      return Object.assign(
-        item,
-        {
-          _searchTerm: indexMap(item),
-          _index: index
-        }
-      )
+      return {
+        index,
+        searchTerm: indexMap(item),
+        isSelected: selectedItems.indexOf(item) !== -1,
+        content: item
+      }
     })
-  return ({ query, skip, limit }) => {
+  return ({ query = false, skip = 0, limit = 0 }) => {
     const queryRx = new RegExp(query, 'i')
     const filteredItems = query && typeof query === 'string'
       ? indexedItems.filter((indexedItem) => {
         return queryRx.test(indexedItem._searchTerm)
       })
       : indexedItems
-    const slicedItems = filteredItems.slice(skip, skip + limit)
+    const slicedItems = filteredItems.slice(
+      skip,
+      limit > 0 ? skip + limit : filteredItems.length
+    )
     return slicedItems
   }
 }
@@ -85,7 +87,8 @@ export default {
     },
 
     isSelecting() {
-      return this.selectable === 'always' || (this.selectedItems && this.selectedItems.length !== 0)
+      return this.selectable === 'always'
+        || (Array.isArray(this.selectedItems) && this.selectedItems.length !== 0)
     },
 
     isShowClickableArrowIcon() {
@@ -147,10 +150,12 @@ export default {
     toggleSelect(item = {}) {
       if (this.selectable === 'none') return
       item.isSelected = !item.isSelected
+      this.onSelectionChange(this.getSelectedItems())
     },
 
     getSelectedItems() {
       return this.items.filter(item => item.isSelected)
+        .map((item) => item.content)
     },
 
     nextPage() {
@@ -169,32 +174,20 @@ export default {
         : this.dataProvider({
           query: this.query,
           skip: this.skip,
-          limit: this.limit,
+          limit: this.pagination ? this.limit : Infinity,
         })
-      const finding = this.$tampan.useLoadingState(
+      const getting = this.$tampan.useLoadingState(
         Promise.resolve(request)
       )
-      finding.then((items) => {
-        this.items = items.map((item, index) => {
-          return {
-            index,
-            content: item,
-            isSelected: false,
-          }
-        })
-        // this.loadCount--
+      getting.then((items) => {
+        this.items = items
       })
-      // finding.catch(() => {
-      //   this.loadCount--
-      // })
-      // this.loadCount++
     },
 
     rowClick(ev, item, index) {
       if (ev.ctrlKey || this.isSelecting) this.toggleSelect(item)
-      if (this.onRowClick) this.onRowClick(item, index)
+      if (this.onRowClick) this.onRowClick(item.content, index)
       if (typeof this.onSelectionChange !== 'function') return
-      this.onSelectionChange(this.getSelectedItems())
     }
   },
 
@@ -271,7 +264,6 @@ export default {
               ]
               : [
                 ...this.items.map((item, rowIndex) => {
-                  const itemContent = item.content
                   return e('tr', {
                     attrs: { role: rowRole, tabindex: this.isClickableRow ? rowIndex + 1 : null },
                     class: {
@@ -283,7 +275,7 @@ export default {
                         this.toggleSelect(item)
                       }),
                       click(ev => {
-                        this.rowClick(ev, itemContent, rowIndex)
+                        this.rowClick(ev, item, rowIndex)
                       })
                     ])
                   }, [
@@ -293,7 +285,7 @@ export default {
                         const columnMap = this.columnMap[columnTitle]
                         return e('td', {
                           attrs: { style: columnWidth ? `width:${columnWidth}px` : null }
-                        }, ensureArrayType(columnMap(itemContent, rowIndex, e)))
+                        }, ensureArrayType(columnMap(item.content, rowIndex, e)))
                       }),
                       this.isShowClickableArrowIcon
                         ? e('td', { attrs: { style: `width:32px;border-left:none;text-align: center;` } }, [

@@ -42,8 +42,6 @@ export function VueTampan(RootComponent) {
         isMainMenuEnabled: client.isLargeScreen,
         isFullscreen: getFullscreenStatus(),
         brandName: 'VueTampan',
-        // brandIconClass: 'material-icons',
-        // brandIconText: 'face',
         brandImageIconUrl: false,
         themeColor: null,
       }

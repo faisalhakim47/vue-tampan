@@ -5,45 +5,53 @@ let num = 1
 export default {
   data() {
     return {
-      footerItems: []
+      footerItems: [],
+      componentUnwatcher: () => { }
     }
   },
 
   methods: {
-    footerItemsFromRoute(route) {
-      if (route.matched[0] == undefined) return []
+    resetFooterItems(route) {
+      if (route.matched[0] == undefined) {
+        return this.footerItems = []
+      }
 
       const footerItems = route.matched[0].components.default.footerItems
 
-      if (footerItems == undefined || typeof footerItems !== 'function') return []
-      else if (Array.isArray(footerItems)) return footerItems
+      if (footerItems == undefined || typeof footerItems !== 'function') {
+        return this.footerItems = []
+      }
+      else if (Array.isArray(footerItems)) {
+        return this.footerItems = footerItems
+      }
 
       const componentInstance = route.matched[0].instances.default
 
       // sometime it is just does not exist.
       if (componentInstance == undefined) {
-        setTimeout(() => {
-          this.footerItems = this.footerItemsFromRoute(route)
+        return setTimeout(() => {
+          this.resetFooterItems(route)
         })
-        return []
       }
 
       const footerItemsFactory = footerItems.bind(componentInstance)
+      let generatedFooterItems = []
+      this.componentUnwatcher()
+      this.componentUnwatcher = this.$watch(
+        () => generatedFooterItems = ensureArrayType(footerItemsFactory(this.$createElement))
+          .filter(item => !!item),
+        () => this.resetFooterItems(route)
+      )
 
-      return ensureArrayType(footerItemsFactory(this.$createElement))
-        .filter(item => !!item)
+      this.footerItems = generatedFooterItems
     }
   },
 
   mounted() {
-    this.footerItems = this.footerItemsFromRoute(this.$route)
-    this.$watch(() => {
-    })
     this.$watch(() => {
       const route = this.$route
-      this.$nextTick().then(() => {
-        this.footerItems = this.footerItemsFromRoute(route)
-      })
+      console.log({ route })
+      this.$nextTick().then(() => this.resetFooterItems(route))
     })
   },
 

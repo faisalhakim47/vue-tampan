@@ -1,6 +1,7 @@
 fieldset {
   padding: 12px 20px 24px;
   margin: 8px 0px;
+  border: 1px solid #E0E0E0;
 }
 
 .is-smallscreen fieldset {

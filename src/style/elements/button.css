@@ -12,7 +12,8 @@ button,
   transition-property: transform;
   background-color: rgba(0,0,0,0);
   color: #616161;
-  border: 1px solid #757575;
+  border: 1px solid #9E9E9E;
+  text-decoration: none;
 }
 
 button:not(:disabled),
@@ -56,6 +57,7 @@ button.is-small,
 button.is-primary,
 .button.is-primary {
   background-color: #1E88E5;
+  border-color: #1565C0;
   color: #FFFFFF;
 }
 
@@ -67,6 +69,7 @@ button.is-primary:hover,
 button.is-positive,
 .button.is-positive {
   background-color: #388E3C;
+  border-color: #2E7D32;
   color: #FFFFFF;
 }
 
