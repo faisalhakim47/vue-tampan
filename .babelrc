@@ -4,7 +4,7 @@
       "env",
       {
         "targets": {
-          "android": 4.4
+          "android": "4.4"
         }
       }
     ]

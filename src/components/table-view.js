@@ -19,9 +19,9 @@ export function tableViewDataFactory({ items = [], indexMap = item => `${item}`,
     })
   return ({ query = false, skip = 0, limit = 0 }) => {
     const queryRx = new RegExp(query, 'i')
-    const filteredItems = query && typeof query === 'string'
+    const filteredItems = !!query && typeof query === 'string'
       ? indexedItems.filter((indexedItem) => {
-        return queryRx.test(indexedItem._searchTerm)
+        return queryRx.test(indexedItem.searchTerm)
       })
       : indexedItems
     const slicedItems = filteredItems.slice(
