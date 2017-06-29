@@ -50,7 +50,6 @@ export default {
   mounted() {
     this.$watch(() => {
       const route = this.$route
-      console.log({ route })
       this.$nextTick().then(() => this.resetFooterItems(route))
     })
   },
