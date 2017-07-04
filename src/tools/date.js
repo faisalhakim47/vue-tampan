@@ -40,16 +40,14 @@ export const shortMonths = [
   'Des'
 ]
 
-if (new Date().getMonth() === 7) {
-  console.error('REMOVE THESE DEPRECATION WARNING!!!')
-}
-
 export function getDayLengthInMonth(month, month2) {
-  if (month2) {
-    console.warn('DEPRECATION WARN, MONTH FROM 0')
+  let year = 1970
+  if (month2 != undefined) {
+    year = month
+    month = month2
   }
   month = typeof month === 'string' ? months.indexOf(month) : month
-  return new Date(1970, month, 0).getDate()
+  return new Date(year, month, 0).getDate()
 }
 
 export function toIndoDate(date) {
