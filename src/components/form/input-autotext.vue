@@ -1,3 +1,31 @@
+<template>
+  <div class="input-autotext">
+  
+    <input ref="suggestionInput" type="text" class="input" @input="input" @keydown="keydown" @blur="blur" @focus="focus">
+  
+    <div v-if="isSuggestionsShown" class="input-autotext-list-container">
+  
+      <ul ref="suggestionList" class="input-autotext-list" @mouseenter="mouseenterList" @mouseleave="mouseleaveList" @blur="blurList" @focus="focusList">
+  
+        <li v-if="visibleSuggestions.length === 0" class="input-autotext-nosuggestion">Tidak ada saran.</li>
+  
+        <li v-for="suggestion in visibleSuggestions" class="input-autotext-item">
+          <img v-if="typeof suggestion.picture === 'object'" class="input-autotext-item-image" :src="suggestion.picture.url" :alt="suggestion.picture.alt">
+          <div class="input-autotext-item-display">
+            <div v-if="typeof suggestion.text === 'string'" class="input-autotext-item-text">{{ suggestion.text }}</div>
+            <div v-if="typeof suggestion.description === 'string'" class="input-autotext-item-description">{{ suggestion.description }}</div>
+          </div>
+          <div v-if="typeof suggestion.info === 'string'" class="input-autotext-item-info">{{ suggestion.info }}</div>
+        </li>
+  
+      </ul>
+  
+    </div>
+  
+  </div>
+</template>
+
+<script>
 import { click, mergeEvents } from '../../tools/events'
 import { isString } from '../../tools/typecheck'
 
@@ -156,72 +184,6 @@ export default {
       if (elOldActive) elOldActive.classList.remove('active')
       if (elNewActive) elNewActive.classList.add('active')
     }
-  },
-
-  render(e) {
-    return e('div', { staticClass: 'input-autotext' }, [
-      e('input', {
-        staticClass: 'input',
-        attrs: { placeholder: this.placeholder || '' },
-        domProps: { value: this.value || '' },
-        on: {
-          input: this.input,
-          keydown: this.keydown,
-          blur: this.blurInput,
-          focus: this.focusInput
-        },
-        ref: 'suggestionInput'
-      }),
-      this.isSuggestionsShown
-        ? e('div', { staticClass: 'input-autotext-list-container' }, [
-          e('ul', {
-            staticClass: 'input-autotext-list',
-            on: {
-              mouseenter: this.mouseenterList,
-              mouseleave: this.mouseleaveList,
-              blur: this.blurList,
-              focus: this.focusList
-            },
-            ref: 'suggestionList'
-          }, [
-              this.visibleSuggestions.length === 0
-                ? e('li', { staticClass: 'input-autotext-nosuggestion' }, 'Tidak ada saran.')
-                : null,
-              ...this.visibleSuggestions.map((suggestion, index) => {
-                return e('li', {
-                  staticClass: 'input-autotext-item',
-                  on: mergeEvents([
-                    click(() => this.clickItem(index)),
-                    { mouseenter: () => this.mouseenterItem(index), }
-                  ])
-                }, [
-                    typeof suggestion.picture === 'object'
-                      ? e('img', {
-                        staticClass: 'input-autotext-item-image',
-                        attrs: {
-                          src: suggestion.picture.url,
-                          alt: suggestion.picture.title,
-                        }
-                      })
-                      : null,
-                    e('div', { staticClass: 'input-autotext-item-display' }, [
-                      typeof suggestion.text === 'string'
-                        ? e('div', { staticClass: 'input-autotext-item-text' }, [suggestion.text])
-                        : null,
-                      typeof suggestion.description === 'string'
-                        ? e('div', { staticClass: 'input-autotext-item-description' }, [suggestion.description])
-                        : null
-                    ]),
-                    e('div', { staticClass: 'input-autotext-item-info' }, [
-                      typeof suggestion.info === 'string'
-                        ? e('div', { staticClass: 'input-autotext-item-info' }, [suggestion.info])
-                        : null
-                    ]),
-                  ])
-              })
-            ])
-        ])
-        : null
-    ])
   }
 }
+</script>
