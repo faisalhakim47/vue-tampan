@@ -1,5 +1,5 @@
-const maxMediumSize = 800
-const maxSmallSize = 480
+const maxMediumSize = 1024
+const maxSmallSize = 768
 
 export function isTouchDevice() {
   return 'ontouchstart' in window 

@@ -7,17 +7,9 @@ export function requestFullScreen(el = document.documentElement) {
     || el.webkitRequestFullScreen
     || el.mozRequestFullScreen
     || el.msRequestFullscreen
-
   if (requestMethod) {
     requestMethod.call(el)
-  }
-  else if (typeof window.ActiveXObject !== "undefined") {
-    const wscript = new ActiveXObject("WScript.Shell")
-    if (wscript !== null) {
-      wscript.SendKeys("{F11}")
-    }
-  }
-  else {
+  } else {
     alert('Fullscreen mode is not available.')
   }
 }

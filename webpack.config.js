@@ -15,7 +15,8 @@ module.exports = {
     libraryTarget: 'umd'
   },
   externals: {
-    vue: 'Vue'
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
   },
   module: {
     rules: [

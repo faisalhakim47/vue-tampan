@@ -1,0 +1,29 @@
+input,
+textarea,
+select {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  background-color: #FCFCFC;
+  border: 1px solid #BDBDBD;
+  transition-property: border-color, background-color;
+  transition-duration: 150ms;
+  border-radius: 2px;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: #81d4fa;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #29B6F6;
+  background-color: #FFFFFF;
+  outline: none;
+}

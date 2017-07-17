@@ -1,11 +1,5 @@
-p {
-  line-height: 1.75;
-}
-
-p:first-child {
-  margin-top: 0px;
-}
-
-p:last-child {
-  margin-bottom: 0px;
+html {
+  font-family: system-ui, 'Roboto', 'Ubuntu', 'Trebuchet MS', 'Lucida Grande', sans-serif;
+  font-size: 14px;
+  color: #212121;
 }

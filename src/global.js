@@ -1,30 +1,32 @@
 import './style/index.css'
-import Field from './components/form/field.vue'
-import InputAddress from './components/form/input-address.vue'
-import InputAutotext from './components/form/input-autotext.vue'
-import InputText from './components/form/input-text'
-import InputTextarea from './components/form/input-textarea'
-import InputSelect from './components/form/input-select'
-import InputCheckbox from './components/form/input-checkbox'
-import InputRadio from './components/form/input-radio'
-import InputRange from './components/form/input-range'
-import InputDate from './components/form/input-date'
-import Breadcrumb from './components/breadcrumb'
-import TableView from './components/table-view'
+import Box from './components/box.vue'
+import ButtonTampan from './components/button.vue'
+import Column from './components/column.vue'
+import Field from './components/field.vue'
+import IdnInputAddress from './components/idn-input-address.vue'
+import InputDateSimple from './components/input-date-simple.vue'
+import InputNumber from './components/input-number.vue'
+import InputSelect from './components/input-select.vue'
+import InputSwitch from './components/input-switch.vue'
+import InputText from './components/input-text.vue'
+import InputTextarea from './components/input-textarea.vue'
+import Page from './components/page.vue'
+import Row from './components/row.vue'
 
-export function installComponents(Vue) {
+export function installGlobalComponents(Vue) {
+  Vue.component('box', Box)
+  Vue.component('button-tampan', ButtonTampan)
+  Vue.component('column', Column)
   Vue.component('field', Field)
-  Vue.component('input-address', InputAddress)
-  Vue.component('input-autotext', InputAutotext)
+  Vue.component('idn-input-address', IdnInputAddress)
+  Vue.component('input-date-simple', InputDateSimple)
+  Vue.component('input-number', InputNumber)
+  Vue.component('input-select', InputSelect)
+  Vue.component('input-switch', InputSwitch)
   Vue.component('input-text', InputText)
   Vue.component('input-textarea', InputTextarea)
-  Vue.component('input-select', InputSelect)
-  Vue.component('input-checkbox', InputCheckbox)
-  Vue.component('input-radio', InputRadio)
-  Vue.component('input-range', InputRange)
-  Vue.component('input-date', InputDate)
-  Vue.component('breadcrumb', Breadcrumb)
-  Vue.component('table-view', TableView)
+  Vue.component('page', Page)
+  Vue.component('row', Row)
 
   Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
     const Request = typeof req === 'function'
@@ -33,11 +35,13 @@ export function installComponents(Vue) {
     Request.then(data => map(this, data))
       .catch((error) => {
         const { status } = error.response
-        const tampan = getTampan()
-        tampan.alert({
-          title: 'Gagal Memuat Data'
-        }).catch((error) => void error)
-        console.warn('loadAsyncData', status, error)
+        getTampan().then((tampan) => {
+          tampan.alert({
+            title: 'Gagal Memuat Data',
+            text: JSON.stringify(error.json())
+          })
+          console.warn('loadAsyncData', status, error)
+        })
       })
   }
 }

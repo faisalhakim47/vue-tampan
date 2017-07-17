@@ -5,3 +5,7 @@ export function isString(data) {
 export function isNumber(data) {
   return typeof data === 'number'
 }
+
+export function isFunction(data) {
+  return typeof data === 'function'
+}

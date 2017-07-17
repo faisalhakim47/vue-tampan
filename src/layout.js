@@ -3,21 +3,12 @@ import { getClienDeviceInfo } from './tools/client-device-info'
 
 export function initialLayout(root, tampan) {
   const elApp = document.getElementById('app')
-  const elMainContainer = document.getElementById('main-container')
-  const isFirefox = typeof InstallTrigger !== 'undefined'
 
-  function closeModalIfExist() {
+  function resolveModalIfExist() {
     const currentModal = tampan.modalList[0]
     const isModalExist = !!currentModal
-    if (currentModal) currentModal.resolve()
+    if (isModalExist) currentModal.resolve()
     return isModalExist
-  }
-
-  // fix firefox flexbox
-  if (isFirefox) {
-    tampan.$watch(() => {
-      elMainContainer.style.minHeight = `${tampan.client.height - 48}px`
-    })
   }
 
   root.$watch('$route', () => {
@@ -27,7 +18,7 @@ export function initialLayout(root, tampan) {
 
   root.$router.beforeEach((destination, origin, next) => {
     let isNextRouteAllowed = true
-    const isModalExist = closeModalIfExist()
+    const isModalExist = resolveModalIfExist()
     if (isModalExist) {
       isNextRouteAllowed = false
     }
@@ -67,25 +58,16 @@ export function initialLayout(root, tampan) {
     })
   })
 
-  tampan.$watch(() => {
-    if (tampan.isFullscreen) root.$nextTick().then(() => {
-      elApp.classList.add('is-fullscreen')
-    })
-    else root.$nextTick().then(() => {
-      elApp.classList.remove('is-fullscreen')
-    })
-  })
-
   window.addEventListener('resize', throttle(() => {
-    tampan.$emit('window:resize')
     tampan.client = getClienDeviceInfo()
     tampan.isMainMenuEnabled = tampan.client.isLargeScreen
+    tampan.$emit('window:resize')
   }, 500))
 
   window.addEventListener('keydown', ({ keyCode }) => {
     switch (keyCode) {
       case 27:
-        closeModalIfExist()
+        resolveModalIfExist()
         break
     }
   })
