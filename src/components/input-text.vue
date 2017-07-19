@@ -1,11 +1,12 @@
 <template>
-  <input class="input input-text" type="text" :value="value" @input="input">
+  <input class="input input-text" :type="type || 'text'" :value="value" @input="input">
 </template>
 
 <script>
 export default {
   props: {
     value: { type: String },
+    type: { type: String },
     minLength: { type: Number, default: Number.MIN_SAFE_INTEGER },
     maxLength: { type: Number, default: Number.MAX_SAFE_INTEGER },
   },

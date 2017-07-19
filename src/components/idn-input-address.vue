@@ -15,7 +15,7 @@
         <InputNumber v-model="addressObject.postalcode" placeholder="Kode POS"></InputNumber>
       </Column>
       <Column :sm="2/6">
-        <InputAutotext v-model="addressObject.province" placeholder="Provinsi" :dataProvider="provinceSuggestionProvider"></InputAutotext>
+        <InputAutotext v-model="addressObject.province" placeholder="Provinsi"></InputAutotext>
       </Column>
       <Column :sm="3/6">
         <InputText v-model="addressObject.regency" placeholder="Kota/kabupaten"></InputText>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { throttle } from '../tools/throttle'
 import InputAutotext from './input-autotext.vue'
 import InputText from './input-text.vue'
 import InputNumber from './input-number.vue'
@@ -56,7 +57,8 @@ function objectToAddress({ street, rt, rw, village, district, regecency, provinc
 
 export default {
   props: {
-    value: { type: [String, Object], default: () => ({}) }
+    value: { type: [String, Object], default: () => ({}) },
+    suggestionProvider: { type: String },
   },
 
   components: {
@@ -70,24 +72,20 @@ export default {
   data() {
     return {
       addressObject: addressToObject(this.value),
-      provinceSuggestionProvider: ({ query }) => new Promise((resolve) => {
-        setTimeout(
-          () => resolve(
-            [
-              'Jawa Tengah',
-              'Jawa Timur',
-              'Jawa Barat',
-              'Jawa Selatan',
-              'Jogjakarta',
-            ]
-              .map((name) => ({ text: name, value: name, search: name }))
-              .filter(({ search }) => new RegExp(query, 'i').test(search))
-          ),
-          500
-        )
-      })
+      provinceProvider: throttle(({ query }) => {
+        return new Promise
+      }, 500)
     }
   },
+
+  watch: {
+    addressObject: {
+      deep: true,
+      handler(addressObject) {
+        this.$emit('input', JSON.stringify(addressObject))
+      }
+    }
+  }
 }
 </script>
 

@@ -4,7 +4,7 @@
       <h2 class="modal__title">{{ modal.title }}</h2>
     </div>
 
-    <p v-if="modal.type === 'text'">{{ modal.body }}</p>
+    <p v-if="modal.type === 'text'" class="modal__text">{{ modal.body }}</p>
 
     <FormFactory v-else-if="modal.type === 'form'" :items="modal.body.fieldList" :value.sync="modal.body.syncValue" @submit="formSubmit"></FormFactory>
 
@@ -42,7 +42,7 @@ export default {
 
     closeModal() {
       return this.isModalExist ? this.items[0].close : (() => {})
-    }
+    },
   },
 
   methods: {

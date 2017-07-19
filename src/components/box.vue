@@ -1,13 +1,13 @@
 <template>
   <div class="box">
-    <div class="box__header">
+    <div v-if="title" class="box__header">
       <h3 class="box__title">{{ title }}</h3>
     </div>
     <div class="box__content">
       <slot></slot>
     </div>
     <div class="box__footer">
-  
+      <slot name="footer"></slot>
     </div>
   </div>
 </template>
@@ -43,7 +43,22 @@ export default {
   margin: 0px;
 }
 
-.box__content > p {
+.box__content>p {
   margin: 8px 16px;
+}
+
+
+.box__content>.table>thead>tr>th:first-child,
+.box__content>.table>tbody>tr>td:first-child,
+.box__content>.table>tfoot>tr>td:first-child {
+  padding: 0px 16px;
+  border-left: none;
+}
+
+.box__content>.table>thead>tr>th:last-child,
+.box__content>.table>tbody>tr>td:last-child,
+.box__content>.table>tfoot>tr>td:last-child {
+  padding: 0px 16px;
+  border-right: none;
 }
 </style>

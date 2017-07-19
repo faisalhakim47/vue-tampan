@@ -1,5 +1,9 @@
 html {
   font-family: system-ui, 'Roboto', 'Ubuntu', 'Trebuchet MS', 'Lucida Grande', sans-serif;
   font-size: 14px;
-  color: #212121;
+  color: #424242;
+}
+
+p {
+  line-height: 1.6;
 }

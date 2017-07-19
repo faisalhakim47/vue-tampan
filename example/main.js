@@ -3,6 +3,7 @@ import { VueTampan } from '../src/index'
 
 import Form from './pages/form.vue'
 import Modal from './pages/modal.vue'
+import Table from './pages/table.vue'
 
 new VueTampan({
   el: '#app',
@@ -11,6 +12,7 @@ new VueTampan({
     routes: [
       { name: 'form', path: '/form', component: Form },
       { name: 'modal', path: '/modal', component: Modal },
+      { name: 'table', path: '/table', component: Table },
       { path: '*', redirect: '/modal' }
     ]
   }),
@@ -32,6 +34,12 @@ new VueTampan({
               iconClass: 'material-icons',
               iconText: 'save',
               route: { name: 'modal' }
+            },
+            {
+              name: 'Tabel',
+              iconClass: 'material-icons',
+              iconText: 'view_headline',
+              route: { name: 'table' }
             },
           ]
         }

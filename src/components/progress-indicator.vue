@@ -7,14 +7,14 @@
 import nprogress from '../../node_modules/nprogress/nprogress'
 
 export default {
-  mounted() {
-    for (var x = 5; x > 0; x--) {
-      this.$tampan.useLoadingState(new Promise((resolve) => {
-        const delay = (Math.random() * 5) * 1000
-        setTimeout(resolve, delay)
-      }))
-    }
-  },
+  // mounted() {
+  //   for (var x = 5; x > 0; x--) {
+  //     this.$tampan.useLoadingState(new Promise((resolve) => {
+  //       const delay = (Math.random() * 5) * 1000
+  //       setTimeout(resolve, delay)
+  //     }))
+  //   }
+  // },
 
   watch: {
     '$tampan.loadingCount'(loadingCount, oldLoadingCount) {

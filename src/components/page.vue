@@ -13,9 +13,9 @@
     <div class="page__content">
       <slot></slot>
     </div>
-    <!-- <div class="page__footer">
-    
-      </div> -->
+    <div class="page__footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -81,7 +81,7 @@ button.page__title-button:hover {
   border: none;
 }
 
-button.page__title-button > .button__icon {
+button.page__title-button>.button__icon {
   font-size: 26px;
 }
 
@@ -107,7 +107,7 @@ button.page__title-button > .button__icon {
 }
 
 .page__footer {
-  min-height: 48px;
-  max-height: 48px;
+  min-height: 44px;
+  max-height: 44px;
 }
 </style>

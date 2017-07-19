@@ -8,3 +8,5 @@
 /* ELEMENT */
 @import './vendor/material-icons.css';
 @import './form.css';
+@import './table.css';
+@import './button.css';

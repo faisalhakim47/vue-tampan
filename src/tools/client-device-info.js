@@ -1,11 +1,6 @@
 const maxMediumSize = 1024
 const maxSmallSize = 768
 
-export function isTouchDevice() {
-  return 'ontouchstart' in window 
-    || navigator.maxTouchPoints
-};
-
 export function getClienDeviceInfo() {
   const width = window.innerWidth
   const height = window.innerHeight
@@ -14,6 +9,8 @@ export function getClienDeviceInfo() {
   const isSmallScreen = width <= maxSmallSize
   const isMediumScreen = !isSmallScreen && width <= maxMediumSize
   const isLargeScreen = !isSmallScreen && !isMediumScreen
+  const isTouchDevice = (isSmallScreen || isMediumScreen)
+    && ('ontouchstart' in window || navigator.maxTouchPoints)
   return {
     width,
     height,
@@ -21,6 +18,7 @@ export function getClienDeviceInfo() {
     isPortrait,
     isSmallScreen,
     isMediumScreen,
-    isLargeScreen
+    isLargeScreen,
+    isTouchDevice
   }
 }

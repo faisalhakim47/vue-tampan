@@ -1,6 +1,8 @@
 import './style/index.css'
+import { getTampan } from './tampan'
 import Box from './components/box.vue'
 import ButtonTampan from './components/button.vue'
+import ButtonLink from './components/button-link.vue'
 import Column from './components/column.vue'
 import Field from './components/field.vue'
 import IdnInputAddress from './components/idn-input-address.vue'
@@ -12,10 +14,12 @@ import InputText from './components/input-text.vue'
 import InputTextarea from './components/input-textarea.vue'
 import Page from './components/page.vue'
 import Row from './components/row.vue'
+import TableCluster from './components/table-cluster.vue'
 
 export function installGlobalComponents(Vue) {
   Vue.component('box', Box)
   Vue.component('button-tampan', ButtonTampan)
+  Vue.component('button-link', ButtonLink)
   Vue.component('column', Column)
   Vue.component('field', Field)
   Vue.component('idn-input-address', IdnInputAddress)
@@ -27,21 +31,5 @@ export function installGlobalComponents(Vue) {
   Vue.component('input-textarea', InputTextarea)
   Vue.component('page', Page)
   Vue.component('row', Row)
-
-  Vue.prototype.$loadAsyncData = function loadAsyncData({ req, map }) {
-    const Request = typeof req === 'function'
-      ? req(this.$route)
-      : req
-    Request.then(data => map(this, data))
-      .catch((error) => {
-        const { status } = error.response
-        getTampan().then((tampan) => {
-          tampan.alert({
-            title: 'Gagal Memuat Data',
-            text: JSON.stringify(error.json())
-          })
-          console.warn('loadAsyncData', status, error)
-        })
-      })
-  }
+  Vue.component('table-cluster', TableCluster)
 }

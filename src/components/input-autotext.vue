@@ -40,7 +40,7 @@ export default {
 
   computed: {
     showSuggestion() {
-      return (this.isInputFocus || this.isSuggestionFocus) && this.isShowSuggestion
+      return this.dataProvider && (this.isInputFocus || this.isSuggestionFocus) && this.isShowSuggestion
     },
   },
 

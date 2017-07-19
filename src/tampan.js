@@ -105,22 +105,25 @@ export function VueTampan(AppComponent) {
         return modal
       },
 
-      alert({
-        title = '',
-        text = '',
-        confirmText = 'Tutup'
-      }) {
-        return this.createModal({
-          title,
-          body: e => text ? e('p', text) : e('span'),
-          footer: (e, { resolve }) => e('div', {
-            attrs: { style: 'display: flex; justify-content: flex-end;' }
-          }, [
-              e('button', {
-                staticClass: 'button ripple',
-                on: { click: resolve }
-              }, confirmText),
-            ])
+      alert({ title = '', text = '', confirmText = 'Tutup' }) {
+        return new Promise((resolve) => {
+          const modal = this.createModal({
+            title,
+            type: 'text',
+            body: text,
+            footer: [
+              {
+                type: 'button',
+                text: confirmText,
+                onClick() {
+                  modal.close()
+                  resolve()
+                },
+                iconClass: 'material-icons',
+                iconText: 'close'
+              },
+            ],
+          })
         })
       },
 
@@ -130,21 +133,30 @@ export function VueTampan(AppComponent) {
         confirmText = 'Oke',
         cancelText = 'Batal'
       }) {
-        return this.createModal({
-          title,
-          body: e => text ? e('p', text) : e('span'),
-          footer: (e, { resolve, reject }) => e('div', {
-            attrs: { style: 'display: flex; justify-content: flex-end;' }
-          }, [
-              e('button', {
-                staticClass: 'button ripple',
-                on: { click: reject }
-              }, cancelText),
-              e('button', {
-                staticClass: 'button ripple',
-                on: { click: resolve }
-              }, confirmText),
-            ])
+        return new Promise((resolve, reject) => {
+          const modal = this.createModal({
+            title,
+            type: 'text',
+            body: text,
+            footer: [
+              {
+                type: 'button',
+                text: cancelText,
+                onClick() {
+                  modal.close()
+                  reject()
+                },
+              },
+              {
+                type: 'button',
+                text: confirmText,
+                onClick() {
+                  modal.close()
+                  resolve()
+                },
+              },
+            ],
+          })
         })
       },
     },

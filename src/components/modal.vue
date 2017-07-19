@@ -96,6 +96,11 @@ export default {
   flex-basis: 100%;
 }
 
+.modal__content p {
+  padding: 0px 16px;
+  margin: 4px 0px;
+}
+
 .modal--overflow .modal__content {
   box-shadow: 8px 14px 16px -16px rgba(0, 0, 0, .4) inset, 8px -14px 16px -16px rgba(0, 0, 0, .4) inset;
   padding-top: 8px;

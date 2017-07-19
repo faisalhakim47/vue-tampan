@@ -3,7 +3,7 @@
     <transition name="overlay-fade">
       <div v-if="$tampan.isMainMenuShow && $tampan.isMainMenuToggleable" class="app-sidebar__overlay" @click="$tampan.toggleMainMenu"></div>
     </transition>
-    <div class="app-sidebar__container" :style="{ 'transform': `translateX(${sidebarOffset}px)` }">
+    <div class="app-sidebar__container" :style="sidebarStyle">
       <div class="brand">
   
       </div>
@@ -44,9 +44,7 @@ export default {
       isSliding: false,
       isScrolling: false,
       touchX: 0,
-      touchy: 0,
       touchXStart: 0,
-      touchYStart: 0,
     }
   },
 
@@ -54,7 +52,6 @@ export default {
     sidebarOffset() {
       if (this.isSliding) {
         const touchXDiff = this.touchX - this.touchXStart
-        console.log(this.$tampan.isMainMenuShow, this.touchX, this.touchXStart, { touchXDiff })
         if (!this.$tampan.isMainMenuShow) {
           return touchXDiff > sidebarWidth ? 0 : -sidebarWidth + touchXDiff
         } else {
@@ -64,17 +61,20 @@ export default {
         return this.$tampan.isMainMenuShow ? 0 : -sidebarWidth
       }
     },
+    sidebarStyle() {
+      const style = { 'transform': `translateX(${this.sidebarOffset}px)` }
+      if (this.isSliding) style['transition'] = 'none'
+      return style
+    }
   },
 
   methods: {
     touchstart(event) {
       const touch = event.changedTouches[0]
       if (!touch) return
-      console.log(this.$tampan.isMainMenuShow, touch.clientX)
       if (!this.$tampan.isMainMenuShow && touch.clientX <= 44) {
         this.isSliding = true
         this.touchX = this.touchXStart = touch.clientX
-        this.touchY = this.touchYStart = touch.clientY
       }
       timeTouchStart = new Date().getTime()
     },
@@ -103,7 +103,6 @@ export default {
           this.$tampan.isMainMenuShow
           && (touchXDiff < -120 || (touchXDiff < -50 && touchTimeDiff < 300))
         ) this.$tampan.hideMainMenu()
-        console.log({ touchXDiff, touchTimeDiff })
       }
       this.touchX = this.touchXStart = 0
       this.isSliding = false
@@ -196,6 +195,8 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  /* fix it letter */
+  min-height: 1000px; 
   overflow-y: auto;
   overflow-x: hidden;
   border-right: 1px solid #E0E0E0;
