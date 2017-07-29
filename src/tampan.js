@@ -21,7 +21,6 @@ export function getRootInstance() {
   return whenTampanReady().then(({ root }) => root)
 }
 
-
 export function VueTampan(AppComponent) {
   const { Vue } = VueTampan
 
@@ -60,9 +59,11 @@ export function VueTampan(AppComponent) {
       showMainMenu() {
         return this.isMainMenuEnabled = true
       },
+
       hideMainMenu() {
         return this.isMainMenuEnabled = false
       },
+
       toggleMainMenu() {
         return new Promise((resolve) => {
           if (!this.isMainMenuEnabled) this.$nextTick().then(() => {
@@ -115,12 +116,12 @@ export function VueTampan(AppComponent) {
               {
                 type: 'button',
                 text: confirmText,
+                iconClass: 'material-icons',
+                iconText: 'close',
                 onClick() {
                   modal.close()
                   resolve()
                 },
-                iconClass: 'material-icons',
-                iconText: 'close'
               },
             ],
           })
@@ -141,18 +142,22 @@ export function VueTampan(AppComponent) {
             footer: [
               {
                 type: 'button',
-                text: cancelText,
+                text: confirmText,
+                iconClass: 'material-icons',
+                iconText: 'done',
                 onClick() {
                   modal.close()
-                  reject()
+                  resolve()
                 },
               },
               {
                 type: 'button',
-                text: confirmText,
+                text: cancelText,
+                iconClass: 'material-icons',
+                iconText: 'close',
                 onClick() {
                   modal.close()
-                  resolve()
+                  reject()
                 },
               },
             ],

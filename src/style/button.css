@@ -2,14 +2,26 @@
   user-select: none;
   font: inherit;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
+  line-height: 32px;
   text-transform: uppercase;
   transition-property: background-color, border-color, transform;
   transition-duration: 150ms;
   padding: 0px 8px;
-  border: 1px solid #FFFFFF;
-  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 2px;
   color: #212121;
+}
+
+.page__footer>.button {
+  margin: 0px 3px;
+}
+
+.is-smallscreen .button {
+  font-size: 15px;
+  padding: 0px 12px;
+  line-height: 36px;
 }
 
 .button:hover {
@@ -26,6 +38,10 @@
   transform: scale(.96);
 }
 
+.button:disabled:active {
+  transform: scale(1);
+}
+
 .button__icon {
   font-size: 20px;
   line-height: 32px;
@@ -33,6 +49,34 @@
   margin-right: 4px;
 }
 
+.is-smallscreen .button__icon {
+  font-size: 22px;
+  line-height: 36px;
+}
+
 .button__text {
   line-height: 32px;
+}
+
+.is-smallscreen .button__text {
+  line-height: 36px;
+}
+
+.button.button--positive {
+  background-color: #43A047;
+  color: #FFFFFF;
+  border-color: #2E7D32;
+}
+
+.button.button--positive:hover {
+  background-color: #388E3C;
+  border-color: #1B5E20;
+}
+
+.button.button--positive:disabled,
+.button.button--positive:disabled:hover {
+  cursor: not-allowed;
+  background-color: #66BB6A;
+  color: #EEEEEE;
+  border-color: #388E3C;
 }

@@ -7,6 +7,8 @@
       <InputTextarea v-if="field.type === 'textarea'" v-model="value[field.target]"></InputTextarea>
   
       <InputNumber v-else-if="field.type === 'number'" v-model="value[field.target]"></InputNumber>
+
+      <InputSelect v-else-if="field.type === 'select'" :options="field.options" v-model="value[field.target]"></InputSelect>
   
     </Field>
   </form>
@@ -19,12 +21,13 @@ import Field from './field.vue'
 import InputNumber from './input-number.vue'
 import InputText from './input-text.vue'
 import InputTextarea from './input-textarea.vue'
+import InputSelect from './input-select.vue'
 
 export default {
   props: {
     items: { type: Array, required: true },
     value: { Object, required: true },
-    onSubmit: { type: Function }
+    onSubmit: { type: Function },
   },
 
   components: {
@@ -32,6 +35,7 @@ export default {
     InputNumber,
     InputText,
     InputTextarea,
+    InputSelect,
   },
 
   methods: {

@@ -1,12 +1,15 @@
 <template>
   <div class="box">
-    <div v-if="title" class="box__header">
+    <div v-if="title" class="box__header" @click="$emit('update:collapsed', !collapsed)">
       <h3 class="box__title">{{ title }}</h3>
+      <div class="box__controls">
+        <i v-if="collapsable" class="material-icons" style="font-size: 22px;">{{ isCollapsed ? 'arrow_drop_down' : 'arrow_drop_up' }}</i>
+      </div>
     </div>
-    <div class="box__content">
+    <div v-if="!isCollapsed" class="box__content">
       <slot></slot>
     </div>
-    <div class="box__footer">
+    <div v-if="!isCollapsed && $slots.footer" class="box__footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -15,8 +18,18 @@
 <script>
 export default {
   props: {
-    title: { type: String }
-  }
+    collapsable: { type: Boolean, default: false },
+    collapsed: { type: Boolean, default: false },
+    title: { type: String },
+  },
+
+  computed: {
+    isCollapsed() {
+      if (!this.collapsable) return false
+      if (this.collapsed) return true
+      return false
+    },
+  },
 }
 </script>
 
@@ -29,10 +42,16 @@ export default {
   border-radius: 2px;
 }
 
+.column > .box {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 .box__header {
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 44px;
   padding: 16px;
 }
@@ -43,22 +62,18 @@ export default {
   margin: 0px;
 }
 
+.box_controls {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .box__content>p {
   margin: 8px 16px;
 }
 
-
-.box__content>.table>thead>tr>th:first-child,
-.box__content>.table>tbody>tr>td:first-child,
-.box__content>.table>tfoot>tr>td:first-child {
-  padding: 0px 16px;
-  border-left: none;
-}
-
-.box__content>.table>thead>tr>th:last-child,
-.box__content>.table>tbody>tr>td:last-child,
-.box__content>.table>tfoot>tr>td:last-child {
-  padding: 0px 16px;
-  border-right: none;
+.box__footer {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 4px 16px;
 }
 </style>

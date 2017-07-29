@@ -76,7 +76,7 @@ export default {
           .filter(({ search }) => {
             return valueRx.test(search)
           })
-      } else {
+      } else if (typeof this.dataProvider === 'function') {
         Promise.resolve(this.dataProvider({ query: this.valueHolder }))
           .then((suggestionList) => {
             this.suggestionList = suggestionList

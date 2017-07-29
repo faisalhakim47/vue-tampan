@@ -2,28 +2,28 @@
   <div class="idn-input-address">
   
     <Row>
-      <Column :sm="4/6">
+      <Column :width="{ md: 4/6 }">
         <InputText v-model="addressObject.street" placeholder="Nama jalan/dusun"></InputText>
       </Column>
-      <Column :sm="1/6">
+      <Column :width="{ sm: 2/8, md: 1/6 }">
         <InputNumber v-model="addressObject.rt" placeholder="RT"></InputNumber>
       </Column>
-      <Column :sm="1/6">
+      <Column :width="{ sm: 2/8, md: 1/6 }">
         <InputNumber v-model="addressObject.rw" placeholder="RW"></InputNumber>
       </Column>
-      <Column :sm="1/6">
+      <Column :width="{ sm: 4/8, md: 1/6 }">
         <InputNumber v-model="addressObject.postalcode" placeholder="Kode POS"></InputNumber>
       </Column>
-      <Column :sm="2/6">
+      <Column :width="{ md: 2/6 }">
         <InputAutotext v-model="addressObject.province" placeholder="Provinsi"></InputAutotext>
       </Column>
-      <Column :sm="3/6">
+      <Column :width="{ md: 3/6 }">
         <InputText v-model="addressObject.regency" placeholder="Kota/kabupaten"></InputText>
       </Column>
-      <Column :sm="3/6">
+      <Column :width="{ md: 3/6 }">
         <InputText v-model="addressObject.district" placeholder="Kecamatan"></InputText>
       </Column>
-      <Column :sm="3/6">
+      <Column :width="{ md: 3/6 }">
         <InputText v-model="addressObject.village" placeholder="Kelurahan"></InputText>
       </Column>
     </Row>
@@ -44,15 +44,16 @@ function addressToObject(address) {
     return address
   }
   try {
-    const { street, rt, rw, village, district, regecency, province, postalcode } = JSON.parse(address)
-    return { street, rt, rw, village, district, regecency, province, postalcode }
+    const { street, rt, rw, village, district, regency, province, postalcode } = JSON.parse(address)
+    return { street, rt, rw, village, district, regency, province, postalcode }
   } catch (e) {
+    console.warn('wrong address format', e)
     return {}
   }
 }
 
-function objectToAddress({ street, rt, rw, village, district, regecency, province, postalcode }) {
-  return JSON.stringify({ street, rt, rw, village, district, regecency, province, postalcode })
+function objectToAddress({ street, rt, rw, village, district, regency, province, postalcode }) {
+  return JSON.stringify({ street, rt, rw, village, district, regency, province, postalcode })
 }
 
 export default {
@@ -79,13 +80,19 @@ export default {
   },
 
   watch: {
+    value: {
+      deep: true,
+      handler(value) {
+        this.addressObject = addressToObject(value)
+      }
+    },
     addressObject: {
       deep: true,
       handler(addressObject) {
         this.$emit('input', JSON.stringify(addressObject))
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

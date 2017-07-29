@@ -4,34 +4,37 @@
       <div v-if="$tampan.isMainMenuShow && $tampan.isMainMenuToggleable" class="app-sidebar__overlay" @click="$tampan.toggleMainMenu"></div>
     </transition>
     <div class="app-sidebar__container" :style="sidebarStyle">
-      <div class="brand">
-  
+      <div v-if="$tampan.brandName" class="brand">
+        <img class="brand__image" v-if="$tampan.brandImageUrl" :src="$tampan.brandImageUrl"/>
+        <h1 class="brand__text">{{ $tampan.brandName }}</h1>
       </div>
-      <ul v-for="menuGroupItem in menuGroupList" class="menu-group-list" :key="menuGroupItem.name">
-        <li class="menu-group-item">
-          <span class="menu-group-item__title">{{ menuGroupItem.name }}</span>
-          <ul v-for="menuItem in menuGroupItem.menuList" class="menu-list" :key="menuItem.route ? menuItem.route.name : menuItem.name">
-            <li class="menu-item">
-              <router-link v-if="menuItem.route" class="menu-item__link" :to="menuItem.route">
-                <i class="menu-item__icon" :class="menuItem.iconClass">{{menuItem.iconText}}</i>
-                <span class="menu-item__text">{{ menuItem.name }}</span>
-              </router-link>
-              <a v-else class="menu-item__link exteral-link" :href="menuItem.href" target="_blank">
-                <i class="menu-item__icon" :class="menuItem.iconClass">
-                  {{menuItem.iconText}}
-                </i>
-                <span class="menu-item__text">{{ menuItem.name }}</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <div class="menu-group-list-container">
+        <ul v-for="menuGroupItem in menuGroupList" class="menu-group-list" :key="menuGroupItem.name">
+          <li class="menu-group-item">
+            <span class="menu-group-item__title">{{ menuGroupItem.name }}</span>
+            <ul v-for="menuItem in menuGroupItem.menuList" class="menu-list" :key="menuItem.route ? menuItem.route.name : menuItem.name">
+              <li class="menu-item">
+                <router-link v-if="menuItem.route" class="menu-item__link" :to="menuItem.route">
+                  <i class="menu-item__icon" :class="menuItem.iconClass">{{menuItem.iconText}}</i>
+                  <span class="menu-item__text">{{ menuItem.name }}</span>
+                </router-link>
+                <a v-else class="menu-item__link exteral-link" :href="menuItem.href" target="_blank">
+                  <i class="menu-item__icon" :class="menuItem.iconClass">
+                    {{menuItem.iconText}}
+                  </i>
+                  <span class="menu-item__text">{{ menuItem.name }}</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
-const sidebarWidth = 240
+const sidebarWidth = 280
 let timeTouchStart
 
 export default {
@@ -170,11 +173,29 @@ export default {
   background-color: #FFFFFF;
 }
 
+.is-smallscreen .app-sidebar__container {
+  width: 280px;
+}
+
 .brand {
   min-height: 64px;
   max-height: 64px;
   background-color: #388E3C;
   width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.brand__image {
+  height: 52px;
+}
+
+.brand__text {
+  margin: 0;
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .is-smallscreen .brand {
@@ -191,15 +212,20 @@ export default {
   margin-bottom: 0px;
 }
 
-.menu-group-list {
+.menu-group-list-container {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   /* fix it letter */
-  min-height: 1000px; 
+  min-height: 1000px;
   overflow-y: auto;
   overflow-x: hidden;
   border-right: 1px solid #E0E0E0;
+}
+
+.menu-group-list {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .menu-group-item__title {
@@ -222,6 +248,10 @@ export default {
   transition-property: background-color;
   transition-duration: 150ms;
   color: #37474F;
+}
+
+.is-smallscreen .menu-item__link {
+  height: 52px;
 }
 
 .menu-item__link:hover {

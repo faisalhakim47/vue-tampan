@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="$emit('click', $event)">
+  <button class="button" :class="`button--${color}`" @click="$emit('click', $event)">
     <i class="button__icon" :class="iconClass">{{ iconText }}</i>
     <span class="button__text">
       <slot></slot>
@@ -10,7 +10,8 @@
 <script>
 export default {
   props: {
-    iconClass: { type: String },
+    color: { type: String },
+    iconClass: { type: String, default: 'material-icons' },
     iconText: { type: String },
   }
 }

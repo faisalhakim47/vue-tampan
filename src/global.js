@@ -12,6 +12,7 @@ import InputSelect from './components/input-select.vue'
 import InputSwitch from './components/input-switch.vue'
 import InputText from './components/input-text.vue'
 import InputTextarea from './components/input-textarea.vue'
+import Modal from './components/modal.vue'
 import Page from './components/page.vue'
 import Row from './components/row.vue'
 import TableCluster from './components/table-cluster.vue'
@@ -29,6 +30,7 @@ export function installGlobalComponents(Vue) {
   Vue.component('input-switch', InputSwitch)
   Vue.component('input-text', InputText)
   Vue.component('input-textarea', InputTextarea)
+  Vue.component('modal', Modal)
   Vue.component('page', Page)
   Vue.component('row', Row)
   Vue.component('table-cluster', TableCluster)

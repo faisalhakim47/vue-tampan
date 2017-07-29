@@ -13,7 +13,7 @@
     <div class="page__content">
       <slot></slot>
     </div>
-    <div class="page__footer">
+    <div v-if="$slots.footer" class="page__footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -107,7 +107,15 @@ button.page__title-button>.button__icon {
 }
 
 .page__footer {
+  box-sizing: border-box;
   min-height: 44px;
   max-height: 44px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: row-reverse;
+  border-top: 1px solid #E0E0E0;
+  background-color: #EEEEEE;
 }
+
 </style>

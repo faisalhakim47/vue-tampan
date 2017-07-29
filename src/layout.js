@@ -7,7 +7,7 @@ export function initialLayout(root, tampan) {
   function resolveModalIfExist() {
     const currentModal = tampan.modalList[0]
     const isModalExist = !!currentModal
-    if (isModalExist) currentModal.resolve()
+    if (isModalExist) currentModal.close()
     return isModalExist
   }
 

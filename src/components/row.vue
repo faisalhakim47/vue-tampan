@@ -21,4 +21,9 @@ export default {}
   margin-left: -8px;
   margin-right: -8px;
 }
+
+.box__content > .row {
+  padding-left: 16px;
+  padding-right: 16px;
+}
 </style>

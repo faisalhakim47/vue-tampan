@@ -13,7 +13,7 @@ import ButtonTampan from './button.vue'
 
 export default {
   props: {
-    items: { type: Array, required: true }
+    items: { type: Array, required: true },
   },
 
   components: {
@@ -21,3 +21,11 @@ export default {
   },
 }
 </script>
+
+<style>
+.element-factory {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+</style>

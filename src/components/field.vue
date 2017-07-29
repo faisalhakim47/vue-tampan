@@ -53,6 +53,11 @@ export default {
   padding-right: 16px;
 }
 
+.box__content > .row > .column > .field {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .modal__content .field {
   padding-left: 16px;
   padding-right: 16px;

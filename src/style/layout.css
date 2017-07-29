@@ -5,8 +5,11 @@ body, #app, #app-container {
 }
 
 #app-container {
-  padding-left: 240px;
   background-color: #F5F5F5;
+}
+
+.is-mainmenu-show #app-container {
+  padding-left: 240px;
 }
 
 .is-smallscreen #app-container {
