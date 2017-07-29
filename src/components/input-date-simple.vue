@@ -2,13 +2,13 @@
   <div class="input input-date-simple">
     <Row>
       <Column :width="{ sm: 1/7 }">
-        <InputNumber v-model="date.date" @input="input" :max-value="99" :min-value="1"></InputNumber>
+        <InputNumber v-model="date.date" @change="input" :max-value="99" :min-value="1"></InputNumber>
       </Column>
       <Column :width="{ sm: 4/7 }">
         <InputSelect v-model="date.month" @input="input" :options="monthOptions"></InputSelect>
       </Column>
       <Column :width="{ sm: 2/7 }">
-        <InputNumber v-model="date.year" @input="input" :max-value="9999" :min-value="0"></InputNumber>
+        <InputNumber v-model="date.year" @change="input" :max-value="9999" :min-value="0"></InputNumber>
       </Column>
     </Row>
   </div>

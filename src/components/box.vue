@@ -42,7 +42,7 @@ export default {
   border-radius: 2px;
 }
 
-.column > .box {
+.column>.box {
   margin-top: 8px;
   margin-bottom: 8px;
 }
@@ -69,6 +69,25 @@ export default {
 
 .box__content>p {
   margin: 8px 16px;
+}
+
+.box__content a {
+  color: #1976D2;
+  text-decoration: none;
+}
+
+.box__content a:hover {
+  color: #1565C0;
+  text-decoration: underline;
+}
+
+.box__content ul {
+  margin: 16px 0px;
+  padding-left: 32px;
+}
+
+.box__content ul>li {
+  padding: 4px 0px;
 }
 
 .box__footer {
