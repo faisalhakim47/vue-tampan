@@ -1,0 +1,13 @@
+.tampan {
+  font-family: 'Ubuntu', 'Roboto', 'Trebuchet MS', 'Lucida Grande', sans-serif;
+  font-size: 14px;
+  color: #424242;
+}
+
+.tampan p {
+  line-height: 1.6;
+}
+
+input, textarea, select {
+  font: inherit;
+}

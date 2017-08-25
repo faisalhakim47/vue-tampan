@@ -1,234 +1,110 @@
-import { installComponents } from './global'
-import { getClienDeviceInfo } from './tools/client-device-info'
-import { click } from './tools/events'
-import { randomChar } from './tools/string'
-import { toggleFullscreen, getFullscreenStatus } from './tools/fullscreen'
-import { initialLayout } from './layout'
-import App from './App'
-
-let tampan = null
-let root = null
-let tampanResolver = null
-let tampanPromise = new Promise(resolve => tampanResolver = resolve)
-
-export function whenTampanReady() {
-  return tampanPromise
-}
-
-export function getTampan() {
-  return whenTampanReady().then(({ tampan }) => tampan)
-}
-
-export function getRootInstance() {
-  return whenTampanReady().then(({ root }) => root)
-}
+import Vue from 'vue'
+import { getClienDeviceInfo } from './tools/client-device'
 
 
-export function VueTampan(RootComponent) {
-  const { Vue } = VueTampan
 
-  if (!Vue) throw new Error('Anda belum menjalankan: "Vue.use(VueTampan);"')
 
-  const client = getClienDeviceInfo()
 
-  const Tampan = {
-    data() {
-      return {
-        client,
-        modalList: [],
-        notifications: [],
-        loadingCount: 0,
-        overlayCount: 0,
-        isMainMenuEnabled: client.isLargeScreen,
-        isFullscreen: getFullscreenStatus(),
-        brandName: 'VueTampan',
-        brandImageIconUrl: false,
-        themeColor: null,
-      }
+
+export const tampan = new Vue({
+  data() {
+    const client = getClienDeviceInfo()
+    return {
+      client,
+      alertList: [],
+      confirmList: [],
+      loadingCount: 0,
+      isSidebarShow: !client.isSmallScreen,
+    }
+  },
+
+  computed: {
+    isSidebarToggleable() {
+      return this.client.isSmallScreen
+    },
+    isSidebarVisible() {
+      if (!this.isSidebarToggleable) return true
+      if (this.isSidebarShow) return true
+      return false
+    },
+  },
+
+  methods: {
+    showSidebar() {
+      return this.isSidebarShow = true
     },
 
-    computed: {
-      isMainMenuShow() {
-        // I know it is dumb but it is easier for human to understand.
-        const isMenuItemExist = this.menuItems.length !== 0
-        if (!isMenuItemExist) return false
-        if (this.isMainMenuEnabled) return true
-      },
-      isMainMenuToggleable() {
-        return !this.client.isLargeScreen
-      }
+    hideSidebar() {
+      return this.isSidebarShow = false
     },
 
-    methods: {
-      toggleMainMenu() {
-        return new Promise((resolve) => {
-          if (!this.isMainMenuEnabled) this.$nextTick().then(() => {
-            this.isMainMenuEnabled = !this.isMainMenuEnabled
-            resolve()
-          })
-          else {
-            this.isMainMenuEnabled = !this.isMainMenuEnabled
+    toggleSidebar() {
+      return new Promise((resolve) => {
+        if (!this.isSidebarShow) this.$nextTick().then(() => {
+          this.isSidebarShow = !this.isSidebarShow
+          this.$nextTick().then(resolve)
+        })
+        else {
+          this.isSidebarShow = !this.isSidebarShow
+          this.$nextTick().then(resolve)
+        }
+      })
+    },
+
+    addLoadingState() {
+      this.loadingCount += 1
+    },
+    reduceLoadingState() {
+      this.loadingCount -= 1
+    },
+    useLoadingState(promiseWork) {
+      const finish = () => this.reduceLoadingState()
+      this.addLoadingState()
+      this.$nextTick().then(() => promiseWork)
+        .then(finish)
+        .catch(finish)
+      return promiseWork
+    },
+
+    alert({ title = '', text = '', confirmText = 'Tutup' }) {
+      return new Promise((resolve) => {
+        const alert = {
+          title,
+          text,
+          close: () => {
+            this.alertList.splice(this.alertList.indexOf(alert), 1)
             resolve()
           }
-        })
-      },
-
-      toggleFullscreen() {
-        toggleFullscreen()
-        this.$nextTick(() => this.isFullscreen = !getFullscreenStatus())
-      },
-
-      notify({ type, title, text }) {
-        return new Promise((resolve) => {
-          this.notifications.push({
-            type,
-            title,
-            text,
-            key: (this.notifications.length) + '-' + randomChar(3),
-            close: (index) => {
-              this.notifications.splice(index, 1)
-              this.$nextTick(resolve)
-            }
-          })
-        })
-      },
-
-      addOverlayState() {
-        this.overlayCount += 1
-      },
-      reduceOverlayState() {
-        this.overlayCount -= this.overlayCount !== 0 ? 1 : 0
-      },
-      useOverlayState(promiseWork) {
-        const finish = () => this.reduceOverlayState()
-        promiseWork.catch(finish).then(finish)
-        this.addOverlayState()
-        return promiseWork
-      },
-
-      addLoadingState() {
-        this.loadingCount += 1
-        this.addOverlayState()
-      },
-      reduceLoadingState() {
-        this.loadingCount -= this.loadingCount !== 0 ? 1 : 0
-        this.reduceOverlayState()
-      },
-      useLoadingState(promiseWork) {
-        let isLoading = false
-        const timer = setTimeout(() => {
-          this.addLoadingState()
-          isLoading = true
-        }, 100)
-        const finish = () => {
-          this.$nextTick().then(() => {
-            if (isLoading) this.reduceLoadingState()
-          })
-          clearTimeout(timer)
         }
-        promiseWork.catch(finish).then(finish)
-        return promiseWork
-      },
+        this.alertList.push(alert)
+      })
+    },
 
-      createModal({ title, type, body, footer, disableCloseButton, onSubmit }) {
-        const modal = {
-          title, type, body, footer, disableCloseButton, onSubmit
-        }
-        const modalPromise = new Promise((resolve, reject) => {
-          modal.resolve = resolve
-          modal.reject = reject
-          this.modalList.push(modal)
-        })
-        const closeModal = () => {
-          this.modalList.splice(this.modalList.indexOf(modal), 1)
-        }
-        modalPromise.then(closeModal)
-        modalPromise.catch(closeModal)
-        this.useOverlayState(modalPromise)
-        return modalPromise
-      },
-
-      alert({
-        title = '',
-        text = '',
-        confirmText = 'Oke'
-      }) {
-        return this.createModal({
+    confirm({
+      title = 'Apakah anda yakin?',
+      text = '',
+      resolveText = 'Yakin',
+      rejectText = 'Batal'
+    }) {
+      return new Promise((resolve, reject) => {
+        const confirm = {
           title,
-          body: e => e('p', text),
-          footer: (e, { resolve }) => e('div', {
-            attrs: {
-              style: 'display: flex; justify-content: flex-end;'
-            }
-          }, [
-              e('button', {
-                staticClass: 'button ripple',
-                on: click(resolve)
-              }, confirmText),
-            ])
-        })
-      },
-
-      confirm({
-        title = '',
-        text = 'Apakah anda yakin?',
-        confirmText = 'Oke',
-        cancelText = 'Batal'
-      }) {
-        return this.createModal({
-          title,
-          body: e => e('p', text),
-          footer: (e, { resolve, reject }) => e('div', {
-            attrs: {
-              style: 'display: flex; justify-content: flex-end;'
-            }
-          }, [
-              e('button', {
-                staticClass: 'button ripple',
-                on: click(reject)
-              }, cancelText),
-              e('button', {
-                staticClass: 'button ripple',
-                on: click(resolve)
-              }, confirmText),
-            ])
-        })
-      },
-    }
-  }
-
-  App.el = RootComponent.el
-  App.router = RootComponent.router
-  RootComponent.el = RootComponent.router = undefined
-
-  if (App.router) {
-    App.router.options.linkActiveClass = 'is-active'
-  }
-
-  Vue.prototype.$tampan = new Vue({
-    mixins: [Tampan, RootComponent]
-  })
-
-  App.mounted = function () {
-    initialLayout(this, Vue.prototype.$tampan)
-  }
-
-  tampan = Vue.prototype.$tampan
-  root = new Vue(App)
-
-  tampanResolver({ root, tampan })
-
-  return { root, tampan }
-}
-
-VueTampan.install = (Vue) => {
-  installComponents(Vue)
-  VueTampan.Vue = Vue
-}
-
-(() => {
-  try {
-    if (window && window.Vue)
-      Vue.use(VueTampan)
-  } catch (e) { }
-})()
+          text,
+          resolveText,
+          rejectText,
+          resolve: () => {
+            close()
+            resolve()
+          },
+          reject: () => {
+            close()
+            reject()
+          },
+        }
+        const close = () => {
+          this.confirmList.splice(this.confirmList.indexOf(confirm), 1)
+        }
+      })
+    },
+  },
+})

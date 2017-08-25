@@ -6,7 +6,7 @@ module.exports = {
   entry: {
     'vue-tampan': './src/index.js',
     'vue-tampan.min': './src/index.js',
-    'example-app': './example/main.js'
+    'example-app': './example/index.js'
   },
   output: {
     path: path.join(__dirname, './dist'),
@@ -15,7 +15,8 @@ module.exports = {
     libraryTarget: 'umd'
   },
   externals: {
-    vue: 'Vue'
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
   },
   module: {
     rules: [
@@ -26,7 +27,21 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          cssSourceMap: false,
+          preserveWhitespace: false,
+          extractCSS: true,
+          loaders: {
+            js: {
+              loader: 'babel-loader',
+            },
+            // css: {
+            //   loader: 'css-loader',
+            //   options: { minimize: true },
+            // },
+          },
+        }
       },
       {
         test: /\.css$/,
@@ -53,8 +68,8 @@ module.exports = {
     new ExtractTextPlugin("/vue-tampan.min.css"),
     new webpack.optimize.UglifyJsPlugin({
       include: /\.min\.js$/,
-      sourceMap: true,
-      warnings: false
+      sourceMap: false,
+      warnings: false,
     })
   ]
 }

@@ -1,28 +1,81 @@
 .table {
-  min-width: 100%;
-  table-layout: fixed;
+  width: 100%;
   border-collapse: collapse;
 }
 
-.table td,
-.table th {
-  box-sizing: border-box;
-  height: 39px; /* min-height + 1px border */
-  padding-top: 4px;
-  padding-bottom: 4px;
-  vertical-align: middle;
-  border-bottom: 1px solid #E0E0E0;
+.table > thead > tr > th {
   text-align: left;
+  background-color: #F5F5F5;
 }
 
-.table.is-hover tr:hover {
-  background-color: #E0E0E0;
-  border-bottom: 1px solid #E0E0E0;
+.table > thead > tr,
+.table > tbody > tr,
+.table > tfoot > tr {
+  height: 38px;
 }
 
-.is-smallscreen .table td,
-.is-smallscreen .table th {
-  height: 52px;
-  padding-top: 4px;
-  padding-bottom: 4px;
+.box-content>.table>thead>tr>th:first-child,
+.box-content>.table>tbody>tr>td:first-child,
+.box-content>.table>tfoot>tr>td:first-child {
+  padding-left: 16px;
+  border-left: none;
+}
+
+.box-content>.table>thead>tr>th:last-child,
+.box-content>.table>tbody>tr>td:last-child,
+.box-content>.table>tfoot>tr>td:last-child {
+  padding-right: 16px;
+  border-right: none;
+}
+
+.is-smallscreen .box-content>.table>thead>tr>th:first-child,
+.is-smallscreen .box-content>.table>tbody>tr>td:first-child,
+.is-smallscreen .box-content>.table>tfoot>tr>td:first-child {
+  padding-left: 12px;
+}
+
+.is-smallscreen .box-content>.table>thead>tr>th:last-child,
+.is-smallscreen .box-content>.table>tbody>tr>td:last-child,
+.is-smallscreen .box-content>.table>tfoot>tr>td:last-child {
+  padding-right: 12px;
+}
+
+.is-smallscreen .table > thead > tr,
+.is-smallscreen .table > tbody > tr,
+.is-smallscreen .table > tfoot > tr {
+  height: 56px;
+}
+
+.table.table-clickable > tbody > tr {
+  cursor: pointer;
+}
+
+.table.table-clickable > tbody > tr:hover {
+  background-color: #F5F5F5;
+  color: #212121;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 0px 8px;
+  border: 1px solid #E0E0E0;
+}
+
+.table > thead > tr:first-child > th {
+  border-top: none;
+}
+
+.table.table-borderless > thead > tr > th,
+.table.table-borderless > tbody > tr > td,
+.table.table-borderless > tfoot > tr > td {
+  border-left: none;
+  border-right: none;
+}
+
+.table > tbody > tr > td.table-emptyinfo {
+  height: 120px;
+  background-color: #F5F5F5;
+  text-align: center;
+  font-style: italic;
 }

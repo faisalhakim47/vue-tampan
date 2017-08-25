@@ -1,0 +1,85 @@
+.field {
+  margin: 16px;
+}
+
+.is-smallscreen .field {
+  margin: 16px 12px;
+}
+
+.field-label {
+  user-select: none;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.field-label > label {
+  display: block;
+  width: 100%;
+}
+
+.field-input input {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 10px;
+  background-color: #FCFCFC;
+  border: 1px solid #CFD8DC;
+  transition-property: border-color,background-color;
+  transition-duration: .15s;
+  border-radius: 2px;
+}
+
+.field-input input:focus {
+  border-color: #29B6F6;
+  background-color: #FFFFFF;
+  outline: none;
+}
+
+.input-sets {
+  box-sizing: border-box;
+  border: 1px solid #CFD8DC;
+  border-radius: 2px;
+  padding: 8px 10px;
+}
+
+.input-sets .field {
+  margin: 0px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.input-sets .field > .field-label {
+  user-select: none;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: none;
+  padding-right: 4px;
+}
+
+.input-sets .field > .field-input {
+  flex: 1;
+}
+
+.input-sets .field > .field-input input,
+.input-sets .field > .field-input select {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  padding: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #E0E0E0;
+  background-color: unset;
+}
+
+.input-sets .field > .field-input input:focus,
+.input-sets .field > .field-input select:focus {
+  border-bottom-color: #29B6F6;
+  outline: none;
+}

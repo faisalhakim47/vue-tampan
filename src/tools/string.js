@@ -9,20 +9,25 @@ export function randomChar(length = 1) {
   return str
 }
 
-// function test(char = 1) {
-//   let notFound = true
-//   const testObj = {}
-//   let count = 0
-//   while (notFound) {
-//     const random = randomChar(char)
-//     if (testObj[random]) {
-//       notFound = false
-//       console.log('count', count)
-//       break
+// function test(char = 2, itteration = 10) {
+//   const results = []
+//   while (itteration--) {
+//     let notFound = true
+//     const testObj = {}
+//     let count = 0
+//     while (notFound) {
+//       const random = randomChar(char)
+//       if (testObj[random]) {
+//         notFound = false
+//         results.push(count)
+//         break
+//       }
+//       testObj[random] = true
+//       count++
 //     }
-//     testObj[random] = true
-//     count++
 //   }
+//   return results.reduce((a, b) => a + b, 0) / results.length
 // }
 
+// window.r = randomChar
 // window.t = test
