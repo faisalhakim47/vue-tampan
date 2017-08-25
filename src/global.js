@@ -15,7 +15,6 @@ import InputTextarea from './components/input-textarea.vue'
 import Modal from './components/modal.vue'
 import Page from './components/page.vue'
 import Row from './components/row.vue'
-import TableCluster from './components/table-cluster.vue'
 
 export function installGlobalComponents(Vue) {
   Vue.component('box', Box)
@@ -33,5 +32,4 @@ export function installGlobalComponents(Vue) {
   Vue.component('modal', Modal)
   Vue.component('page', Page)
   Vue.component('row', Row)
-  Vue.component('table-cluster', TableCluster)
 }

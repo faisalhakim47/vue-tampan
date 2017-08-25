@@ -1,21 +1,11 @@
 <template>
-  <div>
-  </div>
+  <div></div>
 </template>
 
 <script>
 import nprogress from '../../node_modules/nprogress/nprogress'
 
 export default {
-  // mounted() {
-  //   for (var x = 5; x > 0; x--) {
-  //     this.$tampan.useLoadingState(new Promise((resolve) => {
-  //       const delay = (Math.random() * 5) * 1000
-  //       setTimeout(resolve, delay)
-  //     }))
-  //   }
-  // },
-
   watch: {
     '$tampan.loadingCount'(loadingCount, oldLoadingCount) {
       if (loadingCount === 0) {
@@ -23,7 +13,7 @@ export default {
       } else if (loadingCount > 0) {
         if (oldLoadingCount === 0) {
           nprogress.start()
-        } else {
+        } else if (oldLoadingCount > loadingCount) {
           nprogress.inc()
         }
       }

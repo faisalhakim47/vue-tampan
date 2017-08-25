@@ -30,8 +30,9 @@ export function VueTampan(AppComponent) {
     data() {
       const client = getClienDeviceInfo()
       return {
-        client: getClienDeviceInfo(),
-        modalList: [],
+        client,
+        alertList: [],
+        confirmList: [],
         loadingCount: 0,
         isMainMenuEnabled: client.isLargeScreen,
       }
@@ -92,76 +93,44 @@ export function VueTampan(AppComponent) {
         return promiseWork
       },
 
-      createModal({ type, title, body, footer, onSubmit }) {
-        const options = {
-          type, title, body, footer, onSubmit
-        }
-        const modal = {
-          options,
-          close: () => {
-            this.modalList.splice(this.modalList.indexOf(options), 1)
-          },
-        }
-        this.modalList.push(modal)
-        return modal
-      },
-
       alert({ title = '', text = '', confirmText = 'Tutup' }) {
         return new Promise((resolve) => {
-          const modal = this.createModal({
+          const alert = {
             title,
-            type: 'text',
-            body: text,
-            footer: [
-              {
-                type: 'button',
-                text: confirmText,
-                iconClass: 'material-icons',
-                iconText: 'close',
-                onClick() {
-                  modal.close()
-                  resolve()
-                },
-              },
-            ],
-          })
+            text,
+            close: () => {
+              this.alertList.splice(this.alertList.indexOf(alert), 1)
+              resolve()
+            }
+          }
+          this.alertList.push(alert)
         })
       },
 
       confirm({
         title = 'Apakah anda yakin?',
         text = '',
-        confirmText = 'Oke',
-        cancelText = 'Batal'
+        resolveText = 'Yakin',
+        rejectText = 'Batal'
       }) {
         return new Promise((resolve, reject) => {
-          const modal = this.createModal({
+          const confirm = {
             title,
-            type: 'text',
-            body: text,
-            footer: [
-              {
-                type: 'button',
-                text: confirmText,
-                iconClass: 'material-icons',
-                iconText: 'done',
-                onClick() {
-                  modal.close()
-                  resolve()
-                },
-              },
-              {
-                type: 'button',
-                text: cancelText,
-                iconClass: 'material-icons',
-                iconText: 'close',
-                onClick() {
-                  modal.close()
-                  reject()
-                },
-              },
-            ],
-          })
+            text,
+            resolveText,
+            rejectText,
+            resolve: () => {
+              close()
+              resolve()
+            },
+            reject: () => {
+              close()
+              reject()
+            },
+          }
+          const close = () => {
+            this.confirmList.splice(this.confirmList.indexOf(confirm), 1)
+          }
         })
       },
     },

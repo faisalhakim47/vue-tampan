@@ -1,7 +1,6 @@
 <template>
   <page title="Tabel" title-button="menu">
     <box>
-      <table-cluster :column-map="columnMap" :data-provider="tableProvider" :row-height="44"></table-cluster>
     </box>
   </page>
 </template>

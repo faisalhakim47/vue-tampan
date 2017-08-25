@@ -2,32 +2,26 @@
   <div id="app">
     <div id="app-container">
       <router-view></router-view>
-      <AppSidebar :menuGroupList="$tampan.menuGroupList"></AppSidebar>
+      <Sidebar></Sidebar>
     </div>
-    <ModalList :items="$tampan.modalList" @close="closeModal"></ModalList>
+    <Confirm></Confirm>
+    <Alert></Alert>
     <ProgressIndicator></ProgressIndicator>
   </div>
 </template>
 
 <script>
-import AppSidebar from './components/app-sidebar.vue'
-import ModalList from './components/modal-list.vue'
+import Alert from './components/dialog/alert.vue'
+import Confirm from './components/dialog/confirm.vue'
+import Sidebar from './components/layout/sidebar.vue'
 import ProgressIndicator from './components/progress-indicator.vue'
 
 export default {
   components: {
-    AppSidebar,
-    ModalList,
+    Alert,
+    Confirm,
+    Sidebar,
     ProgressIndicator,
   },
-
-  methods: {
-    closeModal(modal) {
-      this.$tampan.modalList.splice(
-        this.$tampan.modalList.indexOf(modal),
-        1
-      )
-    },
-  }
 }
 </script>

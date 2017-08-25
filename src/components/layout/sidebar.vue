@@ -68,7 +68,7 @@ export default {
       const style = { 'transform': `translateX(${this.sidebarOffset}px)` }
       if (this.isSliding) style['transition'] = 'none'
       return style
-    }
+    },
   },
 
   methods: {
@@ -154,7 +154,6 @@ export default {
 .overlay-fade-leave-to {
   opacity: 0
 }
-
 
 .app-sidebar__overlay {
   position: fixed;

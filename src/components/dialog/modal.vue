@@ -1,17 +1,21 @@
 <template>
   <section class="modal" :class="{ 'modal--overflow': isContentOverflow }">
     <div class="modal__overlay" @click.self="$emit('close')">
+
       <div class="modal__container">
         <header class="modal__header">
           <slot name="header"></slot>
         </header>
+
         <div ref="modal__content" class="modal__content">
           <slot></slot>
         </div>
+
         <footer class="modal__footer">
           <slot name="footer"></slot>
         </footer>
       </div>
+      
     </div>
   </section>
 </template>
