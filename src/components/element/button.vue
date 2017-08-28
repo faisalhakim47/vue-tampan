@@ -1,9 +1,7 @@
 <template>
-  <button class="button" :class="`button-${color}`" @click="click">
+  <button class="button" :class="`${color}`" @click="click">
     <i class="button-icon" :class="iconClass">{{ iconText }}</i>
-    <span class="button-text">
-      <slot></slot>
-    </span>
+    <span class="button-text"><slot></slot></span>
   </button>
 </template>
 

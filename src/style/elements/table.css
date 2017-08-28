@@ -46,13 +46,20 @@
   height: 56px;
 }
 
-.table.table-clickable > tbody > tr {
+.table.clickable > tbody > tr {
   cursor: pointer;
 }
 
-.table.table-clickable > tbody > tr:hover {
+.table.clickable > tbody > tr:hover {
   background-color: #F5F5F5;
   color: #212121;
+}
+
+.table.borderless > tbody > tr > td,
+.table.borderless > tfoot > tr > td,
+.table.borderless > thead > tr > th {
+  border-left: none;
+  border-right: none;
 }
 
 .table > thead > tr > th,
@@ -66,14 +73,7 @@
   border-top: none;
 }
 
-.table.table-borderless > thead > tr > th,
-.table.table-borderless > tbody > tr > td,
-.table.table-borderless > tfoot > tr > td {
-  border-left: none;
-  border-right: none;
-}
-
-.table > tbody > tr > td.table-emptyinfo {
+.table > tbody > tr > td.emptyinfo {
   height: 120px;
   background-color: #F5F5F5;
   text-align: center;

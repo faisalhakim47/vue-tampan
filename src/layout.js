@@ -1,4 +1,3 @@
-import { tampan } from './tampan.js'
 import { getClienDeviceInfo } from './tools/client-device'
 import { throttle } from './tools/throttle'
 
@@ -8,28 +7,30 @@ function toggleBodyClass(className, condition) {
   else classList.remove(className)
 }
 
-window.addEventListener('resize', throttle(() => {
-  tampan.client = getClienDeviceInfo()
-}, 500))
+export function initiateLayout({ tampan }) {
+  window.addEventListener('resize', throttle(() => {
+    tampan.client = getClienDeviceInfo()
+  }, 500))
 
-tampan.$watch(() => {
-  const {
-    isLargeScreen,
-    isMediumScreen,
-    isSmallScreen,
-    height,
-  } = tampan.client
-  toggleBodyClass('is-largescreen', isLargeScreen)
-  toggleBodyClass('is-mediumscreen', isMediumScreen)
-  toggleBodyClass('is-smallscreen', isSmallScreen)
-})
+  tampan.$watch(() => {
+    const {
+      isLargeScreen,
+      isMediumScreen,
+      isSmallScreen,
+      height,
+    } = tampan.client
+    toggleBodyClass('is-largescreen', isLargeScreen)
+    toggleBodyClass('is-mediumscreen', isMediumScreen)
+    toggleBodyClass('is-smallscreen', isSmallScreen)
+  })
 
-tampan.$watch(() => {
-  toggleBodyClass('is-sidebar-toggleable', tampan.isSidebarToggleable)
-})
+  tampan.$watch(() => {
+    toggleBodyClass('is-sidebar-toggleable', tampan.isSidebarToggleable)
+  })
 
-tampan.$watch(() => {
-  if (tampan.isSidebarToggleable) {
-    tampan.isSidebarShow = false
-  }
-})
+  tampan.$watch(() => {
+    if (tampan.isSidebarToggleable) {
+      tampan.isSidebarShow = false
+    }
+  })
+}

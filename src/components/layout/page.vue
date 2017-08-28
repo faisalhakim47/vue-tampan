@@ -4,6 +4,7 @@
       <ButtonTampan v-if="titleButton === 'menu' && $tampan.isSidebarToggleable" class="page-title-button" @click="$tampan.toggleSidebar"
         iconClass="material-icons" iconText="menu"></ButtonTampan>
       <ButtonTampan v-else-if="titleButton === 'back'" class="page-title-button" @click="back" iconClass="material-icons" iconText="arrow_back"></ButtonTampan>
+      
       <h1 class="page-title">{{ title }}</h1>
     </div>
     <div class="page-content">
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-  import ButtonTampan from '../button.vue'
+  import ButtonTampan from '../element/button.vue'
 
   export default {
     props: {
@@ -30,9 +31,7 @@
 
     methods: {
       back() {
-        getRootInstance().then((root) => {
-          root.$router.go(-1)
-        })
+        this.$router.go(-1)
       },
     },
   }
@@ -48,12 +47,18 @@
   }
 
   .page-header {
+    user-select: none;
+    cursor: default;
     box-sizing: border-box;
     height: 56px;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     padding-left: 16px;
+  }
+
+  .is-smallscreen .page-header {
+    padding-left: 0px;
   }
 
   .is-sidebar-toggleable .page-header {

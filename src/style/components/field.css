@@ -2,6 +2,10 @@
   margin: 16px;
 }
 
+.column > .field {
+  margin: 16px 0px;
+}
+
 .is-smallscreen .field {
   margin: 16px 12px;
 }
@@ -19,7 +23,9 @@
   width: 100%;
 }
 
-.field-input input {
+
+.field-input input,
+.field-input select {
   box-sizing: border-box;
   display: inline-block;
   width: 100%;
@@ -33,7 +39,8 @@
   border-radius: 2px;
 }
 
-.field-input input:focus {
+.field-input input:focus,
+.field-input select:focus {
   border-color: #29B6F6;
   background-color: #FFFFFF;
   outline: none;

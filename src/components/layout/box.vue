@@ -51,6 +51,8 @@
   }
 
   .box-header {
+    user-select: none;
+    cursor: default;
     box-sizing: border-box;
     display: flex;
     align-items: center;
