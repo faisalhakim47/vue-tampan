@@ -2,7 +2,8 @@
   margin: 16px;
 }
 
-.column > .field {
+.column > .field,
+.is-smallscreen .column > .field {
   margin: 16px 0px;
 }
 
@@ -53,7 +54,8 @@
   padding: 8px 10px;
 }
 
-.input-sets .field {
+.input-sets .field,
+.is-smallscreen .input-sets .field {
   margin: 0px;
   height: 32px;
   display: flex;

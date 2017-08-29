@@ -97,7 +97,11 @@
     padding-left: 32px;
   }
 
-  .box-content ul>li {
-    padding: 4px 0px;
+  .box-content ul:first-child {
+    margin-top: 0px;
+  }
+
+  .box-content ul > li {
+    padding: 8px 0px;
   }
 </style>

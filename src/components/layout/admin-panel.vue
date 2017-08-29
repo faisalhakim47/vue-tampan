@@ -1,5 +1,5 @@
 <template>
-  <div class="tampan">
+  <div class="admin-panel">
 
     <transition name="overlay-fade">
       <div v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable" class="tampan-sidebar-overlay" @click="$tampan.toggleSidebar"></div>
