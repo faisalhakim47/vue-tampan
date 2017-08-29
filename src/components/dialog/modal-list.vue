@@ -9,8 +9,8 @@
     <template slot="footer">
       <div class="button-group" style="text-align: right;">
         <ButtonTampan v-if="modal.type === 'alert'" iconText="close" @click="modal.resolve">Tutup</ButtonTampan>
-        <ButtonTampan v-if="modal.type === 'confirm'" iconText="close" @click="modal.resolve">{{ modal.rejectText }}</ButtonTampan>
-        <ButtonTampan v-if="modal.type === 'confirm'" iconText="check" @click="modal.reject">{{ modal.resolveText }}</ButtonTampan>
+        <ButtonTampan v-if="modal.type === 'confirm'" iconText="close" @click="modal.reject">{{ modal.rejectText }}</ButtonTampan>
+        <ButtonTampan v-if="modal.type === 'confirm'" iconText="check" @click="modal.resolve">{{ modal.resolveText }}</ButtonTampan>
       </div>
     </template>
   </Modal>
