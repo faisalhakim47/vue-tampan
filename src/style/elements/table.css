@@ -14,29 +14,29 @@
   height: 38px;
 }
 
-.box-content>.table>thead>tr>th:first-child,
-.box-content>.table>tbody>tr>td:first-child,
-.box-content>.table>tfoot>tr>td:first-child {
+.box-content > .table > thead > tr > th:first-child,
+.box-content > .table > tbody > tr > td:first-child,
+.box-content > .table > tfoot > tr > td:first-child {
   padding-left: 16px;
   border-left: none;
 }
 
-.box-content>.table>thead>tr>th:last-child,
-.box-content>.table>tbody>tr>td:last-child,
-.box-content>.table>tfoot>tr>td:last-child {
+.box-content > .table > thead > tr > th:last-child,
+.box-content > .table > tbody > tr > td:last-child,
+.box-content > .table > tfoot > tr > td:last-child {
   padding-right: 16px;
   border-right: none;
 }
 
-.is-smallscreen .box-content>.table>thead>tr>th:first-child,
-.is-smallscreen .box-content>.table>tbody>tr>td:first-child,
-.is-smallscreen .box-content>.table>tfoot>tr>td:first-child {
+.is-smallscreen .box-content > .table >thead > tr > th:first-child,
+.is-smallscreen .box-content > .table >tbody > tr > td:first-child,
+.is-smallscreen .box-content > .table >tfoot > tr > td:first-child {
   padding-left: 12px;
 }
 
-.is-smallscreen .box-content>.table>thead>tr>th:last-child,
-.is-smallscreen .box-content>.table>tbody>tr>td:last-child,
-.is-smallscreen .box-content>.table>tfoot>tr>td:last-child {
+.is-smallscreen .box-content > .table > thead > tr > th:last-child,
+.is-smallscreen .box-content > .table > tbody > tr > td:last-child,
+.is-smallscreen .box-content > .table > tfoot > tr > td:last-child {
   padding-right: 12px;
 }
 

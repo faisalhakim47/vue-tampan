@@ -8,9 +8,11 @@ function toggleBodyClass(className, condition) {
 }
 
 export function initiateLayout({ tampan }) {
-  window.addEventListener('resize', throttle(() => {
+  const screenChangeHandler = throttle(() => {
     tampan.client = getClienDeviceInfo()
-  }, 500))
+  }, 500)
+  window.addEventListener('resize', screenChangeHandler)
+  window.addEventListener('orientationchange', screenChangeHandler);
 
   tampan.$watch(() => {
     const {

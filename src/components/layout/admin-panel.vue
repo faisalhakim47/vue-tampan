@@ -1,7 +1,7 @@
 <template>
   <div class="admin-panel">
 
-    <transition name="overlay-fade">
+    <transition name="fade-overlay">
       <div v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable" class="tampan-sidebar-overlay" @click="$tampan.toggleSidebar"></div>
     </transition>
 
@@ -172,24 +172,6 @@
     width: 280px;
   }
 
-  .overlay-fade-enter-active {
-    transition-timing-function: ease-in-out;
-    transition-property: opacity;
-    transition-duration: 1200ms;
-  }
-
-  .overlay-fade-leave-active {
-    transition-timing-function: ease-in-out;
-    transition-property: opacity;
-    transition-duration: 300ms;
-    transition-delay: 100ms;
-  }
-
-  .overlay-fade-enter,
-  .overlay-fade-leave-to {
-    opacity: 0;
-  }
-
   .tampan-sidebar-overlay {
     position: fixed;
     top: 0px;
@@ -197,6 +179,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, .2);
+    z-index: 1;
   }
 
   .menu-groups {

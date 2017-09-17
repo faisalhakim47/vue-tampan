@@ -4,7 +4,6 @@
       <ButtonTampan v-if="titleButton === 'menu' && $tampan.isSidebarToggleable" class="page-title-button" @click="$tampan.toggleSidebar"
         iconClass="material-icons" iconText="menu"></ButtonTampan>
       <ButtonTampan v-else-if="titleButton === 'back'" class="page-title-button" @click="back" iconClass="material-icons" iconText="arrow_back"></ButtonTampan>
-      
       <h1 class="page-title">{{ title }}</h1>
     </div>
     <div class="page-content">
@@ -17,7 +16,7 @@
 </template>
 
 <script>
-  import ButtonTampan from '../element/button.vue'
+  import ButtonTampan from '../element/button-tampan.vue'
 
   export default {
     props: {

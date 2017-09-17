@@ -1,0 +1,35 @@
+.input-attribute {
+  display: flex;
+  align-items: center;
+}
+
+.input-attribute > .prefix,
+.input-attribute > .sufix {
+  background-color: #F5F5F5;
+  align-self: stretch;
+  line-height: 32px;
+  border: 1px solid #cfd8dc;
+  padding: 0px 8px;
+}
+
+.input-attribute > .prefix {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-right: none;
+}
+
+.input-attribute > .prefix + input {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.input-attribute > .sufix {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-left: none;
+}
+
+.input-attribute > input:not(:last-child)  {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}

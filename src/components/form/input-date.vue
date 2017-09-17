@@ -8,7 +8,7 @@
       </Column>
       <Column :width="{ sm: 4/7 }">
         <Field>
-          <select v-model.number="date.month">
+          <select v-model.number="date.month" @change="input">
             <option v-for="month in monthOptions" :value="month.value" :key="month.value">{{ month.label }}</option>
           </select>
         </Field>

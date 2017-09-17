@@ -61,15 +61,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.brand > h1 {
-  font-size: 20px;
-  text-align: center;
-  line-height: 56px;
-  margin: 0px;
-  background-color: #388E3C;
-  color: #FFFFFF;
-  font-weight: 500;
-}
-</style>

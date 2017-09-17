@@ -1,5 +1,5 @@
 <template>
-  <Modal v-if="isModalExist" @close="(modal.type === 'alert' ? modal.resolve : modal.rejectModal)()">
+  <Modal :show="isModalExist" @close="(modal.type === 'alert' ? modal.resolve : modal.rejectModal)()">
     <div slot="header">
       <h2 class="modal-title">{{ modal.title }}</h2>
     </div>
@@ -18,7 +18,7 @@
 
 <script>
   import Modal from './modal.vue'
-  import ButtonTampan from '../element/button.vue'
+  import ButtonTampan from '../element/button-tampan.vue'
 
   export default {
     components: {
@@ -28,11 +28,11 @@
 
     computed: {
       modal() {
-        return this.$tampan.modalList[0]
+        return this.$tampan.modalList[0] || {}
       },
 
       isModalExist() {
-        return !!this.modal
+        return Object.keys(this.modal).length !== 0
       },
     },
   }
