@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { randomChar } from '../../tools/string'
+import { randomChar } from '../tools/string'
 
 export default {
   props: {

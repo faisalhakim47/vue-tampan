@@ -51,22 +51,27 @@ export function getDayLengthInMonth(month, month2) {
 }
 
 export function toIndoDate(date) {
-  return `${toDigit(date.getDate(), 2)} ${shortMonths[date.getMonth()]} ${date.getFullYear()}`
+  date = new Date(date)
+  if (!isFinite(date)) return null
+  return `${toDigit(date.getDate(), 2)} ${months[date.getMonth()]} ${date.getFullYear()}`
 }
 
 export function toTimeHour(date) {
+  date = new Date(date)
+  if (!isFinite(date)) return null
   return `${toDigit(date.getHours(), 2)}:${toDigit(date.getMinutes(), 2)}`
 }
 
-export function toISO8601(date) {
-  return `${date.getFullYear()}-${toDigit(date.getMonth() + 1, 2)}-${toDigit(date.getDate(), 2)}`
+export function toISO8601(date, { includeDate = true, includeTime = false } = {}) {
+  date = new Date(date)
+  if (!isFinite(date)) return null
+  let ISODate = date.toISOString()
+  if (!includeTime) ISODate = ISODate.slice(0, 10)
+  if (!includeDate) ISODate = ISODate.slice(10)
+  if (includeTime && !includeDate) ISODate = ISODate.slice(1, -1)
+  return ISODate
 }
 
-export function fromISO8601(date) {
-  date = date.split('-')
-  return new Date(
-    parseInt(date[0], 10),
-    parseInt(date[1], 10) - 1,
-    parseInt(date[2], 10)
-  )
+export function fromISO8601(ISODate) {
+  return new Date(ISODate)
 }

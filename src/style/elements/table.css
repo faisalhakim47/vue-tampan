@@ -11,39 +11,43 @@
 .table > thead > tr,
 .table > tbody > tr,
 .table > tfoot > tr {
-  height: 38px;
+  height: 3rem;
 }
 
-.box-content > .table > thead > tr > th:first-child,
-.box-content > .table > tbody > tr > td:first-child,
-.box-content > .table > tfoot > tr > td:first-child {
-  padding-left: 16px;
+.table > thead > tr > th:first-child,
+.table > tbody > tr > td:first-child,
+.table > tfoot > tr > td:first-child {
+  padding-left: 1.25rem;
   border-left: none;
 }
 
-.box-content > .table > thead > tr > th:last-child,
-.box-content > .table > tbody > tr > td:last-child,
-.box-content > .table > tfoot > tr > td:last-child {
-  padding-right: 16px;
+.table > thead > tr > th:last-child,
+.table > tbody > tr > td:last-child,
+.table > tfoot > tr > td:last-child {
+  padding-right: 1.25rem;
   border-right: none;
 }
 
 .is-smallscreen .box-content > .table >thead > tr > th:first-child,
 .is-smallscreen .box-content > .table >tbody > tr > td:first-child,
 .is-smallscreen .box-content > .table >tfoot > tr > td:first-child {
-  padding-left: 12px;
+  padding-left: 1rem;
 }
 
 .is-smallscreen .box-content > .table > thead > tr > th:last-child,
 .is-smallscreen .box-content > .table > tbody > tr > td:last-child,
 .is-smallscreen .box-content > .table > tfoot > tr > td:last-child {
-  padding-right: 12px;
+  padding-right: 1rem;
 }
 
 .is-smallscreen .table > thead > tr,
 .is-smallscreen .table > tbody > tr,
 .is-smallscreen .table > tfoot > tr {
-  height: 56px;
+  height: 4rem;
+}
+
+.table.nowrap {
+  white-space: nowrap;
 }
 
 .table.clickable > tbody > tr {
@@ -65,7 +69,7 @@
 .table > thead > tr > th,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 0px 8px;
+  padding: 0px 1rem;
   border: 1px solid #E0E0E0;
 }
 
@@ -74,7 +78,7 @@
 }
 
 .table > tbody > tr > td.emptyinfo {
-  height: 120px;
+  height: 10rem;
   background-color: #F5F5F5;
   text-align: center;
   font-style: italic;

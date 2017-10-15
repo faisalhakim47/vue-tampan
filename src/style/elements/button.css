@@ -15,23 +15,23 @@
 }
 
 .box-content > .button-group {
-  padding: 4px 12px;
+  padding: .25rem 1rem;
 }
 
 .is-smallscreen .box-content > .button-group {
-  padding: 4px 8px;
+  padding: .25rem .8rem;
 }
 
 .button {
   user-select: none;
   font: inherit;
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 32px;
+  line-height: 2.25rem;
   text-transform: uppercase;
   transition-property: background-color, border-color, transform;
   transition-duration: 150ms;
-  padding: 0px 8px;
+  padding: 0px 6px;
   margin: 4px;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
@@ -40,9 +40,9 @@
 }
 
 .is-smallscreen .button {
-  font-size: 15px;
+  font-size: 1rem;
   padding: 0px 12px;
-  line-height: 36px;
+  line-height: 2.5rem;
 }
 
 .button:hover {
@@ -68,23 +68,19 @@
 }
 
 .button-icon {
-  font-size: 20px;
-  line-height: 32px;
+  font-size: 1.25rem;
+  line-height: 2.25rem;
   float: left;
   margin-right: 4px;
 }
 
 .is-smallscreen .button-icon {
-  font-size: 22px;
-  line-height: 36px;
+  font-size: 1.25rem;
+  line-height: 2.5rem;
 }
 
-.button-text {
-  line-height: 32px;
-}
-
-.is-smallscreen .button-text {
-  line-height: 36px;
+.button-icon:last-child {
+  margin-right: 0px;
 }
 
 .button.positive {

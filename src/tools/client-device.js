@@ -11,6 +11,7 @@ export function getClienDeviceInfo() {
   const isLargeScreen = !isSmallScreen && !isMediumScreen
   const isTouchDevice = (isSmallScreen || isMediumScreen)
     && ('ontouchstart' in window || navigator.maxTouchPoints)
+  const isMobileOS = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)
   return {
     width,
     height,
@@ -20,5 +21,6 @@ export function getClienDeviceInfo() {
     isMediumScreen,
     isLargeScreen,
     isTouchDevice,
+    isMobileOS,
   }
 }

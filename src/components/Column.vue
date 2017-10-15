@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { isNumber } from '../../tools/typecheck'
+import { isNumber } from '../tools/typecheck'
 
 function or(...nums) {
   return nums.find(isNumber)

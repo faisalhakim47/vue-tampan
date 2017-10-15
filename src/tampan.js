@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import nprogress from 'nprogress'
 import { getClienDeviceInfo } from './tools/client-device'
 
 export function initiateTampan(mixin) {
@@ -23,6 +24,20 @@ export function initiateTampan(mixin) {
         if (!this.isSidebarToggleable) return true
         if (this.isSidebarShow) return true
         return false
+      },
+    },
+
+    watch: {
+      'loadingCount'(loadingCount, oldLoadingCount) {
+        if (loadingCount === 0) {
+          nprogress.done(true)
+        } else if (loadingCount > 0) {
+          if (oldLoadingCount === 0) {
+            nprogress.start()
+          } else if (oldLoadingCount > loadingCount) {
+            nprogress.inc()
+          }
+        }
       },
     },
 

@@ -22,12 +22,12 @@ export default {}
   margin-right: -8px;
 }
 
-.box-content > .row {
+.box-content>.row {
   padding-left: 16px;
   padding-right: 16px;
 }
 
-.is-smallscreen .box-content > .row {
+.is-smallscreen .box-content>.row {
   padding-left: 12px;
   padding-right: 12px;
 }

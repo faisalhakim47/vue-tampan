@@ -46,62 +46,62 @@
 </template>
 
 <script>
-  import { throttle } from '../../tools/throttle'
-  import Field from './field.vue'
-  import Row from '../layout/row.vue'
-  import Column from '../layout/column.vue'
+import { throttle } from '../tools/throttle'
+import Field from './Field.vue'
+import Row from './Row.vue'
+import Column from './Column.vue'
 
-  function addressToObject(address) {
-    if (address && typeof address === 'object') {
-      return address
-    }
-    try {
-      const { street, rt, rw, village, district, regency, province, postalcode } = JSON.parse(address)
-      return { street, rt, rw, village, district, regency, province, postalcode }
-    } catch (e) {
-      console.warn('wrong address format', e)
-      return {}
-    }
+function addressToObject(address) {
+  if (address && typeof address === 'object') {
+    return address
   }
-
-  function objectToAddress({ street, rt, rw, village, district, regency, province, postalcode }) {
-    return JSON.stringify({ street, rt, rw, village, district, regency, province, postalcode })
+  try {
+    const { street, rt, rw, village, district, regency, province, postalcode } = JSON.parse(address)
+    return { street, rt, rw, village, district, regency, province, postalcode }
+  } catch (e) {
+    console.warn('wrong address format', e)
+    return {}
   }
+}
 
-  export default {
-    props: {
-      value: { type: [String, Object], default: () => ({}) },
-      suggestionProvider: { type: String },
-    },
+function objectToAddress({ street, rt, rw, village, district, regency, province, postalcode }) {
+  return JSON.stringify({ street, rt, rw, village, district, regency, province, postalcode })
+}
 
-    components: {
-      Field,
-      Column,
-      Row,
-    },
+export default {
+  props: {
+    value: { type: [String, Object], default: () => ({}) },
+    suggestionProvider: { type: String },
+  },
 
-    data() {
-      return {
-        addressObject: addressToObject(this.value),
-        provinceProvider: throttle(({ query }) => {
-          return new Promise
-        }, 500)
+  components: {
+    Field,
+    Column,
+    Row,
+  },
+
+  data() {
+    return {
+      addressObject: addressToObject(this.value),
+      provinceProvider: throttle(({ query }) => {
+        return new Promise
+      }, 500)
+    }
+  },
+
+  watch: {
+    value: {
+      deep: true,
+      handler(value) {
+        this.addressObject = addressToObject(value)
       }
     },
-
-    watch: {
-      value: {
-        deep: true,
-        handler(value) {
-          this.addressObject = addressToObject(value)
-        }
-      },
-      addressObject: {
-        deep: true,
-        handler(addressObject) {
-          this.$emit('input', JSON.stringify(addressObject))
-        }
-      },
+    addressObject: {
+      deep: true,
+      handler(addressObject) {
+        this.$emit('input', JSON.stringify(addressObject))
+      }
     },
-  }
+  },
+}
 </script>
