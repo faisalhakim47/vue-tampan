@@ -7,7 +7,7 @@
         <i v-if="collapsable" class="material-icons">{{ isCollapsed ? 'arrow_drop_down' : 'arrow_drop_up' }}</i>
       </div>
     </div>
-    <div v-if="!isCollapsed" class="box-content">
+    <div v-if="!isCollapsed" class="box-content" :style="{ overflowX : overflowX ? 'auto' : 'hidden' }">
       <slot></slot>
     </div>
   </div>
@@ -18,6 +18,7 @@ export default {
   props: {
     collapsable: { type: Boolean, default: false },
     collapsed: { type: Boolean, default: false },
+    overflowX: { type: Boolean, default: false },
     title: { type: String },
   },
 

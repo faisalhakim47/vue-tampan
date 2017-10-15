@@ -76,8 +76,10 @@ export default {
 
   methods: {
     input() {
-      const date = objectToDate(this.date)
-      this.$emit('input', date)
+      this.$nextTick().then(() => {
+        const date = objectToDate(this.date)
+        this.$emit('input', date)
+      })
     },
 
     ISO8601Input() {
