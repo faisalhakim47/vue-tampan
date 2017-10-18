@@ -67,6 +67,10 @@
   border: none;
 }
 
+.input-sets > .input-sets {
+  padding: 0px;
+}
+
 .input-sets .field,
 .is-smallscreen .input-sets .field {
   margin: 0px;
