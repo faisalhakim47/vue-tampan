@@ -53,6 +53,14 @@ export default {
   },
 
   watch: {
+    'show'(show) {
+      if (show) {
+        this.$tampan.modalShowNumber += 1
+      } else {
+        this.$tampan.modalShowNumber -= 1
+      }
+    },
+
     '$tampan.client': {
       deep: true,
       handler() {

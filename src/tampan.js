@@ -10,6 +10,7 @@ export function initiateTampan(mixin) {
       const client = getClienDeviceInfo()
       return {
         client,
+        modalShowNumber: 0,
         modalList: [],
         loadingCount: 0,
         isSidebarShow: !client.isSmallScreen,
@@ -17,9 +18,14 @@ export function initiateTampan(mixin) {
     },
 
     computed: {
+      isModalShown() {
+        return this.modalShowNumber !== 0
+      },
+
       isSidebarToggleable() {
         return this.client.isSmallScreen
       },
+
       isSidebarVisible() {
         if (!this.isSidebarToggleable) return true
         if (this.isSidebarShow) return true

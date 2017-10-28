@@ -12,6 +12,14 @@ export default {
   components: {
     ModalList,
   },
+
+  mounted() {
+    if (this.$router) {
+      this.$router.beforeEach((to, from, next) => {
+        
+      })
+    }
+  },
 }
 
 </script>
