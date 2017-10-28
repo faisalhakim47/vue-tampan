@@ -48,7 +48,7 @@ export default {
     },
 
     close() {
-      this.$emit('close')
+      if (this.show) this.$emit('close')
     },
   },
 
@@ -71,6 +71,7 @@ export default {
 
   mounted() {
     this.controlBodyOverflow()
+    this.$tampan.$on('modal:close', this.close)
     this.$tampan.$on('window:resize', this.controlBodyOverflow)
     this.$tampan.$on('modal:overflowcontrol', this.controlBodyOverflow)
   },
@@ -80,6 +81,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.$tampan.$off('modal:close', this.close)
     this.$tampan.$off('window:resize', this.controlBodyOverflow)
     this.$tampan.$off('modal:overflowcontrol', this.controlBodyOverflow)
   },

@@ -16,7 +16,12 @@ export default {
   mounted() {
     if (this.$router) {
       this.$router.beforeEach((to, from, next) => {
-        
+        if (this.$tampan.modalShowNumber === 0) {
+          next()
+        } else {
+          next(false)
+          this.$tampan.$emit('modal:close')
+        }
       })
     }
   },
