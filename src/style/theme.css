@@ -55,7 +55,7 @@
   background-color: #43A047;
 }
 
-button.page-title-button {
+.page-header > .button {
   color: #FFFFFF;
 }
 

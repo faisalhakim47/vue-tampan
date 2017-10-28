@@ -12,6 +12,12 @@
   margin: 1.25rem 1rem;
 }
 
+.is-smallscreen th > .field,
+th > .field {
+  margin: .5rem 0;
+  font-weight: 400;
+}
+
 .field-label {
   user-select: none;
   margin-bottom: .1rem;
