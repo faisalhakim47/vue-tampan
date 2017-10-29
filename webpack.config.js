@@ -5,8 +5,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 module.exports = {
   entry: {
     'vue-tampan': './src/index.js',
-    'vue-tampan.min': './src/index.js',
-    'example-app': './example/index.js'
+    'vue-tampan.min': './src/index.js'
   },
   output: {
     path: path.join(__dirname, './dist'),
@@ -36,10 +35,6 @@ module.exports = {
             js: {
               loader: 'babel-loader',
             },
-            // css: {
-            //   loader: 'css-loader',
-            //   options: { minimize: true },
-            // },
           },
         }
       },
