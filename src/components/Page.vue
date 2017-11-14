@@ -3,11 +3,6 @@
     <div v-if="$slots.header" class="page-header">
       <slot name="header"></slot>
     </div>
-    <div v-else class="page-header">
-      <button-base v-if="titleButton === 'menu' && $tampan.isSidebarToggleable" @click="$tampan.toggleSidebar" icon-class="material-icons" icon-text="menu"></button-base>
-      <button-base v-else-if="titleButton === 'back'" @click="back" icon-class="material-icons" icon-text="arrow_back"></button-base>
-      <h1 class="page-title">{{ title }}</h1>
-    </div>
     <div class="page-content" :style="{ overflowY: overflowY ? 'scroll' : 'hidden', overflowX: overflowX ? 'scroll' : 'hidden', padding: noPadding ? '0px' : 'auto' }" @scroll="$emit('page-scroll', $event)">
       <slot></slot>
     </div>

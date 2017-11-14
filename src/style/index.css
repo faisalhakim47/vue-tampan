@@ -10,6 +10,7 @@
 @import './elements/input.css';
 @import './elements/table.css';
 
-@import './components/field.css';
+@import './components/Box.css';
+@import './components/Field.css';
 
 @import './misc/progressbar.css';
