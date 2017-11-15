@@ -12,5 +12,6 @@
 
 @import './components/Box.css';
 @import './components/Field.css';
+@import './components/TheAdminPanel.css';
 
 @import './misc/progressbar.css';
