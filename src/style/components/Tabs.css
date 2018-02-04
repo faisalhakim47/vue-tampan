@@ -45,7 +45,7 @@
 
 .tab-item {
   padding: 0 1rem;
-  height: 2.625rem;
+  height: 2.46rem;
   display: flex;
   justify-content: center; 
   align-items: center;
@@ -80,6 +80,7 @@
 }
 
 .tabs.secondary .tab-item {
+  border-top: .2rem solid #FFF;
   border-bottom: .2rem solid #FFF;
 }
 
