@@ -19,3 +19,5 @@
 @import './components/Page.css';
 @import './components/Row.css';
 @import './components/Tabs.css';
+
+@import './theme.css';
