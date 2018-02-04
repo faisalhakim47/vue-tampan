@@ -20,7 +20,9 @@ th > .field {
 
 .field-label {
   user-select: none;
-  margin-bottom: .1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  margin-bottom: .1rem;
   font-size: .85rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -45,7 +47,7 @@ th > .field {
   border: 1px solid #CFD8DC;
   transition-property: border-color,background-color;
   transition-duration: .15s;
-  border-radius: 2px;
+  border-radius: .2rem;
 }
 
 .field-input textarea {
@@ -65,7 +67,7 @@ th > .field {
 .input-sets {
   box-sizing: border-box;
   border: 1px solid #CFD8DC;
-  border-radius: 2px;
+  border-radius: .2rem;
   padding: .4rem .8rem;
 }
 
@@ -74,12 +76,12 @@ th > .field {
 }
 
 .input-sets > .input-sets {
-  padding: 0px;
+  padding:0;
 }
 
 .input-sets .field,
 .is-smallscreen .input-sets .field {
-  margin: 0px;
+  margin:0;
   height: 2.5rem;
   display: flex;
   align-items: center;
@@ -87,10 +89,12 @@ th > .field {
 
 .input-sets .field > .field-label {
   user-select: none;
-  font-size: .85rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  font-size: .85rem;
   font-weight: 500;
   text-transform: none;
-  padding-right: 4px;
+  padding-right: .3rem;
 }
 
 .input-sets .field > .field-input {

@@ -1,11 +1,4 @@
-<template>
-  <div class="column" :style="{ flexBasis: elWidth, maxWidth: elWidth, order: elOrder }">
-    <slot></slot>
-  </div>
-</template>
-
-<script>
-import { isNumber } from '../tools/typecheck'
+import { isNumber } from '../tools/typecheck.js'
 
 function or(...nums) {
   return nums.find(isNumber)
@@ -41,21 +34,11 @@ export default {
         order = or(sm)
       return isNumber(order) ? order.toString() : 'auto'
     },
-  }
-}
-</script>
+  },
 
-<style>
-.row>.column {
-  box-sizing: border-box;
-  flex-grow: 0;
-  flex-shrink: 0;
-  padding-left: 4px;
-  padding-right: 4px;
+  template: `
+    <div class="column" :style="{ flexBasis: elWidth, maxWidth: elWidth, order: elOrder }">
+      <slot></slot>
+    </div>
+  `
 }
-
-.page-content>.row>.column {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-</style>

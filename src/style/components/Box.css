@@ -1,39 +1,41 @@
 .box {
   border: 1px solid #FFFFFF;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  border-radius: 2px;
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+  border-radius: .2rem;
 }
 
 .is-smallscreen .box {
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: .8rem;
+  margin-bottom: .8rem;
 }
 
-.column>.box {
-  margin-top: 8px;
-  margin-bottom: 8px;
+.column > .box {
+  margin-top: .6rem;
+  margin-bottom: .6rem;
 }
 
 .box-header {
   user-select: none;
-  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  cursor: default;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 44px;
+  height: 3rem;
   padding: 1.25rem;
 }
 
 .is-smallscreen .box-header {
-  padding: 16px 12px;
+  padding: 1.2rem .8rem;
 }
 
 .box-title {
   font-size: 1.25rem;
   font-weight: 400;
-  margin: 0px;
+  margin:0;
 }
 
 .box-controls {
@@ -41,12 +43,12 @@
   flex-direction: row-reverse;
 }
 
-.box-content>p {
-  margin: 8px 16px;
+.box-content > p {
+  margin: .6rem 1.2rem;
 }
 
-.is-smallscreen .box-content>p {
-  margin: 8px 12px;
+.is-smallscreen .box-content > p {
+  margin: .6rem .8rem;
 }
 
 .box-content a {
@@ -57,15 +59,15 @@
   text-decoration: underline;
 }
 
-.box-content>ul {
-  margin: 16px 0px;
-  padding-left: 32px;
+.box-content > ul {
+  margin: 1.2rem0;
+  padding-left: 2.25rem;
 }
 
 .box-content ul:first-child {
-  margin-top: 0px;
+  margin-top:0;
 }
 
-.box-content ul>li {
-  padding: 8px 0px;
+.box-content ul > li {
+  padding: .6rem 0;
 }

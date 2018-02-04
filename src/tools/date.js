@@ -1,4 +1,4 @@
-import { toDigit } from './number'
+import { toDigit } from './number.js'
 
 export const days = [
   'Ahad',
@@ -74,4 +74,19 @@ export function toISO8601(date, { includeDate = true, includeTime = false } = {}
 
 export function fromISO8601(ISODate) {
   return new Date(ISODate)
+}
+
+export function dateToObject(date = new Date()) {
+  date = new Date(date)
+  return {
+    minute: date.getMinutes(),
+    hour: date.getHours(),
+    date: date.getDate(),
+    month: date.getMonth(),
+    year: date.getFullYear(),
+  }
+}
+
+export function objectToDate({ year = 0, month = 0, date = 0, hour = 0, minute = 0 } = {}) {
+  return new Date(year, month, date, hour, minute)
 }

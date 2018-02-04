@@ -1,0 +1,93 @@
+.tabs {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  display: block;
+  width: inherit;
+}
+
+.is-smallscreen .tabs {
+  overflow-y: scroll;
+}
+
+.page-content > .tabs {
+  margin-left: -1.2rem;
+  margin-right: -1.2rem;
+}
+
+.page-content > .tabs:first-child {
+  margin-top: -1.2rem;
+}
+
+.page-content > .tabs:last-of-type {
+  margin-bottom: 1.2rem;
+}
+
+.is-smallscreen .page-content > .tabs {
+  margin-left: -.3rem;
+  margin-right: -.3rem;
+}
+
+.is-smallscreen .page-content > .tabs:first-child {
+  margin-top: -.3rem;
+}
+
+.is-smallscreen .page-content > .tabs:last-of-type {
+  margin-bottom: .3rem;
+}
+
+.tab-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.tab-item {
+  padding: 0 1rem;
+  height: 2.625rem;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.tab-item.active {
+  cursor: default;
+}
+
+.tabs.primary {
+  background-color: #43A047;
+  color: #FFF;
+}
+
+.is-smallscreen .tabs.primary {
+  padding-top: .75rem;
+}
+
+.tabs.primary .tab-item:hover {
+  background-color: #4CAF50;
+}
+
+.tabs.primary .tab-item.active {
+  background-color: #FFF;
+  color: #2E7D32;
+  font-weight: 500;
+}
+
+.tabs.secondary {
+  background-color: #FFF;
+  color: #424242;
+}
+
+.tabs.secondary .tab-item {
+  border-bottom: .2rem solid #FFF;
+}
+
+.tabs.secondary .tab-item:hover {
+  border-bottom-color: #BDBDBD;
+}
+
+.tabs.secondary .tab-item.active {
+  border-bottom-color: #616161;
+  font-weight: 500;
+}

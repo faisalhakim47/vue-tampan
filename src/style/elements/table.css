@@ -46,15 +46,19 @@
   height: 4rem;
 }
 
+.is-smallscreen .table > thead > tr{
+  height: 3.5rem;
+}
+
 .table.nowrap {
   white-space: nowrap;
 }
 
-.table.clickable > tbody > tr {
+.table.clickable > tbody {
   cursor: pointer;
 }
 
-.table.clickable > tbody > tr:hover {
+.table.hoverable > tbody > tr:hover {
   background-color: #F5F5F5;
   color: #212121;
 }
@@ -66,10 +70,18 @@
   border-right: none;
 }
 
+.table.ellipsis > tbody > tr > td,
+.table.ellipsis > tfoot > tr > td,
+.table.ellipsis > thead > tr > th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .table > thead > tr > th,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 0px 1rem;
+  padding: 0 1rem;
   border: 1px solid #E0E0E0;
 }
 
@@ -78,7 +90,9 @@
 }
 
 .table > tbody > tr > td.emptyinfo {
-  height: 10rem;
+  height: 8rem;
+  font-size: .9rem;
+  line-height: 1.25;
   background-color: #F5F5F5;
   text-align: center;
   font-style: italic;

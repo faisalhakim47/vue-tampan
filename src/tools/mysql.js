@@ -1,5 +1,5 @@
-import { toISO8601 } from './date'
-import { toDigit } from './number'
+import { toISO8601 } from './date.js'
+import { toDigit } from './number.js'
 
 export function toMysqlDate(date) {
   date = new Date(date)

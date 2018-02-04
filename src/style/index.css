@@ -1,8 +1,9 @@
 @import './vendor/normalize.css';
 @import './vendor/material-icons.css';
+@import './vendor/progressbar.css';
 
 @import './default.css';
-
+@import './tools.css';
 @import './transition.css';
 
 @import './elements/button.css';
@@ -10,8 +11,11 @@
 @import './elements/input.css';
 @import './elements/table.css';
 
+@import './components/AdminPanel.css';
 @import './components/Box.css';
+@import './components/Column.css';
 @import './components/Field.css';
-@import './components/TheAdminPanel.css';
-
-@import './misc/progressbar.css';
+@import './components/Modal.css';
+@import './components/Page.css';
+@import './components/Row.css';
+@import './components/Tabs.css';

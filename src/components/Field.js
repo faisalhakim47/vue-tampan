@@ -1,19 +1,4 @@
-<template>
-  <div class="field">
-    <div v-if="label" class="field-label">
-      <label :for="id">{{ label }}</label>
-    </div>
-    <div ref="field_input" class="field-input">
-      <slot></slot>
-    </div>
-    <p v-if="info" class="field-info">
-      {{ info }}
-    </p>
-  </div>
-</template>
-
-<script>
-import { randomChar } from '../tools/string'
+import { randomChar } from '../tools/string.js'
 
 export default {
   props: {
@@ -39,6 +24,19 @@ export default {
     if (elLabel) {
       elLabel.setAttribute('for', this.id)
     }
-  }
+  },
+
+  template: `
+    <div class="field">
+      <div v-if="label" class="field-label">
+        <label :for="id">{{ label }}</label>
+      </div>
+      <div ref="field_input" class="field-input">
+        <slot></slot>
+      </div>
+      <p v-if="info" class="field-info">
+        {{ info }}
+      </p>
+    </div>
+  `
 }
-</script>

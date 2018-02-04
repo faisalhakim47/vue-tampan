@@ -1,11 +1,11 @@
-.tampan {
+.admin-panel {
   height: 100%;
   width: 100%;
 }
 
 .tampan-sidebar {
   height: inherit;
-  width: 250px;
+  width: 240px;
   position: absolute;
   top: 0;
   left: 0;
@@ -15,37 +15,44 @@
   z-index: 1;
 }
 
-body.is-sidebar-toggleable .tampan-sidebar {
-  width: 280px;
+.is-sidebar-toggleable .tampan-sidebar {
+  width: 240px;
 }
 
 .tampan-sidebar-overlay {
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, .2);
   z-index: 1;
 }
 
+.tampan-navigation {
+  height: inherit;
+  border-right: 1px solid #FFFFFF;
+}
+
 .menu-groups {
   flex: 1;
   overflow-y: auto;
   list-style: none;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-left: 0px;
-  border-right: 1px solid #FFFFFF;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
 }
 
 .menu-group-title {
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   cursor: default;
   display: flex;
-  height: 24px;
+  height: 1.75rem;
   align-items: center;
-  padding: 0px 8px;
+  padding: 0 .6rem;
   font-size: .8rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -54,14 +61,16 @@ body.is-sidebar-toggleable .tampan-sidebar {
 
 .menus {
   list-style: none;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-left: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
 }
 
 .menu-link {
   user-select: none;
-  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;  display: flex;
   height: 3.5rem;
   ;
   align-items: center;
@@ -85,34 +94,31 @@ body.is-sidebar-toggleable .tampan-sidebar {
 
 .menu-link.is-active,
 .menu-link.router-link-active {
+  cursor: default;
   font-weight: 500;
 }
 
 .menu-icon {
   display: flex;
   height: 3.5rem;
-  ;
   width: 3.5rem;
-  ;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .is-smallscreen .menu-icon {
   height: 4rem;
-  ;
   width: 4rem;
-  ;
 }
 
 .tampan-content {
   box-sizing: border-box;
   height: inherit;
   width: inherit;
-  padding-left: 250px;
+  padding-left: 240px;
 }
 
-body.is-sidebar-toggleable .tampan-content {
-  padding-left: 0px;
+.is-sidebar-toggleable .tampan-content {
+  padding-left:0;
 }

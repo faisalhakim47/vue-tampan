@@ -1,11 +1,4 @@
-<template>
-  <select ref="input_select" class="input input-select" :value="value" @change="change">
-    <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
-  </select>
-</template>
-
-<script>
-import { isNumber } from '../tools/typecheck'
+import { isNumber } from '../tools/typecheck.js'
 
 export default {
   props: {
@@ -24,7 +17,11 @@ export default {
 
   updated() {
     this.$refs.input_select.value = this.value || ''
-  }
-}
+  },
 
-</script>
+  template: `
+    <select ref="input_select" class="input input-select" :value="value" @change="change">
+      <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
+    </select>
+  `
+}

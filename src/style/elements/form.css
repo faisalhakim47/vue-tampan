@@ -7,29 +7,29 @@
 .input-attribute > .sufix {
   background-color: #F5F5F5;
   align-self: stretch;
-  line-height: 32px;
+  line-height: 2.25rem;
   border: 1px solid #cfd8dc;
-  padding: 0px 8px;
+  padding:0.6rem;
 }
 
 .input-attribute > .prefix {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
+  border-top-left-radius: .2rem;
+  border-bottom-left-radius: .2rem;
   border-right: none;
 }
 
 .input-attribute > .prefix + input {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .input-attribute > .sufix {
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+  border-top-right-radius: .2rem;
+  border-bottom-right-radius: .2rem;
   border-left: none;
 }
 
 .input-attribute > input:not(:last-child)  {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }

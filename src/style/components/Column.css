@@ -1,0 +1,12 @@
+.row > .column {
+  box-sizing: border-box;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-left: .3rem;
+  padding-right: .3rem;
+}
+
+.page-content > .row > .column {
+  padding-left: .6rem;
+  padding-right: .6rem;
+}

@@ -1,14 +1,14 @@
-import { getClienDeviceInfo } from './tools/client-device'
-import { throttle } from './tools/throttle'
+import { getDeviceInfo } from './tools/device.js'
+import { throttle } from './tools/throttle.js'
 
-function changeBodyClass(className, condition) {
+function condRootClass(className, condition) {
   const classList = document.body.classList
   if (condition) classList.add(className)
   else classList.remove(className)
 }
 
-export function initiateLayout({ tampan }) {
-  const screenChangeHandler = () => tampan.client = getClienDeviceInfo()
+export function initiateLayout(tampan) {
+  const screenChangeHandler = throttle(() => tampan.client = getDeviceInfo(), 1000)
   window.addEventListener('resize', screenChangeHandler, { passive: true })
   window.addEventListener('orientationchange', screenChangeHandler, { passive: true })
 
@@ -19,13 +19,13 @@ export function initiateLayout({ tampan }) {
       isSmallScreen,
       height,
     } = tampan.client
-    changeBodyClass('is-largescreen', isLargeScreen)
-    changeBodyClass('is-mediumscreen', isMediumScreen)
-    changeBodyClass('is-smallscreen', isSmallScreen)
+    condRootClass('is-largescreen', isLargeScreen)
+    condRootClass('is-mediumscreen', isMediumScreen)
+    condRootClass('is-smallscreen', isSmallScreen)
   })
 
   tampan.$watch(() => {
-    changeBodyClass('is-sidebar-toggleable', tampan.isSidebarToggleable)
+    condRootClass('is-sidebar-toggleable', tampan.isSidebarToggleable)
   })
 
   tampan.$watch(() => {
@@ -33,4 +33,5 @@ export function initiateLayout({ tampan }) {
       tampan.isSidebarShow = false
     }
   })
+
 }
