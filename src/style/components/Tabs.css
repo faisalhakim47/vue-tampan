@@ -55,13 +55,13 @@
   cursor: default;
 }
 
+.is-smallscreen .tab-item {
+  height: 2.67525rem;
+}
+
 .tabs.primary {
   background-color: #43A047;
   color: #FFF;
-}
-
-.is-smallscreen .tabs.primary {
-  padding-top: .75rem;
 }
 
 .tabs.primary .tab-item:hover {

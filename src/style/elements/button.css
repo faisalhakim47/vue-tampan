@@ -59,7 +59,7 @@ span.button-group {
   font-weight: 500;
   transition-property: transform;
   transition-duration: 32ms;
-  padding: .22rem .5rem;
+  padding: .24rem .5rem;
   margin: .3rem;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
@@ -72,7 +72,7 @@ span.button-group {
 }
 
 .is-smallscreen .button > .button-shell {
-  padding: .34rem .7rem;
+  padding: .35rem .7rem;
 }
 
 .button:hover > .button-shell {
