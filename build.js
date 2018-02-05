@@ -98,7 +98,7 @@ const cssnano = require('cssnano')
 function buildCSS() {
   return new Promise((resolve, reject) => webpack({
     entry: {
-      'vue-tampan-style': './src/style/index.js',
+      'vue-tampan-style': './src/index.css.js',
     },
     output: {
       path: path.join(__dirname, './dist')

@@ -1,4 +1,4 @@
-import { NProgress } from './tools/nprogress.js'
+import { NProgress } from './vendor/nprogress.js'
 import { getDeviceInfo } from './tools/device.js'
 
 import Dialog from './components/Dialog.js'
