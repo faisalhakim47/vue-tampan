@@ -146,7 +146,7 @@ export default {
               <span class="menu-group-title">{{ menuGroup.name }}</span>
               <ul v-for="menu in menuGroup.menus" class="menus" :key="menu.route ? menu.route.name : menu.name">
                 <li class="menu">
-                  <router-link v-if="menu.route" class="menu-link" :to="menu.route">
+                  <router-link v-if="menu.route" class="menu-link" :to="menu.route" :exact="menu.exact">
                     <i class="menu-icon" :class="menu.iconClass || 'material-icons'">{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
                   </router-link>

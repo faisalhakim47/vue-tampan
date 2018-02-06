@@ -69,6 +69,11 @@ span.button-group {
   justify-content: center;
   align-items: center;
   color: #424242;
+  transition:
+    color 100ms ease-in-out,
+    background-color 100ms ease-in-out,
+    border-color 100ms ease-in-out,
+    box-shadow 100ms ease-in-out;
 }
 
 .is-smallscreen .button > .button-shell {
@@ -84,7 +89,7 @@ span.button-group {
 .button:focus > .button-shell {
   border-color: #E0E0E0;
   outline-color: #E0E0E0;
-  box-shadow: 0 0 0 .1rem #E0E0E0;
+  box-shadow: 0 0 0 .15rem #E0E0E0;
 }
 
 .button:active > .button-shell {
@@ -97,6 +102,7 @@ span.button-group {
 }
 
 .button:disabled:active > .button-shell {
+  box-shadow: none;
 }
 
 .button:disabled > .button-shell:focus,
@@ -146,6 +152,15 @@ span.button-group {
 .button.positive:hover > .button-shell {
   background-color: #388E3C;
   border-color: #1B5E20;
+}
+
+.button.positive:active > .button-shell {
+  background-color: #2E7D32;
+  border-color: #1B5E20;
+}
+
+.button.positive:focus > .button-shell {
+  box-shadow: 0 0 0 .15rem #A5D6A7;
 }
 
 .button.positive:disabled > .button-shell,

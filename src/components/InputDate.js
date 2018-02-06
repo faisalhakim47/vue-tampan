@@ -12,7 +12,8 @@ import Column from './Column.js'
 
 export default {
   props: {
-    value: { type: Date, default: () => new Date() }
+    value: { type: Date, default: () => new Date() },
+    disabled: { type: Boolean, default: false },
   },
 
   components: {
@@ -63,24 +64,24 @@ export default {
   },
 
   template: `
-    <input v-if="isUsingISO8601" type="date" v-model="ISO8601" @input="ISO8601Input">
+    <input v-if="isUsingISO8601" type="date" :disabled="disabled" v-model="ISO8601" @input="ISO8601Input">
     <div v-else class="input input-sets input-date">
       <Row>
         <Column :width="{ sm: 2/8 }">
           <Field>
-            <input type="number" min="1" max="31" v-model.number="date.date" @input="input">
+            <input type="number" min="1" max="31" :disabled="disabled" v-model.number="date.date" @input="input">
           </Field>
         </Column>
         <Column :width="{ sm: 4/8 }">
           <Field>
-            <select v-model.number="date.month" @input="input">
+            <select :disabled="disabled" v-model.number="date.month" @input="input">
               <option v-for="month in monthOptions" :value="month.value" :key="month.value">{{ month.label }}</option>
             </select>
           </Field>
         </Column>
         <Column :width="{ sm: 2/8 }">
           <Field>
-            <input type="number" min="1000" max="9999" v-model.number="date.year" @input="input">
+            <input type="number" min="1000" max="9999" :disabled="disabled" v-model.number="date.year" @input="input">
           </Field>
         </Column>
       </Row>

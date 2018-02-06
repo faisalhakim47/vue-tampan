@@ -62,8 +62,8 @@ export function toTimeHour(date) {
   return `${toDigit(date.getHours(), 2)}:${toDigit(date.getMinutes(), 2)}`
 }
 
-export function toISO8601(date, { includeDate = true, includeTime = false } = {}) {
-  date = new Date(date)
+export function toISO8601(data, { includeDate = true, includeTime = false } = {}) {
+  const date = new Date(data)
   if (!isFinite(date)) return null
   let ISODate = date.toISOString()
   if (!includeTime) ISODate = ISODate.slice(0, 10)

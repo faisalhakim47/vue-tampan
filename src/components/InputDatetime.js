@@ -8,7 +8,8 @@ import Column from './Column.js'
 
 export default {
   props: {
-    value: { type: Date, default: () => new Date() }
+    value: { type: Date, default: () => new Date() },
+    disabled: { type: Boolean, default: false },
   },
 
   components: {
@@ -64,17 +65,17 @@ export default {
   },
 
   template: `
-    <input v-if="isUsingISO8601" type="datetime-local" v-model="ISO8601" @input="ISO8601Input">
+    <input v-if="isUsingISO8601" type="datetime-local" :disabled="disabled" v-model="ISO8601" @input="ISO8601Input">
     <div v-else class="input input-sets input-date">
       <row>
         <column :width="{ md: 1/3 }">
           <field label="Jam">
-            <input-time v-model="date" @input="input"></input-time>
+            <input-time :disabled="disabled" v-model="date" @input="input"></input-time>
           </field>
         </column>
         <column :width="{ md: 2/3 }">
           <field label="Tanggal">
-            <input-date v-model="date" @input="input"></input-date>
+            <input-date :disabled="disabled" v-model="date" @input="input"></input-date>
           </field>
         </column>
       </row>

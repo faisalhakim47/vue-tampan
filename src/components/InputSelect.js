@@ -3,8 +3,10 @@ import { isNumber } from '../tools/typecheck.js'
 export default {
   props: {
     options: { type: Array, default: () => [] },
-    value: { type: [String, Number] }
-  },
+    value: { type: [String, Number] },
+    disabled: { type: Boolean, default: false },
+  },    
+
 
   methods: {
     change(event) {
@@ -20,7 +22,7 @@ export default {
   },
 
   template: `
-    <select ref="input_select" class="input input-select" :value="value" @change="change">
+    <select ref="input_select" class="input input-select" :disabled="disabled" :value="value" @change="change">
       <option v-for="option in options" :value="option.value" :key="option.value">{{ option.label }}</option>
     </select>
   `

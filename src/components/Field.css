@@ -42,7 +42,7 @@ th > .field {
   width: 100%;
   font-family: inherit;
   font-size: 1rem;
-  padding: .75rem;
+  padding: .5rem;
   background-color: #FCFCFC;
   border: 1px solid #CFD8DC;
   transition-property: border-color,background-color;

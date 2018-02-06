@@ -25,6 +25,7 @@ export default {
   props: {
     value: { type: [String, Object], default: () => ({}) },
     suggestionProvider: { type: String },
+    disabled: { type: Boolean, default: false },
   },
 
   components: {
@@ -62,42 +63,42 @@ export default {
       <Row>
         <Column :width="{ sm: 4/4, md: 2/4 }">
           <Field label="Kode POS">
-            <input type="number" v-model="addressObject.postalcode">
+            <input type="number" :disabled="disabled" v-model="addressObject.postalcode">
           </Field>
         </Column>
         <Column :width="{ sm: 4/4, md: 2/4 }">
           <Field label="Provinsi">
-            <input type="text" v-model="addressObject.province">
+            <input type="text" :disabled="disabled" v-model="addressObject.province">
           </Field>
         </Column>
         <Column :width="{ sm: 4/4, md: 2/4 }">
           <Field label="Kota">
-            <input type="text" v-model="addressObject.regency">
+            <input type="text" :disabled="disabled" v-model="addressObject.regency">
           </Field>
         </Column>
         <Column :width="{ sm: 4/4, md: 2/4 }">
           <Field label="Kecamatan">
-            <input type="text" v-model="addressObject.district">
+            <input type="text" :disabled="disabled" v-model="addressObject.district">
           </Field>
         </Column>
         <Column :width="{ sm: 4/4, md: 2/4 }">
           <Field label="Kelurahan">
-            <input type="text" v-model="addressObject.village">
+            <input type="text" :disabled="disabled" v-model="addressObject.village">
           </Field>
         </Column>
         <Column :width="{ sm: 2/4, md: 1/4 }">
           <Field label="RT">
-            <input type="number" v-model="addressObject.rt">
+            <input type="number" :disabled="disabled" v-model="addressObject.rt">
           </Field>
         </Column>
         <Column :width="{ sm: 2/4, md: 1/4 }">
           <Field label="RW">
-            <input type="number" v-model="addressObject.rw">
+            <input type="number" :disabled="disabled" v-model="addressObject.rw">
           </Field>
         </Column>
         <Column :width="{ sm: 4/4 }">
           <Field label="Jalan">
-            <input type="text" v-model="addressObject.street">
+            <input type="text" :disabled="disabled" v-model="addressObject.street">
           </Field>
         </Column>
       </Row>
