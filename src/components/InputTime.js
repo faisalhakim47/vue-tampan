@@ -20,7 +20,7 @@ export default {
   data() {
     const date = new Date(this.value)
     return {
-      ISO8601Time: toISO8601(date, { includeDate: false, includeTime: true }),
+      ISO8601Time: this.dateToISO8601Time(date),
       date: dateToObject(date),
     }
   },
@@ -32,6 +32,11 @@ export default {
   },
 
   methods: {
+    dateToISO8601Time(input) {
+      const date = new Date(input)
+      return `${toDigit(date.getHours(), 2)}:${toDigit(date.getMinutes(), 2)}`
+    },
+
     input() {
       const date = objectToDate(this.date)
       this.$emit('input', date)
@@ -48,8 +53,8 @@ export default {
   watch: {
     value(newValue) {
       const date = new Date(newValue)
-      this.ISO8601Time = `${toDigit(date.getHours(), 2)}:${toDigit(date.getMinutes(), 2)}`
-      this.date = dateToObject(new Date(newValue))
+      this.ISO8601Time = this.dateToISO8601Time(date)
+      this.date = dateToObject(date)
     },
   },
 
