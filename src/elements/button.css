@@ -36,6 +36,8 @@ span.button-group {
   padding: .25rem .75rem;
 }
 
+/* === === === BASE BUTTON === === === */
+
 .button {
   /* using pointer on button is not standard.
   We use it for accessibility reason. */
@@ -48,10 +50,6 @@ span.button-group {
   outline: none;
   margin: 0;
   padding: 0;
-}
-
-.button:disabled {
-  cursor: default;
 }
 
 .button > .button-shell {
@@ -96,30 +94,6 @@ span.button-group {
   background-color: #F5F5F5;
 }
 
-.button:disabled > .button-shell {
-  color: #616161;
-  background-color: unset;
-}
-
-.button:disabled:active > .button-shell {
-  box-shadow: none;
-}
-
-.button:disabled > .button-shell:focus,
-.button:disabled:focus > .button-shell,
-.button:disabled:active > .button-shell {
-  box-shadow: none;
-}
-
-/* @keyframes button_refuse {
-  33% {
-    transform: translate3d(-.15rem, 0, 0);
-  }
-  66% {
-    transform: translate3d(.2rem, 0, 0);
-  }
-} */
-
 .button-icon {
   font-size: 1.6rem;
   height: 1.5rem;
@@ -142,6 +116,29 @@ span.button-group {
 .button-icon + .button-text:not(:empty) {
   margin-left: .25rem;
 }
+
+/* === === === BUTTON DISABLED === === === */
+
+.button:disabled {
+  cursor: default;
+}
+
+.button:disabled > .button-shell {
+  color: #616161;
+  background-color: unset;
+}
+
+.button:disabled:active > .button-shell {
+  box-shadow: none;
+}
+
+.button:disabled > .button-shell:focus,
+.button:disabled:focus > .button-shell,
+.button:disabled:active > .button-shell {
+  box-shadow: none;
+}
+
+/* === === === BUTTON POSITIVE === === === */
 
 .button.positive > .button-shell {
   background-color: #43A047;
@@ -170,6 +167,8 @@ span.button-group {
   border-color: #388E3C;
 }
 
+/* === === === BUTTON POSITIVE OUTLINE === === === */
+
 .button.positive.outline > .button-shell {
   background-color: rgba(0, 0, 0, 0);
   color: #43A047;
@@ -189,6 +188,8 @@ span.button-group {
   border-color: #388E3C;
 }
 
+/* === === === BUTTON NEGATIVE === === === */
+
 .button.negative > .button-shell {
   background-color: #E53935;
   color: #FFFFFF;
@@ -207,9 +208,11 @@ span.button-group {
   border-color: #EF5350;
 }
 
+/* === === === BUTTON NEGATIVE OUTLINE === === === */
+
 .button.negative.outline > .button-shell {
   background-color: #FFFFFF;
-  border-color: #E53935;
+  border-color: rgb(46, 33, 33);
   color: #E53935;
 }
 
@@ -224,4 +227,17 @@ span.button-group {
   background-color: rgba(0, 0, 0, 0);
   color: #EEEEEE;
   border-color: #EF5350;
+}
+
+/* === === === BUTTON UNDER .page-header === === === */
+
+.page-header > .button > .button-shell {
+  color: #FFF;
+}
+
+.page-header > .button:focus > .button-shell {
+  color: #FFF;
+  background-color: unset;
+  box-shadow: none;
+  border: none;
 }
