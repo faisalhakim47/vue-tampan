@@ -5,5 +5,8 @@
         "android": "4.4"
       }
     }]
+  ],
+  "plugins": [
+    "transform-vue-inline-template"
   ]
 }

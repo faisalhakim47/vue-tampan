@@ -1,9 +1,9 @@
-const sidebarWidth = 240
 let timeTouchStart
 
 export default {
   props: {
     menuGroups: { type: Array, default: () => [] },
+    sidebarWidth: { type: Number, default: 240 },
   },
 
   data() {
@@ -29,14 +29,14 @@ export default {
       if (this.isSliding) {
         const touchXDiff = this.touchX - this.touchXStart
         if (this.isSidebarVisible) {
-          return touchXDiff < -sidebarWidth
-            ? -sidebarWidth
+          return touchXDiff < -this.sidebarWidth
+            ? -this.sidebarWidth
             : touchXDiff > 0 ? 0 : touchXDiff
         } else {
-          return touchXDiff > sidebarWidth ? 0 : -sidebarWidth + touchXDiff
+          return touchXDiff > this.sidebarWidth ? 0 : -this.sidebarWidth + touchXDiff
         }
       } else {
-        return this.isSidebarVisible ? 0 : -sidebarWidth
+        return this.isSidebarVisible ? 0 : -this.sidebarWidth
       }
     },
   },
@@ -127,7 +127,11 @@ export default {
   template: `
     <div class="tampan admin-panel" :style="{ width: $tampan.client.width + 'px', height: $tampan.client.height + 'px' }">
 
-      <main role="main" class="tampan-content">
+      <main
+        role="main"
+        class="tampan-content"
+        :style="{ paddingLeft: ($tampan.isSidebarToggleable ? 0 : sidebarWidth) + 'px' }"
+      >
         <slot name="content"></slot>
       </main>
 
@@ -135,7 +139,7 @@ export default {
         <div v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable" class="tampan-sidebar-overlay" @click="$tampan.toggleSidebar"></div>
       </transition>
 
-      <aside ref="sidebar" class="tampan-sidebar">
+      <aside ref="sidebar" class="tampan-sidebar" :style="{ width: sidebarWidth + 'px' }">
         <header v-if="$slots.header" class="tampan-header">
           <slot name="header"></slot>
         </header>

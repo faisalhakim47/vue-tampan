@@ -12,10 +12,15 @@
   margin: 1.25rem 1rem;
 }
 
-.is-smallscreen th > .field,
-th > .field {
-  margin: .5rem 0;
+th > .field,
+td > .field {
+  margin: 0 -.5rem;
   font-weight: 400;
+}
+
+.is-smallscreen th > .field,
+.is-smallscreen td > .field {
+  margin: 0;
 }
 
 .field-label {

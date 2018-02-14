@@ -15,6 +15,7 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-minify": "^0.2.0",
+    "babel-plugin-transform-vue-inline-template": "^1.0.3",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.9",
     "cssnano": "^3.10.0",

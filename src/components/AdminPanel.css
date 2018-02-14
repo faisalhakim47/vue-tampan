@@ -5,7 +5,7 @@
 
 .tampan-sidebar {
   height: inherit;
-  width: 240px;
+  /* width: 240px; */
   position: absolute;
   top: 0;
   left: 0;
@@ -16,7 +16,6 @@
 }
 
 .is-sidebar-toggleable .tampan-sidebar {
-  width: 240px;
 }
 
 .tampan-sidebar-overlay {
@@ -71,8 +70,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;  display: flex;
-  height: 3.5rem;
-  ;
+  height: 3rem;;
   align-items: center;
   font-size: 1rem;
   text-decoration: none;
@@ -100,8 +98,8 @@
 
 .menu-icon {
   display: flex;
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 3rem;
+  width: 3rem;
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
@@ -116,7 +114,7 @@
   box-sizing: border-box;
   height: inherit;
   width: inherit;
-  padding-left: 240px;
+  /* padding-left: 240px; */
 }
 
 .is-sidebar-toggleable .tampan-content {

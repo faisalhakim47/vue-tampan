@@ -1,17 +1,30 @@
+/* === === === TABLE BASE === === === */
 .table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.table > thead > tr > th {
-  text-align: left;
-  background-color: #F5F5F5;
 }
 
 .table > thead > tr,
 .table > tbody > tr,
 .table > tfoot > tr {
   height: 3rem;
+}
+
+.table > thead > tr > th {
+  text-align: left;
+  background-color: #FAFAFA;
+  font-weight: 500;
+}
+
+.table > thead > tr:first-child > th {
+  border-top: none;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 0 1rem;
+  border: 1px solid #E0E0E0;
 }
 
 .table > thead > tr > th:first-child,
@@ -28,9 +41,9 @@
   border-right: none;
 }
 
-.is-smallscreen .box-content > .table >thead > tr > th:first-child,
-.is-smallscreen .box-content > .table >tbody > tr > td:first-child,
-.is-smallscreen .box-content > .table >tfoot > tr > td:first-child {
+.is-smallscreen .box-content > .table > thead > tr > th:first-child,
+.is-smallscreen .box-content > .table > tbody > tr > td:first-child,
+.is-smallscreen .box-content > .table > tfoot > tr > td:first-child {
   padding-left: 1rem;
 }
 
@@ -46,13 +59,11 @@
   height: 4rem;
 }
 
-.is-smallscreen .table > thead > tr{
+.is-smallscreen .table > thead > tr {
   height: 3.5rem;
 }
 
-.table.nowrap {
-  white-space: nowrap;
-}
+/* === === === TABLE ATTRIBUTES === === === */
 
 .table.clickable > tbody {
   cursor: pointer;
@@ -70,31 +81,28 @@
   border-right: none;
 }
 
-.table.ellipsis > tbody > tr > td,
-.table.ellipsis > tfoot > tr > td,
-.table.ellipsis > thead > tr > th {
+/* NOTE: max-width is required in each column */
+.table.nowrap > tbody > tr > td,
+.table.nowrap > tfoot > tr > td,
+.table.nowrap > thead > tr > th {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.table > thead > tr > th,
-.table > tbody > tr > td,
-.table > tfoot > tr > td {
-  padding: 0 1rem;
-  border: 1px solid #E0E0E0;
-}
-
-.table > thead > tr:first-child > th {
-  border-top: none;
-}
+/* === === === CELL ATTRIBUTES === === === */
 
 .table > tbody > tr > td.emptyinfo {
-  height: 8rem;
+  height: 9rem;
   font-size: .9rem;
   line-height: 1.25;
   background-color: #F5F5F5;
   text-align: center;
   font-style: italic;
   white-space: unset;
+}
+
+.table > tbody > tr > td.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
