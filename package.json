@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "node build.js",
-    "prepare": "mkdir dist && npm run build"
+    "prepare": "rm -rf dist && mkdir dist && npm run build"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
