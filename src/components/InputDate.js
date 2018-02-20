@@ -69,7 +69,7 @@ export default {
       <Row>
         <Column :width="{ sm: 2/8 }">
           <Field>
-            <input type="number" min="1" max="31" :disabled="disabled" v-model.number="date.date" @input="input">
+            <input type="number" min="1" max="31" :disabled="disabled" v-model.number="date.date" @change="input">
           </Field>
         </Column>
         <Column :width="{ sm: 4/8 }">
@@ -81,7 +81,7 @@ export default {
         </Column>
         <Column :width="{ sm: 2/8 }">
           <Field>
-            <input type="number" min="1000" max="9999" :disabled="disabled" v-model.number="date.year" @input="input">
+            <input type="number" min="1000" max="9999" :disabled="disabled" v-model.number="date.year" @change="input">
           </Field>
         </Column>
       </Row>

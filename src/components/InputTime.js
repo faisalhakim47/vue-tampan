@@ -64,12 +64,12 @@ export default {
       <Row>
         <Column :width="{ sm: 1/2 }">
           <Field>
-            <input type="number" min="0" max="23" :disabled="disabled" v-model.number="date.hour" @input="input">
+            <input type="number" min="0" max="23" :disabled="disabled" v-model.number="date.hour" @change="input">
           </Field>
         </Column>
         <Column :width="{ sm: 1/2 }">
           <Field>
-            <input type="number" min="0" max="59" :disabled="disabled" v-model.number="date.minute" @input="input">
+            <input type="number" min="0" max="59" :disabled="disabled" v-model.number="date.minute" @change="input">
           </Field>
         </Column>
       </Row>

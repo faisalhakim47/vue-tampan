@@ -16,7 +16,7 @@
   font-weight: 500;
 }
 
-.table > thead > tr:first-child > th {
+.box-content:first-child > .table:first-child > thead > tr:first-child > th {
   border-top: none;
 }
 
@@ -67,6 +67,10 @@
 
 .table.clickable > tbody {
   cursor: pointer;
+}
+
+.table.clickable > tbody > tr:hover {
+  background-color: #F5F5F5;
 }
 
 .table.hoverable > tbody > tr:hover {

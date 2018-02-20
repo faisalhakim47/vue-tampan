@@ -5,7 +5,6 @@
 
 .tampan-sidebar {
   height: inherit;
-  /* width: 240px; */
   position: absolute;
   top: 0;
   left: 0;
@@ -15,8 +14,8 @@
   z-index: 1;
 }
 
-.is-sidebar-toggleable .tampan-sidebar {
-}
+/* .is-sidebar-toggleable .tampan-sidebar {
+} */
 
 .tampan-sidebar-overlay {
   position: fixed;
@@ -31,6 +30,7 @@
 .tampan-navigation {
   height: inherit;
   border-right: 1px solid #FFFFFF;
+  overflow-y: auto;
 }
 
 .menu-groups {
@@ -70,20 +70,24 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;  display: flex;
-  height: 3rem;;
+  height: 3.5rem;;
   align-items: center;
   font-size: 1rem;
   text-decoration: none;
   transition-property: background-color;
   transition-duration: 150ms;
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
 }
 
 .is-smallscreen .menu-link {
-  height: 4rem;
-  ;
+  height: 4rem;;
 }
 
-.menu-link:hover {}
+.menu-link:hover {
+  border-top-color: #E0E0E0;
+  border-bottom-color: #E0E0E0;
+}
 
 .menu-link:active,
 .menu-link:focus {
@@ -94,6 +98,8 @@
 .menu-link.router-link-active {
   cursor: default;
   font-weight: 500;
+  border-top-color: #E0E0E0;
+  border-bottom-color: #E0E0E0;
 }
 
 .menu-icon {
@@ -114,7 +120,6 @@
   box-sizing: border-box;
   height: inherit;
   width: inherit;
-  /* padding-left: 240px; */
 }
 
 .is-sidebar-toggleable .tampan-content {

@@ -1,4 +1,3 @@
-import { NProgress } from './vendor/nprogress.js'
 import { getDeviceInfo } from './tools/device.js'
 
 import Dialog from './components/Dialog.js'
@@ -67,7 +66,7 @@ export function initiateTampan(Vue, mixin) {
 
       alert({ title = '', text = '', confirmText = 'Tutup' }) {
         try {
-          text = JSON.stringify(text)  
+          text = JSON.stringify(text)
         } catch (e) { }
         return new Promise((resolve) => {
           const alert = {
@@ -125,20 +124,6 @@ export function initiateTampan(Vue, mixin) {
       },
     },
 
-    watch: {
-      loadingCount(loadingCount, oldLoadingCount) {
-        if (loadingCount === 0) {
-          NProgress.done(true)
-        } else if (loadingCount > 0) {
-          if (oldLoadingCount === 0) {
-            NProgress.start()
-          } else if (oldLoadingCount > loadingCount) {
-            NProgress.inc()
-          }
-        }
-      },
-    },
-
     created() {
       window.addEventListener('keydown', (event) => {
         if (event.keyCode === 27) {
@@ -179,6 +164,13 @@ export function initiateTampan(Vue, mixin) {
     render(h) {
       const dialog = this.dialog
       return h('div', { attrs: { id: 'vue-tampan-internal-component' } }, [
+        h('transition', { attrs: { name: 'fade' } }, [
+          this.$tampan.loadingCount > 0
+            ? h('div', { staticClass: 'spinner', attrs: { role: 'spinner' } }, [
+              h('div', { staticClass: 'spinner-icon' })
+            ])
+            : null
+        ]),
         h('Dialog', {
           props: {
             show: this.showDialog,

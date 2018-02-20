@@ -27,7 +27,7 @@ export default {
       class="modal-title"
     >{{ title }}</h3>
 
-    <p v-if="text" style="font-size: .9rem;">{{ text }}</p>
+    <p v-if="text">{{ text }}</p>
 
     <div
       slot="footer"

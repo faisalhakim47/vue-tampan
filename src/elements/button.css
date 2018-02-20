@@ -57,7 +57,7 @@ span.button-group {
   font-weight: 500;
   transition-property: transform;
   transition-duration: 32ms;
-  padding: .24rem .5rem;
+  padding: .2rem .5rem;
   margin: .3rem;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
@@ -136,6 +136,27 @@ span.button-group {
 .button:disabled:focus > .button-shell,
 .button:disabled:active > .button-shell {
   box-shadow: none;
+}
+
+/* === === === BUTTON OUTLINE === === === */
+
+.button.outline > .button-shell {
+  background-color: rgba(0, 0, 0, 0);
+  color: #424242;
+  border-color: #424242;
+}
+
+.button.outline:hover > .button-shell {
+  background-color: rgba(0, 0, 0, 0);
+  color: #000000;
+  border-color: #212121;
+}
+
+.button.outline:disabled > .button-shell,
+.button.outline:disabled:hover > .button-shell {
+  background-color: rgba(0, 0, 0, 0);
+  color: #757575;
+  border-color: #9E9E9E;
 }
 
 /* === === === BUTTON POSITIVE === === === */
