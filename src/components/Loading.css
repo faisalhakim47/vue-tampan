@@ -1,0 +1,32 @@
+.spinner {
+  display: flex;
+  pointer-events: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 4rem;
+  width: 4rem;
+  z-index: 100;
+}
+
+.spinner-icon {
+  width: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  border: solid .2rem transparent;
+  border-top-color: #E8F5E9;
+  border-left-color: #E8F5E9;
+  border-radius: 50%;
+  animation: spinner 400ms linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
