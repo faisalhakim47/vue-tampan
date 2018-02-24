@@ -85,9 +85,9 @@ span.button-group {
 }
 
 .button:focus > .button-shell {
-  border-color: #E0E0E0;
+  /* border-color: #E0E0E0; */
   outline-color: #E0E0E0;
-  box-shadow: 0 0 0 .15rem #E0E0E0;
+  box-shadow: 0 0 .025rem .15rem #E0E0E0;
 }
 
 .button:active > .button-shell {
@@ -178,7 +178,7 @@ span.button-group {
 }
 
 .button.positive:focus > .button-shell {
-  box-shadow: 0 0 0 .15rem #A5D6A7;
+  box-shadow: 0 0 .025rem .125rem #A5D6A7;
 }
 
 .button.positive:disabled > .button-shell,
@@ -233,7 +233,7 @@ span.button-group {
 
 .button.negative.outline > .button-shell {
   background-color: #FFFFFF;
-  border-color: rgb(46, 33, 33);
+  border-color: #C62828;
   color: #E53935;
 }
 
