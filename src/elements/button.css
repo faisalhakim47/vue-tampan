@@ -253,12 +253,17 @@ span.button-group {
 /* === === === BUTTON UNDER .page-header === === === */
 
 .page-header > .button > .button-shell {
-  color: #FFF;
+  color: #FFFFFF;
+}
+
+.page-header > .button:hover > .button-shell {
+  color: #FFFFFF;
+  background-color: unset;
+  border-color: rgba(0, 0, 0, 0);
 }
 
 .page-header > .button:focus > .button-shell {
-  color: #FFF;
+  color: #FFFFFF;
   background-color: unset;
-  box-shadow: none;
-  border: none;
+  border-color: rgba(0, 0, 0, 0);
 }

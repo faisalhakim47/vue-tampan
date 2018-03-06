@@ -15,11 +15,6 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  padding-left:1.2rem;
-}
-
-.is-smallscreen .page-header {
-  padding-left:0;
 }
 
 .is-sidebar-toggleable .page-header {
@@ -48,10 +43,11 @@
   font-weight: 400;
   margin: 0;
   line-height: 4rem;
+  margin: 0rem 1.2rem;
 }
 
 .is-smallscreen .page-title:first-child {
-  margin-left: .8rem;
+  margin: 0rem .8rem;
 }
 
 .page-content {
