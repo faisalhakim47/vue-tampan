@@ -50,6 +50,7 @@ span.button-group {
   outline: none;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
 }
 
 .button > .button-shell {
@@ -76,6 +77,13 @@ span.button-group {
 
 .is-smallscreen .button > .button-shell {
   padding: .35rem .7rem;
+}
+
+input + .button > .button-shell {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: .3rem;
 }
 
 .button:hover > .button-shell {
@@ -256,14 +264,27 @@ span.button-group {
   color: #FFFFFF;
 }
 
+.page-header > .button > .button-shell > .button-icon {
+  font-size: 1.75rem;
+  height: 2rem;
+}
+
+.page-header > .button > .button-shell > .button-text {
+  font-size: 1.2rem;
+  height: 2rem;
+  font-weight: 400;
+}
+
 .page-header > .button:hover > .button-shell {
   color: #FFFFFF;
   background-color: unset;
   border-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
 }
 
 .page-header > .button:focus > .button-shell {
   color: #FFFFFF;
   background-color: unset;
   border-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
 }

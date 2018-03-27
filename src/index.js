@@ -9,8 +9,10 @@ import Field from './components/Field.js'
 import InputAddressInd from './components/InputAddressInd.js'
 import InputDate from './components/InputDate.js'
 import InputDatetime from './components/InputDatetime.js'
+import InputMonth from './components/InputMonth.js'
 import InputSelect from './components/InputSelect.js'
 import InputTime from './components/InputTime.js'
+import ListPanel from './components/ListPanel.js'
 import Modal from './components/Modal.js'
 import Row from './components/Row.js'
 import Tabs from './components/Tabs.js'
@@ -25,8 +27,10 @@ export const VueTampan = {
     Vue.component('input-address-ind', InputAddressInd)
     Vue.component('input-date', InputDate)
     Vue.component('input-datetime', InputDatetime)
+    Vue.component('input-month', InputMonth)
     Vue.component('input-select', InputSelect)
     Vue.component('input-time', InputTime)
+    Vue.component('list-panel', ListPanel)
     Vue.component('column', Column)
     Vue.component('row', Row)
     Vue.component('tabs', Tabs)

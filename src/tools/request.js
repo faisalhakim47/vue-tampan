@@ -5,16 +5,16 @@ const queues = {}
 if (typeof window !== 'undefined') {
   const workerScript = `
   self.addEventListener('message', (event) => {
-    const data = event.data || {}
-    const options = data.options || {}
-    const headers = options.headers || {}
-    const request = new XMLHttpRequest()
-    const resolveStatus = (error) => {
-      let result
+    var data = event.data || {};
+    var options = data.options || {};
+    var headers = options.headers || {};
+    var request = new XMLHttpRequest();
+    var resolveStatus = function resolveStatus(error) {
+      var result;
       try {
-        result = JSON.parse(request.responseText)
+        result = JSON.parse(request.responseText);
       } catch (e) {
-        result = request.responseText
+        result = request.responseText;
       }
       self.postMessage({
         ok: !error,
@@ -22,30 +22,30 @@ if (typeof window !== 'undefined') {
         status: request.status,
         data: result,
         error: error,
-      })
+      });
     }
-    request.open(data.method, data.url)
-    Object.keys(headers).forEach((name) => {
-      request.setRequestHeader(name, headers[name])
+    request.open(data.method, data.url);
+    Object.keys(headers).forEach(function (name) {
+      request.setRequestHeader(name, headers[name]);
+    });
+    request.addEventListener('error', function (error) {
+      console.warn(error);
+      resolveStatus(error);
     })
-    request.addEventListener('error', (error) => {
-      console.log(error)
-      resolveStatus(error)
-    })
-    request.addEventListener('readystatechange', () => {
+    request.addEventListener('readystatechange', function () {
       if (request.readyState === 4) {
         if (request.status < 400) {
-          resolveStatus()
+          resolveStatus();
         } else  {
-          resolveStatus(true)
+          resolveStatus(true);
         }
       }
-    })
+    });
     request.send(
       options.data && typeof options.data === 'object'
         ? JSON.stringify(options.data)
         : options.data
-    )
+    );
   })
   `
 

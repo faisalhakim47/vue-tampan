@@ -3,7 +3,7 @@ export default {
     show: { type: Boolean, default: false },
     overflowX: { type: Boolean, default: false },
     transition: { type: String, default: 'zoom' },
-    maxWidth: { type: Number, default: 480 },
+    maxWidth: { type: [String, Number], default: 480 },
   },
 
   data() {

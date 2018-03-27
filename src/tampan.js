@@ -67,6 +67,7 @@ export function initiateTampan(Vue, mixin) {
       alert({ title = '', text = '', confirmText = 'Tutup' }) {
         try {
           text = JSON.stringify(text)
+          if (text[0] === '"') text = text.slice(1, -1)
         } catch (e) { }
         return new Promise((resolve) => {
           const alert = {

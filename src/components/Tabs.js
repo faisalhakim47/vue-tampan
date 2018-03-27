@@ -10,6 +10,7 @@ export default {
       <ul class="tab-list">
         <li
           v-for="option in options"
+          :key="option.value"
           class="tab-item clickable"
           :class="{ 'active': option.value === value }"
           @click="$emit('change', option.value)"

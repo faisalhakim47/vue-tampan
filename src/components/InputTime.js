@@ -60,14 +60,15 @@ export default {
 
   template: `
     <input v-if="isUsingISO8601" type="time" :disabled="disabled" v-model="ISO8601Time" @input="ISO8601Input">
-    <div v-else class="input input-sets input-date">
+    <div v-else class="input input-sets input-date" style="min-width: 135px;">
       <Row>
-        <Column :width="{ sm: 1/2 }">
+        <Column :width="{ sm: 4.4/10 }">
           <Field>
             <input type="number" min="0" max="23" :disabled="disabled" v-model.number="date.hour" @change="input">
           </Field>
         </Column>
-        <Column :width="{ sm: 1/2 }">
+        <Column :width="{ sm: 1/10 }" style="display: flex; justify-content: center; align-items: center;">:</Column>
+        <Column :width="{ sm: 4.4/10 }">
           <Field>
             <input type="number" min="0" max="59" :disabled="disabled" v-model.number="date.minute" @change="input">
           </Field>

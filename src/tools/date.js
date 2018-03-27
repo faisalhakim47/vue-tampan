@@ -50,10 +50,11 @@ export function getDayLengthInMonth(month, month2) {
   return new Date(year, month, 0).getDate()
 }
 
-export function toIndoDate(date) {
+export function toIndoDate(date, mode) {
   date = new Date(date)
+  const theMonths = mode === 'short' ? shortMonths : months
   if (!isFinite(date)) return null
-  return `${toDigit(date.getDate(), 2)} ${months[date.getMonth()]} ${date.getFullYear()}`
+  return `${toDigit(date.getDate(), 2)} ${theMonths[date.getMonth()]} ${date.getFullYear()}`
 }
 
 export function toTimeHour(date) {

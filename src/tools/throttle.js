@@ -1,7 +1,7 @@
 export function throttle(func, duration = 100) {
   let isThrotted = false
   let pendingFunc = false
-  let lastValue = null
+  let lastValue = undefined
   function throttledFunc(...args) {
     if (isThrotted) {
       pendingFunc = () => {

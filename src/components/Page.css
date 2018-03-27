@@ -47,7 +47,11 @@
 }
 
 .is-smallscreen .page-title:first-child {
-  margin: 0rem .8rem;
+  margin: 0 .8rem;
+}
+
+.button + .page-title {
+  margin-left: 0;
 }
 
 .page-content {

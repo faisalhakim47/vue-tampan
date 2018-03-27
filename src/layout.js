@@ -8,7 +8,10 @@ function condRootClass(className, condition) {
 }
 
 export function initiateLayout(tampan) {
-  const screenChangeHandler = throttle(() => tampan.client = getDeviceInfo(), 1000)
+  const screenChangeHandler = throttle(() => {
+    tampan.$emit('screen_resize')
+    tampan.client = getDeviceInfo()
+  }, 500)
   window.addEventListener('resize', screenChangeHandler, { passive: true })
   window.addEventListener('orientationchange', screenChangeHandler, { passive: true })
 

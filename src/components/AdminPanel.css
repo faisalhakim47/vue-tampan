@@ -85,8 +85,9 @@
 }
 
 .menu-link:hover {
-  border-top-color: #E0E0E0;
-  border-bottom-color: #E0E0E0;
+  background-color: #F5F5F5;
+  border-top-color: #F5F5F5;
+  border-bottom-color: #F5F5F5;
 }
 
 .menu-link:active,
