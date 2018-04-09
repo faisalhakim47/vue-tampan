@@ -7,6 +7,7 @@ import Column from './components/Column.js'
 import Dialog from './components/Dialog.js'
 import Field from './components/Field.js'
 import InputAddressInd from './components/InputAddressInd.js'
+import InputAutotext from './components/InputAutotext.js'
 import InputDate from './components/InputDate.js'
 import InputDatetime from './components/InputDatetime.js'
 import InputMonth from './components/InputMonth.js'
@@ -25,6 +26,7 @@ export const VueTampan = {
     Vue.component('modal', Modal)
     Vue.component('field', Field)
     Vue.component('input-address-ind', InputAddressInd)
+    Vue.component('input-autotext', InputAutotext)
     Vue.component('input-date', InputDate)
     Vue.component('input-datetime', InputDatetime)
     Vue.component('input-month', InputMonth)
