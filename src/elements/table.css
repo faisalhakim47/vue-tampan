@@ -65,7 +65,7 @@
 
 /* === === === TABLE ATTRIBUTES === === === */
 
-.table.clickable > tbody {
+.table.clickable > tbody > tr {
   cursor: pointer;
 }
 

@@ -27,23 +27,39 @@ export default Vue.extend({
 
   methods: {
     loadSuggestions() {
-      this.status = 'loading'
-      const req = new XMLHttpRequest()
-      req.open('GET', `${this.src}?keyword=%${this.keyword}%&limit=${this.limit}`)
-      req.addEventListener('readystatechange', () => {
-        if (req.readyState === 4) {
-          if (req.status === 200) {
-            this.suggestions = JSON.parse(req.responseText)
-            this.activeIndex = 0
-            const currentSuggestion = this.suggestions.find((suggestion) => {
-              return suggestion.value === this.value
-            })
-            if (currentSuggestion) this.keyword = currentSuggestion.title
+      return new Promise((resolve) => {
+        this.status = 'loading'
+        const req = new XMLHttpRequest()
+        req.open('GET', `${this.src}?keyword=%${this.keyword}%&limit=${this.limit}`)
+        req.addEventListener('readystatechange', () => {
+          if (req.readyState === 4) {
+            if (req.status === 200) {
+              this.suggestions = JSON.parse(req.responseText)
+              this.activeIndex = 0
+            }
+            resolve()
+            this.status = 'ready'
           }
-          this.status = 'ready'
-        }
+        })
+        req.send()
       })
-      req.send()
+    },
+
+    loadItem() {
+      return new Promise((resolve) => {
+        const req = new XMLHttpRequest()
+        req.open('GET', `${this.src}?value=${this.value}`)
+        req.addEventListener('readystatechange', () => {
+          if (req.readyState === 4) {
+            if (req.status === 200) {
+              const currentSuggestion = JSON.parse(req.responseText)
+              if (currentSuggestion) this.keyword = currentSuggestion.title
+            }
+            resolve()
+          }
+        })
+        req.send()
+      })
     },
 
     done() {
@@ -83,11 +99,12 @@ export default Vue.extend({
   watch: {
     value() {
       this.keyword = ''
-      this.loadSuggestions()
+      this.loadItem()
     },
   },
 
   mounted() {
+    this.loadItem()
     this.loadSuggestions()
   },
 

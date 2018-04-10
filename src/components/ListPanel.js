@@ -29,6 +29,17 @@ const alphaColor = [
   'B3E5FC',
 ]
 
+/**
+ * @param {number} num 
+ * @param {number} min 
+ * @param {number} max 
+ */
+function between(num, min, max) {
+  if (num < min) return min
+  if (num > max) return max
+  return num
+}
+
 export default {
   props: {
     src: { type: String },
@@ -108,7 +119,7 @@ export default {
 
     computeLayout() {
       this.listContainerHeight = parseInt(getComputedStyle(this.$refs.page_content).height, 10)
-      this.limit = this.itemGroupSize * 3
+      this.limit = between(this.itemGroupSize * 10, 20, 100)
       this.$nextTick()
         .then(this.loadItemsLength)
         .then(this.loadItems)
@@ -117,17 +128,12 @@ export default {
     },
 
     listScroll: debounce(function () {
-      const between = (num, min, max) => {
-        if (num < min) return min
-        if (num > max) return max
-        return num
-      }
       const offset = this.$refs.page_content.scrollTop - this.listContainerHeight
-      const originalSkip = Math.floor((offset < 0 ? 0 : offset) / this.itemHeight)
-      const directionTreshold = between(originalSkip - this.skip, -this.itemGroupSize + 2, this.itemGroupSize - 2)
-      const skip = between(originalSkip + directionTreshold, 0, this.itemsLength - this.limit)
-      if (this.skip === skip) return
-      this.loadItems(skip)
+      const skip = Math.floor((offset < 0 ? 0 : offset) / this.itemHeight)
+      const halfScreenSkip = Math.floor(this.limit / 2)
+      const roundedSkip = between(skip - halfScreenSkip, 0, this.itemsLength - this.limit)
+      if (this.skip === roundedSkip) return
+      this.loadItems(roundedSkip)
     }, 200),
   },
 
