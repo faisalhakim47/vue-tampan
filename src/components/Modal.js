@@ -97,14 +97,10 @@ let isBackButtonGuarded = false
 function addBackButtonGuard(root, backFn) {
   if (isBackButtonGuarded) return
   isBackButtonGuarded = true
-
   if (!root.$router) return
-
   root.$router.beforeEach((to, from, next) => {
     const activeModal = root.$tampan.activeModalList[0]
-
     if (!activeModal) return next()
-
     activeModal.close()
   })
 }
