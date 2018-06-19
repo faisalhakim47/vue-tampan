@@ -31,7 +31,7 @@ if (typeof window !== 'undefined') {
     request.addEventListener('error', function (error) {
       console.warn(error);
       resolveStatus(error);
-    })
+    });
     request.addEventListener('readystatechange', function () {
       if (request.readyState === 4) {
         if (request.status < 400) {
@@ -46,7 +46,7 @@ if (typeof window !== 'undefined') {
         ? JSON.stringify(options.data)
         : options.data
     );
-  })
+  });
   `
 
   const workerBlob = new Blob([workerScript], {

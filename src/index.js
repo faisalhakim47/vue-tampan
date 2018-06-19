@@ -4,15 +4,16 @@ import { initiateLayout } from './layout.js'
 import AdminPanel from './components/AdminPanel.js'
 import ButtonBase from './components/ButtonBase.js'
 import Column from './components/Column.js'
-import Dialog from './components/Dialog.js'
 import Field from './components/Field.js'
 import InputAddressInd from './components/InputAddressInd.js'
 import InputAutotext from './components/InputAutotext.js'
 import InputDate from './components/InputDate.js'
 import InputDatetime from './components/InputDatetime.js'
 import InputMonth from './components/InputMonth.js'
+import InputRange from './components/InputRange.js'
 import InputSelect from './components/InputSelect.js'
 import InputTime from './components/InputTime.js'
+import ListBlock from './components/ListBlock.js'
 import ListPanel from './components/ListPanel.js'
 import Modal from './components/Modal.js'
 import Row from './components/Row.js'
@@ -29,9 +30,11 @@ export const VueTampan = {
     Vue.component('input-autotext', InputAutotext)
     Vue.component('input-date', InputDate)
     Vue.component('input-datetime', InputDatetime)
+    Vue.component('input-range', InputRange)
     Vue.component('input-month', InputMonth)
     Vue.component('input-select', InputSelect)
     Vue.component('input-time', InputTime)
+    Vue.component('list-block', ListBlock)
     Vue.component('list-panel', ListPanel)
     Vue.component('column', Column)
     Vue.component('row', Row)

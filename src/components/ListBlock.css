@@ -1,0 +1,7 @@
+.list-block-item .preview-letter {
+  height: 100%;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
