@@ -13,6 +13,7 @@ import InputMonth from './components/InputMonth.js'
 import InputRange from './components/InputRange.js'
 import InputSelect from './components/InputSelect.js'
 import InputTime from './components/InputTime.js'
+import ListBlock from './components/ListBlock.js'
 import ListPanel from './components/ListPanel.js'
 import Modal from './components/Modal.js'
 import Row from './components/Row.js'
@@ -33,6 +34,7 @@ export const VueTampan = {
     Vue.component('input-month', InputMonth)
     Vue.component('input-select', InputSelect)
     Vue.component('input-time', InputTime)
+    Vue.component('list-block', ListBlock)
     Vue.component('list-panel', ListPanel)
     Vue.component('column', Column)
     Vue.component('row', Row)
