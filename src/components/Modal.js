@@ -14,10 +14,14 @@ export default {
 
   methods: {
     controlBodyOverflow() {
-      const { modal_content } = this.$refs
-      if (modal_content) {
-        this.isContentOverflow = modal_content.scrollHeight > modal_content.clientHeight
-      }
+      this.$nextTick().then(() => {
+        const { modal_content } = this.$refs
+        if (modal_content) {
+          modal_content.style.height = 'auto'
+          modal_content.style.height = modal_content.scrollHeight + 'px'
+          this.isContentOverflow = modal_content.scrollHeight > modal_content.clientHeight
+        }
+      })
     },
 
     close() {

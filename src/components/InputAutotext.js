@@ -101,6 +101,9 @@ export default Vue.extend({
       this.keyword = ''
       this.loadItem()
     },
+    isSuggestionOpen() {
+      this.$tampan.$emit('modal:overflowcontrol')
+    },
   },
 
   mounted() {
