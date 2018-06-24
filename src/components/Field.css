@@ -26,7 +26,8 @@ td > .field {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;  margin-bottom: .1rem;
+  -ms-user-select: none;
+  margin-bottom: .25rem;
   font-size: .85rem;
   font-weight: 500;
   text-transform: uppercase;

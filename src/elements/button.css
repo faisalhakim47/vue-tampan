@@ -36,6 +36,22 @@ span.button-group {
   padding: .25rem .75rem;
 }
 
+.modal-footer > .button-group {
+  padding: 0 1.25rem;
+}
+
+.is-smallscreen .modal-footer > .button-group {
+  padding: 0 1rem;
+}
+
+.modal-footer > .button-group > button:first-child > .button-shell {
+  margin-left: 0;
+}
+
+.modal-footer > .button-group > button:last-child > .button-shell {
+  margin-right: 0;
+}
+
 /* === === === BASE BUTTON === === === */
 
 .button {
@@ -255,18 +271,21 @@ input + .button > .button-shell {
 
 /* === === === BUTTON UNDER .page-header === === === */
 
+.page-header > .button {
+  height: 4rem;
+  width: 4rem;
+}
+
 .page-header > .button > .button-shell {
   color: #FFFFFF;
 }
 
 .page-header > .button > .button-shell > .button-icon {
   font-size: 1.75rem;
-  height: 2rem;
 }
 
 .page-header > .button > .button-shell > .button-text {
   font-size: 1.2rem;
-  height: 2rem;
   font-weight: 400;
 }
 

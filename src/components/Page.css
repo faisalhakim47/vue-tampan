@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  height: 100%;
+  height: inherit;
 }
 
 .page-header {
@@ -12,11 +12,14 @@
   -ms-user-select: none;  cursor: default;
   box-sizing: border-box;
   height: 4rem;
+  min-height: 4rem;
+  max-height: 4rem;
   display: flex;
   position: relative;
   flex-wrap: nowrap;
   align-items: center;
   box-shadow:0 -1px .5rem #000000;
+  z-index: 100;
 }
 
 .page-header > .button {
@@ -36,10 +39,9 @@
 
 .page-title {
   box-sizing: border-box;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 400;
   margin: 0;
-  line-height: 4rem;
   margin: 0rem 1.2rem;
 }
 
@@ -53,14 +55,9 @@
 
 .page-content {
   box-sizing: border-box;
-  padding: 1.2rem;
   flex: 1;
   overflow-y: scroll;
   overflow-x: hidden;
-}
-
-.is-smallscreen .page-content {
-  padding: .3rem;
 }
 
 .page-footer {

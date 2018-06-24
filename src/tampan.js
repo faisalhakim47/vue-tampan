@@ -2,8 +2,6 @@ import { getDeviceInfo } from './tools/device.js'
 
 import Dialog from './components/Dialog.js'
 
-const escapeGuards = []
-
 export function initiateTampan(Vue, mixin) {
   Vue.prototype.$tampan = new Vue({
     mixins: [mixin],
@@ -14,6 +12,7 @@ export function initiateTampan(Vue, mixin) {
         client,
         // used by <Modal> and <AdminPanel> components
         activeModalList: [],
+        escapeGuards: [],
         dialogList: [],
         loadingCount: 0,
         isSidebarShow: !client.isSmallScreen,
@@ -116,24 +115,23 @@ export function initiateTampan(Vue, mixin) {
       },
 
       addEscGuard(escapeFn) {
-        escapeGuards.unshift(escapeFn)
+        this.escapeGuards.unshift(escapeFn)
       },
 
       removeEscGuard(escapeFn) {
-        const index = escapeGuards.indexOf(escapeFn)
-        if (index !== -1) escapeGuards.splice(index, 1)
+        const index = this.escapeGuards.indexOf(escapeFn)
+        if (index !== -1) this.escapeGuards.splice(index, 1)
       },
     },
 
     created() {
       window.addEventListener('keydown', (event) => {
-        if (event.keyCode === 27) {
+        if (event.keyCode === 27 || event.keyCode === 166) {
           event.preventDefault()
-          const escape = escapeGuards.shift()
+          const escape = this.escapeGuards.shift()
           if (typeof escape === 'function') escape()
         }
       })
-
     },
   })
 

@@ -1,34 +1,4 @@
-
-import { debounce } from '../tools/debounce.js'
-
-const alphaColor = [
-  'FFEBEE',
-  'FCE4EC',
-  'F3E5F5',
-  'EDE7F6',
-  'E8EAF6',
-  'E3F2FD',
-  'E1F5FE',
-  'E0F7FA',
-  'E0F2F1',
-  'E8F5E9',
-  'F1F8E9',
-  'F9FBE7',
-  'FFFDE7',
-  'FFF8E1',
-  'FFF3E0',
-  'FBE9E7',
-  'EFEBE9',
-  'FAFAFA',
-  'ECEFF1',
-  'FFCDD2',
-  'F8BBD0',
-  'E1BEE7',
-  'D1C4E9',
-  'C5CAE9',
-  'BBDEFB',
-  'B3E5FC',
-]
+import { request } from '../tools/request.js'
 
 /**
  * @param {number} num 
@@ -45,152 +15,137 @@ export default {
   props: {
     src: { type: String },
     scrollPosition: { type: Number, default: 0 },
-    activeKey: true,
-    viewMode: { type: String },
+    activeKey: { type: [Number, String] },
+    rowHeight: { type: Number, default: 48 },
+    numberOfColumn: { type: Number, default: 1 },
+    numberOfGroup: { type: Number, default: 5 },
+    loadDelay: { type: Number, default: 300 },
   },
 
   data() {
     return {
-      alphaColor,
-      itemHeight: 48,
-      listContainerHeight: 0,
-      itemsLength: 0,
+      listBlockHeight: 0,
+      numberOfItem: 0,
       limit: 0,
-      skip: 0,
+      skip: null,
       items: [],
+      loadingSkip: 0,
     }
   },
 
   computed: {
-    itemGroupSize() {
-      return Math.round(this.listContainerHeight / this.itemHeight)
+    groupSize() {
+      const rowHeight = Math.round(this.listBlockHeight / this.rowHeight)
+      return rowHeight * this.numberOfColumn
+    },
+
+    prevNumberOfGroup() {
+      return Math.floor(this.numberOfGroup / 2)
     },
 
     listPadding() {
-      return this.skip * this.itemHeight
+      return this.skip * this.rowHeight / this.numberOfColumn
     },
   },
 
   methods: {
-    loadItemsLength() {
-      const req = new XMLHttpRequest()
-      req.open('GET', this.src + '?get=size', true)
-      req.addEventListener('readystatechange', () => {
-        if (req.status === 200 && req.readyState === 4) {
-          this.itemsLength = JSON.parse(req.responseText).size
-        }
-      })
-      req.send()
+    fetchNumberOfItem() {
+      return request('GET', location.origin + this.src + '?get=size')
+        .then((result) => {
+          if (result.status === 200) {
+            this.numberOfItem = result.data.size
+          }
+          else {
+            console.warn(result)
+          }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
     },
 
-    loadItems(skip = 0) {
-      this.$tampan.addLoadingState()
-      const req = new XMLHttpRequest()
-      req.open('GET', this.src + `?get=data&skip=${skip}&limit=${this.limit}`, true)
-      req.addEventListener('readystatechange', () => {
-        if (req.readyState === 4) {
-          if (req.status === 200) {
-            const getFirstChar = (title) => {
-              if (!title) return 'A'
-              const matches = title.match(/[a-zA-Z]/)
-              if (matches) return matches[0].toUpperCase()
-              return title[0]
-            }
-            this.items = JSON.parse(req.responseText)
-              .map((item) => {
-                return {
-                  key: item.key,
-                  title: item.title,
-                  description: item.description,
-                  firstChar: getFirstChar(item.title),
-                }
-              })
+    fetchList(skip = 0) {
+      if (this.skip === skip) {
+        return Promise.resolve()
+      }
+      this.loadingSkip = skip
+      const url = location.origin + this.src + `?get=data&skip=${skip}&limit=${this.limit}`
+      return request('GET', url)
+        .then((result) => {
+          if (this.loadingSkip !== skip) return
+          if (result.status === 200) {
+            this.items = result.data
             this.skip = skip
           }
           else {
-            console.warn(req.responseText)
+            console.warn(result)
           }
-        }
-      })
-      req.addEventListener('error', (error) => {
-        console.warn(error)
-      })
-      req.addEventListener('loadend', this.$tampan.reduceLoadingState)
-      req.send()
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    },
+
+    refreshList() {
+      const scrollTop = this.$refs.list_block.scrollTop
+      const offset = scrollTop - (this.listBlockHeight * this.prevNumberOfGroup)
+      const skip = Math.floor(between(offset, 0, offset) / this.rowHeight) * this.numberOfColumn
+      return this.fetchList(skip)
     },
 
     computeLayout() {
-      this.listContainerHeight = parseInt(getComputedStyle(this.$refs.list_content).height, 10)
-      this.limit = between(this.itemGroupSize * 10, 20, 100)
+      this.listBlockHeight = parseInt(getComputedStyle(this.$refs.list_block).height, 10)
+      this.limit = this.groupSize * this.numberOfGroup
       this.$nextTick()
-        .then(this.loadItemsLength)
-        .then(this.loadItems)
+        .then(this.fetchNumberOfItem)
+        .then(this.fetchList)
         .then(this.$nextTick)
-        .then(() => this.$refs.list_content.scrollTop = this.scrollPosition)
+        .then(() => this.$refs.list_block.scrollTop = this.scrollPosition)
     },
-
-    listScroll: debounce(function () {
-      const offset = this.$refs.list_content.scrollTop - this.listContainerHeight
-      const skip = Math.floor((offset < 0 ? 0 : offset) / this.itemHeight)
-      const halfScreenSkip = Math.floor(this.limit / 2)
-      const roundedSkip = between(skip - halfScreenSkip, 0, this.itemsLength - this.limit)
-      if (this.skip === roundedSkip) return
-      this.loadItems(roundedSkip)
-    }, 200),
   },
 
   watch: {
     skip(skip) {
-      this.$emit('scroll', (skip + this.itemGroupSize) * this.itemHeight)
+      this.$emit('scroll', (skip + this.groupSize) * this.rowHeight)
     },
   },
 
   mounted() {
-    this.computeLayout()
-    this.$refs.list_content.addEventListener('scroll', this.listScroll)
+    this.refreshListInterval = setInterval(this.refreshList, this.loadDelay)
     this.$tampan.$on('screen_resize', this.computeLayout)
+    this.computeLayout()
   },
 
   beforeDestroy() {
-    this.$refs.list_content.removeEventListener('scroll', this.listScroll)
+    clearInterval(this.refreshListInterval)
     this.$tampan.$off('screen_resize', this.computeLayout)
   },
 
   template: `
-  <section class="list-block">
-    <div ref="list_content" class="list-block-container">
-      <ul
-        class="list-block-content"
-        style="boxSizing: border-box;"
+  <section ref="list_block" class="list-block">
+    <ul
+      v-if="items.length !== 0"
+      class="list-block-content"
+      :style="{
+        height: (rowHeight * (numberOfItem / numberOfColumn)) + 'px',
+        paddingTop: listPadding + 'px',
+      }"
+    >
+      <li
+        v-for="item in items"
+        :key="item.key || item.id"
+        class="list-block-item"
+        :class="item.key === activeKey && 'active'"
         :style="{
-          height: itemHeight * itemsLength + 'px',
+          height: rowHeight + 'px',
+          width: 100 / numberOfColumn + '%',
         }"
+        @click="$emit('select', item)"
       >
-        <li :style="{ height : listPadding + 'px' }"></li>
-        <li
-          v-for="item in items"
-          :key="item.key"
-          class="list-block-item"
-          :class="item.key === activeKey && 'active'"
-          :style="{ height: itemHeight + 'px' }"
-          @click="$emit('select', item)"
-        >
-          <div class="preview" :style="{ height: itemHeight + 'px', width: itemHeight + 'px' }">
-            <img v-if="item.image" :src="item.image" :alt="item.title">
-            <div
-              v-else
-              class="preview-letter"
-              :style="{
-                backgroundColor: '#' + alphaColor[item.firstChar.charCodeAt() - 65],
-              }"
-            >{{ item.firstChar }}</div>
-          </div>
-          <div class="content">
-            <slot name="content" :data="item"></slot>
-          </div>
-        </li>
-      </ul>
-    </div>
+        <slot name="content" :data="item"></slot>
+      </li>
+    </ul>
+    <slot v-else name="content-empty"></slot>
   </section>
   `
 }

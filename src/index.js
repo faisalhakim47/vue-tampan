@@ -2,6 +2,7 @@ import { initiateTampan } from './tampan.js'
 import { initiateLayout } from './layout.js'
 
 import AdminPanel from './components/AdminPanel.js'
+import ButtonAction from './components/ButtonAction.js'
 import ButtonBase from './components/ButtonBase.js'
 import Column from './components/Column.js'
 import Field from './components/Field.js'
@@ -19,10 +20,14 @@ import Modal from './components/Modal.js'
 import Row from './components/Row.js'
 import Tabs from './components/Tabs.js'
 
+import focus from './directives/focus.js'
+
 export const VueTampan = {
   install(Vue, mixin = {}) {
     const tampan = initiateTampan(Vue, mixin)
+
     Vue.component('admin-panel', AdminPanel)
+    Vue.component('button-action', ButtonAction)
     Vue.component('button-tampan', ButtonBase)
     Vue.component('modal', Modal)
     Vue.component('field', Field)
@@ -39,6 +44,9 @@ export const VueTampan = {
     Vue.component('column', Column)
     Vue.component('row', Row)
     Vue.component('tabs', Tabs)
+
+    Vue.directive('focus', focus)
+
     initiateLayout(tampan)
   },
 }

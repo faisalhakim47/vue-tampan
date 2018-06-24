@@ -13,6 +13,7 @@
 
 @import './components/AdminPanel.css';
 @import './components/Box.css';
+@import './components/ButtonAction.css';
 @import './components/Column.css';
 @import './components/Field.css';
 @import './components/InputAutotext.css';

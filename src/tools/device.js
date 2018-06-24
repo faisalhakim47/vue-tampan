@@ -1,8 +1,14 @@
-const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints)
-const isMobileOS = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(navigator.userAgent)
+const largeScreenBreakpoint = 1024
+const mediumScreenBreakpoint = 768
 
-export function getDeviceInfo({ largeScreenBreakpoint = 1024, mediumScreenBreakpoint = 768 } = {}) {
-  const width = window.innerWidth
+export function getDeviceInfo() {
+  const userAgent = navigator.userAgent
+  const isTouchDevice = !!('ontouchstart' in window || navigator.maxTouchPoints)
+  const isMobileOS = userAgent.indexOf('Mobile') !== -1
+    || userAgent.indexOf('Android') !== -1
+    || userAgent.indexOf('Opera Mini') !== -1
+  const isPageSpeed = userAgent.indexOf('Page Speed') !== -1
+  const width = document.body.clientWidth
   const height = window.innerHeight
   const isLandscape = width > height
   const isPortrait = !isLandscape
@@ -21,5 +27,6 @@ export function getDeviceInfo({ largeScreenBreakpoint = 1024, mediumScreenBreakp
     isPortrait,
     isTouchDevice,
     isMobileOS,
+    isPageSpeed,
   }
 }
