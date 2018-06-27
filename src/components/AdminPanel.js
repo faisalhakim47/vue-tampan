@@ -124,10 +124,12 @@ export default {
           next(this.isBypassNavigationGuard)
           this.isBypassNavigationGuard = false
         })
+        console.warn(1, 'GUARDED')
       }
       else if (this.$tampan.escapeGuards.length !== 0) {
         const escape = this.$tampan.escapeGuards.shift()
         if (typeof escape === 'function') escape()
+        console.warn(2, 'GUARDED')
         next(false)
       }
       else next()

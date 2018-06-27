@@ -18,6 +18,7 @@
 @import './components/Field.css';
 @import './components/InputAutotext.css';
 @import './components/InputRange.css';
+@import './components/InputTime.css';
 @import './components/ListBlock.css';
 @import './components/ListPanel.css';
 @import './components/Loading.css';

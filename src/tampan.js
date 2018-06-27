@@ -91,21 +91,21 @@ export function initiateTampan(Vue, mixin) {
         rejectText = 'Batal',
       }) {
         return new Promise((resolve, reject) => {
-          var close = () => {
+          const close = () => {
             this.dialogList.splice(this.dialogList.indexOf(confirm), 1)
           }
-          var confirm = {
+          const confirm = {
             type: 'confirm',
             title,
             text,
             confirmText,
             confirmIconText,
             rejectText,
-            resolve: () => {
+            resolve() {
               close()
               resolve()
             },
-            reject: () => {
+            reject() {
               close()
               reject()
             },
