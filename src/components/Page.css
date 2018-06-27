@@ -60,6 +60,14 @@
   overflow-x: hidden;
 }
 
+.page-content.padding {
+  padding: 1.5rem;
+}
+
+.is-smallscreen .page-content {
+  padding: .75rem;
+}
+
 .page-footer {
   box-sizing: border-box;
   min-height: 3rem;

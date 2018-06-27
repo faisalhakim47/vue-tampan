@@ -34,6 +34,20 @@
   height: 3.5rem;
 }
 
+.page-content.padding > .tabs.primary {
+  position: relative;
+  top: -1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.is-smallscreen .page-content.padding > .tabs.primary {
+  position: relative;
+  top: -.75rem;
+  margin-left: -.75rem;
+  margin-right: -.75rem;
+}
+
 .tabs.primary .tab-cover {
   background-color: #43A047;
 }
@@ -75,6 +89,20 @@
 .tabs.secondary {
   background-color: #FFFFFF;
   color: #424242;
+}
+
+.page-content.padding > .tabs.secondary {
+  position: relative;
+  top: -1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+}
+
+.is-smallscreen .page-content.padding > .tabs.secondary {
+  position: relative;
+  top: -.75rem;
+  margin-left: -.75rem;
+  margin-right: -.75rem;
 }
 
 .tabs.secondary .tab-item {
