@@ -126,3 +126,10 @@ td > .field {
   border-bottom-color: #29B6F6;
   outline: none;
 }
+
+.field-info {
+  margin: 0;
+  margin-top: .25rem;
+  font-size: .9rem;
+  font-style: italic;
+}
