@@ -73,12 +73,12 @@ span.button-group {
   font: inherit;
   font-weight: 500;
   transition-property: transform;
-  transition-duration: 32ms;
-  padding: .2rem .5rem;
-  margin: .3rem;
+  transition-duration: 60ms;
+  padding: .25rem .5rem;
+  margin: .25rem;
   border: 1px solid rgba(0, 0, 0, 0);
   background-color: rgba(0, 0, 0, 0);
-  border-radius: .2rem;
+  border-radius: .25rem;
   color: #212121;
   display: inline-flex;
   justify-content: center;
@@ -139,7 +139,7 @@ input + .button > .button-shell {
 
 .button.large > .button-shell {
   font: inherit;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 500;
   padding: .5rem 1rem;
   margin: .5rem;
