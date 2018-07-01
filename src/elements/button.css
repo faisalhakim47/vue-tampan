@@ -109,7 +109,6 @@ input + .button > .button-shell {
 }
 
 .button:focus > .button-shell {
-  /* border-color: #E0E0E0; */
   outline-color: #E0E0E0;
   box-shadow: 0 0 .025rem .15rem #E0E0E0;
 }
@@ -135,6 +134,18 @@ input + .button > .button-shell {
 .button-icon + .button-text:not(:empty) {
   margin-left: .25rem;
 }
+
+/* === === === BUTTON LARGE === === === */
+
+.button.large > .button-shell {
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: .5rem 1rem;
+  margin: .5rem;
+  border-radius: .25rem;
+}
+
 
 /* === === === BUTTON DISABLED === === === */
 
