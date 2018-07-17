@@ -1,17 +1,6 @@
 import { request } from '../tools/request.js'
 import { throttle } from '../tools/throttle.js'
 
-/**
- * @param {number} num 
- * @param {number} min 
- * @param {number} max 
- */
-function between(num, min, max) {
-  if (num < min) return min
-  if (num > max) return max
-  return num
-}
-
 export default {
   props: {
     /**
@@ -147,6 +136,10 @@ export default {
         .then(this.$nextTick)
         .then(() => this.$refs.list_block.scrollTop = this.scrollPosition)
     },
+
+    dataScope(index, item) {
+      return Object.assign({ index }, item)
+    }
   },
 
   watch: {
@@ -194,10 +187,21 @@ export default {
         }"
         @click="$emit('select', item)"
       >
-        <slot name="content" :data="{ index, ...item }"></slot>
+        <slot name="content" :data="dataScope(index, item)"></slot>
       </li>
     </ul>
     <slot v-else name="content-empty"></slot>
   </section>
   `
+}
+
+/**
+ * @param {number} num 
+ * @param {number} min 
+ * @param {number} max 
+ */
+function between(num, min, max) {
+  if (num < min) return min
+  if (num > max) return max
+  return num
 }
