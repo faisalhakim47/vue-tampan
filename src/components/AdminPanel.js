@@ -89,10 +89,6 @@ export default {
       this.touchX = this.touchXStart = 0
       this.isSliding = false
     },
-
-    test() {
-      console.log('NAVIGATE')
-    }
   },
 
   mounted() {

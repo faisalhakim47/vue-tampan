@@ -6,7 +6,6 @@
 @import './tools.css';
 @import './transition.css';
 
-@import './elements/button.css';
 @import './elements/form.css';
 @import './elements/input.css';
 @import './elements/table.css';
@@ -14,6 +13,8 @@
 @import './components/AdminPanel.css';
 @import './components/Box.css';
 @import './components/ButtonAction.css';
+@import './components/ButtonBase.css';
+@import './components/ButtonGroup.css';
 @import './components/Column.css';
 @import './components/Field.css';
 @import './components/InputAutotext.css';

@@ -1,4 +1,5 @@
 import { request } from '../tools/request.js'
+import { throttle } from '../tools/throttle.js'
 
 /**
  * @param {number} num 
@@ -13,13 +14,19 @@ function between(num, min, max) {
 
 export default {
   props: {
-    src: { type: String },
-    scrollPosition: { type: Number, default: 0 },
+    /**
+     * props src is an endpoint that
+     * - ?size returns the length of the data
+     * - ?skip={skip}&limit={limit} return the data
+     */
+    src: { type: [String, Array] },
+    query: { type: [String] },
+    scrollPosition: { type: [Number], default: 0 },
     activeKey: { type: [Number, String] },
-    rowHeight: { type: Number, default: 48 },
-    numberOfColumn: { type: Number, default: 1 },
-    numberOfGroup: { type: Number, default: 5 },
-    loadDelay: { type: Number, default: 300 },
+    rowHeight: { type: [Number], default: 48 },
+    numberOfColumn: { type: [Number], default: 1 },
+    numberOfGroup: { type: [Number], default: 5 },
+    loadDelay: { type: [Number], default: 300 },
   },
 
   data() {
@@ -34,9 +41,13 @@ export default {
   },
 
   computed: {
+    isStaticSrc() {
+      return Array.isArray(this.src)
+    },
+
     groupSize() {
-      const rowHeight = Math.round(this.listBlockHeight / this.rowHeight)
-      return rowHeight * this.numberOfColumn
+      const numberOfRow = Math.round(this.listBlockHeight / this.rowHeight)
+      return numberOfRow * this.numberOfColumn
     },
 
     prevNumberOfGroup() {
@@ -46,11 +57,22 @@ export default {
     listPadding() {
       return this.skip * this.rowHeight / this.numberOfColumn
     },
+
+    maxSkip() {
+      let nextSkip = this.numberOfItem - this.limit
+      if (nextSkip < 0) return 0
+      return nextSkip
+    },
   },
 
   methods: {
     fetchNumberOfItem() {
-      return request('GET', location.origin + this.src + '?get=size')
+      if (this.isStaticSrc) {
+        this.numberOfItem = this.src.length
+        return
+      }
+      const query = `?size&${this.query}`
+      const fetching = request('GET', location.origin + this.src + query)
         .then((result) => {
           if (result.status === 200) {
             this.numberOfItem = result.data.size
@@ -62,20 +84,32 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
+      this.$tampan.useLoadingState(fetching)
     },
 
     fetchList(skip = 0) {
-      if (this.skip === skip) {
-        return Promise.resolve()
+      if (this.isStaticSrc) {
+        const data = this.src.slice(skip, skip + this.limit)
+        this.items = data
+        this.skip = skip
+        this.$emit('data', data)
+        return
       }
+      const numberOfItem = this.numberOfItem
       this.loadingSkip = skip
-      const url = location.origin + this.src + `?get=data&skip=${skip}&limit=${this.limit}`
-      return request('GET', url)
+      const query = `skip=${skip}&limit=${this.limit}&${this.query}`
+      const url = location.origin + this.src + `?${query}`
+      const fetching = request('GET', url)
         .then((result) => {
           if (this.loadingSkip !== skip) return
+          if (this.numberOfItem !== numberOfItem) return
           if (result.status === 200) {
+            result.data.forEach((data) => {
+              data.key = data.key || data.id
+            })
             this.items = result.data
             this.skip = skip
+            this.$emit('data', result.data)
           }
           else {
             console.warn(result)
@@ -84,13 +118,24 @@ export default {
         .catch((error) => {
           console.warn(error)
         })
+      this.$tampan.useLoadingState(fetching)
     },
 
     refreshList() {
       const scrollTop = this.$refs.list_block.scrollTop
       const offset = scrollTop - (this.listBlockHeight * this.prevNumberOfGroup)
-      const skip = Math.floor(between(offset, 0, offset) / this.rowHeight) * this.numberOfColumn
+      let skip = Math.floor(between(offset, 0, offset) / this.rowHeight) * this.numberOfColumn
+      skip = between(skip, 0, this.maxSkip)
+      if (this.skip === skip && !this.forceRefresh) {
+        return Promise.resolve()
+      }
       return this.fetchList(skip)
+    },
+
+    reloadList() {
+      this.forceRefresh = true
+      this.refreshList()
+      this.forceRefresh = false
     },
 
     computeLayout() {
@@ -105,14 +150,21 @@ export default {
   },
 
   watch: {
-    skip(skip) {
-      this.$emit('scroll', (skip + this.groupSize) * this.rowHeight)
+    src() {
+      this.reloadList()
     },
   },
 
   mounted() {
     this.refreshListInterval = setInterval(this.refreshList, this.loadDelay)
     this.$tampan.$on('screen_resize', this.computeLayout)
+    this.$watch('query', throttle(() => {
+      this.computeLayout()
+      this.fetchList()
+    }, 300))
+    this.$watch('skip', (skip) => {
+      this.$emit('scroll', (skip + this.groupSize) * this.rowHeight)
+    })
     this.computeLayout()
   },
 
@@ -125,14 +177,14 @@ export default {
   <section ref="list_block" class="list-block">
     <ul
       v-if="items.length !== 0"
-      class="list-block-content"
+      class="list-block-list"
       :style="{
         height: (rowHeight * (numberOfItem / numberOfColumn)) + 'px',
         paddingTop: listPadding + 'px',
       }"
     >
       <li
-        v-for="item in items"
+        v-for="(item, index) in items"
         :key="item.key || item.id"
         class="list-block-item"
         :class="item.key === activeKey && 'active'"
@@ -142,7 +194,7 @@ export default {
         }"
         @click="$emit('select', item)"
       >
-        <slot name="content" :data="item"></slot>
+        <slot name="content" :data="{ index, ...item }"></slot>
       </li>
     </ul>
     <slot v-else name="content-empty"></slot>

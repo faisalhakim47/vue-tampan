@@ -26,7 +26,7 @@ export default {
 
   template: `
     <div class="input input-range">
-      <i class="icon material-icons">{{ prefixIconText }}</i>
+      <i v-if="prefixIconText" class="prefix icon material-icons">{{ prefixIconText }}</i>
       <input
         ref="input_select"
         type="range"
@@ -37,7 +37,7 @@ export default {
         :step="step"
         @input="input"
       >
-      <i class="icon material-icons">{{ sufixIconText }}</i>
+      <i v-if="sufixIconText" class="suffix icon material-icons">{{ sufixIconText }}</i>
     </div>
   `
 }

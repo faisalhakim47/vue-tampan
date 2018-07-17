@@ -64,7 +64,7 @@
   padding: 1.5rem;
 }
 
-.is-smallscreen .page-content {
+.is-smallscreen .page-content.padding {
   padding: .75rem;
 }
 
