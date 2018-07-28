@@ -27,6 +27,14 @@
   border: 1px solid #E0E0E0;
 }
 
+.box-content:first-child > tbody:first-child > tr:first-child > td {
+  border-top: none;
+}
+
+.box-content:last-child > tbody:last-child > tr:last-child > td {
+  border-bottom: none;
+}
+
 .table > thead > tr > th:first-child,
 .table > tbody > tr > td:first-child,
 .table > tfoot > tr > td:first-child {

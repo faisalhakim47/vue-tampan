@@ -1,0 +1,53 @@
+.button-group {
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+span.button-group {
+  display: inline-block;
+}
+
+.button-group.align-right {
+  text-align: right;
+}
+
+.button-group.align-center {
+  text-align: center;
+}
+
+.button-group.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.box-content > .button-group {
+  padding: .25rem 1rem;
+}
+
+.is-smallscreen .box-content > .button-group {
+  padding: .25rem .75rem;
+}
+
+.modal-footer > .button-group {
+  padding: 0 1.25rem;
+}
+
+.is-smallscreen .modal-footer > .button-group {
+  padding: 0 1rem;
+}
+
+.modal-footer > .button-group > button:first-child > .button-shell {
+  margin-left: 0;
+}
+
+.modal-footer > .button-group > button:last-child > .button-shell {
+  margin-right: 0;
+}

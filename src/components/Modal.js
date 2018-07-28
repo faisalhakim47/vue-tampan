@@ -57,7 +57,6 @@ export default {
     this.$tampan.$on('modal:close', this.close)
     this.$tampan.$on('window:resize', this.controlBodyOverflow)
     this.$tampan.$on('modal:overflowcontrol', this.controlBodyOverflow)
-    addBackButtonGuard(this.$root)
   },
 
   updated() {
@@ -80,31 +79,15 @@ export default {
       <transition :name="transition">
         <div v-if="show" class="modal-wrapper" @click.self="close">
           <div class="modal-container" :style="{ maxWidth: maxWidth + 'px' }">
-            <header class="modal-header">
-              <slot name="header"></slot>
-            </header>
+            <slot name="header"></slot>
             <div ref="modal_content" class="modal-content" :style="{ overflowX: overflowX ? 'auto' : 'hidden' }">
               <slot></slot>
             </div>
-            <footer class="modal-footer">
-              <slot name="footer"></slot>
-            </footer>
+            <slot name="footer"></slot>
           </div>
         </div>
       </transition>
 
     </section>
   `
-}
-
-let isBackButtonGuarded = false
-function addBackButtonGuard(root, backFn) {
-  if (isBackButtonGuarded) return
-  isBackButtonGuarded = true
-  if (!root.$router) return
-  root.$router.beforeEach((to, from, next) => {
-    const activeModal = root.$tampan.activeModalList[0]
-    if (!activeModal) return next()
-    activeModal.close()
-  })
 }

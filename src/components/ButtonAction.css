@@ -1,0 +1,52 @@
+.button-action .button {
+  position: fixed;
+  bottom: 5%;
+  right: 3%;
+}
+
+.is-portrait .button-action .button {
+  bottom: 4%;
+  right: 5%;
+}
+
+.button-action .button > .button-shell {
+  box-sizing: border-box;
+  border-radius: 4rem;
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  padding: 0;
+  background-color: #2E7D32;
+  color: #FEFEFE;
+  box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14),
+  0 3px 14px 2px rgba(0,0,0,0.12),
+  0 5px 5px -3px rgba(0,0,0,0.2);
+}
+
+.button-action .button:hover > .button-shell {
+  background-color: #4CAF50;
+  color: #FEFEFE;
+}
+
+.button-action .button:focus .button-shell {
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14),
+  0 1px 10px 0 rgba(0,0,0,0.12),
+  0 2px 4px -1px rgba(0,0,0,0.3);
+}
+
+.button-action .button:active .button-shell {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+  0 3px 1px -2px rgba(0,0,0,0.12),
+  0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.is-smallscreen .button-action .button-shell {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 4rem;
+  padding: 0;
+}
+
+.button-action .button-icon {
+  font-size: 2rem;
+}

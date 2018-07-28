@@ -21,25 +21,31 @@ export default {
 
   template: `
   <modal :show="show" @close="type === 'confirm' ? reject() : resolve()">
-    <h3
-      slot="header"
-      v-if="title"
-      class="modal-title"
-    >{{ title }}</h3>
+    <header v-if="title" slot="header" class="modal-header">
+      <h3 class="modal-title">{{ title }}</h3>
+    </header>
 
     <p v-if="text">{{ text }}</p>
 
-    <div
-      slot="footer"
-      class="button-group"
-      :class="{
-        'align-right': type === 'alert',
-        'justify-between': type === 'confirm',
-      }"
-    >
-      <button-tampan v-if="type === 'confirm'" @click="reject" icon-text="close">{{ rejectText }}</button-tampan>
-      <button-tampan @click="resolve" :icon-text="type === 'confirm' ? confirmIconText : 'close'">{{ confirmText }}</button-tampan>
-    </div>
+    <footer slot="footer" class="modal-footer">
+      <div
+        class="button-group"
+        :class="{
+          'align-right': type === 'alert',
+          'justify-between': type === 'confirm',
+        }"
+      >
+        <button-tampan
+          v-if="type === 'confirm'"
+          @click="reject"
+          icon-text="close"
+        >{{ rejectText }}</button-tampan>
+        <button-tampan
+          @click="resolve"
+          :icon-text="type === 'confirm' ? confirmIconText : 'close'"
+        >{{ confirmText }}</button-tampan>
+      </div>
+    </footer>
   </modal>
   `
 }

@@ -20,11 +20,18 @@ export function initiateLayout(tampan) {
       isLargeScreen,
       isMediumScreen,
       isSmallScreen,
-      height,
+      isLandscape,
+      isPortrait,
+      isTouchDevice,
+      isMobileOS,
     } = tampan.client
     condRootClass('is-largescreen', isLargeScreen)
     condRootClass('is-mediumscreen', isMediumScreen)
     condRootClass('is-smallscreen', isSmallScreen)
+    condRootClass('is-landscape', isLandscape)
+    condRootClass('is-portrait', isPortrait)
+    condRootClass('is-touchdevice', isTouchDevice)
+    condRootClass('is-mobileos', isMobileOS)
   })
 
   tampan.$watch(() => {

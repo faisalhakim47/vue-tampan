@@ -11,6 +11,7 @@ export default {
       isSliding: false,
       touchX: 0,
       touchXStart: 0,
+      isBypassNavigationGuard: false,
     }
   },
 
@@ -113,10 +114,21 @@ export default {
     })
 
     this.$router.beforeEach((to, from, next) => {
-      if (this.$tampan.isSidebarToggleable) {
-        this.$tampan.isSidebarShow = false
+      if (this.$tampan.isSidebarToggleable && this.isSidebarVisible) {
+        this.$nextTick().then(() => {
+          this.$tampan.isSidebarShow = false
+          next(this.isBypassNavigationGuard)
+          this.isBypassNavigationGuard = false
+        })
+        console.warn(1, 'GUARDED')
       }
-      next()
+      else if (this.$tampan.escapeGuards.length !== 0) {
+        const escape = this.$tampan.escapeGuards.shift()
+        if (typeof escape === 'function') escape()
+        console.warn(2, 'GUARDED')
+        next(false)
+      }
+      else next()
     })
   },
 
@@ -149,7 +161,7 @@ export default {
             <li class="menu-group" v-for="menuGroup in menuGroups" :key="menuGroup.name">
               <span class="menu-group-title">{{ menuGroup.name }}</span>
               <ul v-for="menu in menuGroup.menus" class="menus" :key="menu.route ? menu.route.name : menu.name">
-                <li class="menu">
+                <li class="menu" @click="isBypassNavigationGuard = true">
                   <router-link v-if="menu.route" class="menu-link" :to="menu.route" :exact="menu.exact">
                     <i class="menu-icon" :class="menu.iconClass || 'material-icons'">{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
