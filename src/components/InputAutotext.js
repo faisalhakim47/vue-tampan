@@ -1,6 +1,4 @@
-const Vue = require('vue').default
-
-export default Vue.extend({
+export default {
   props: {
     src: { type: String },
     value: { type: Number },
@@ -138,4 +136,4 @@ export default Vue.extend({
     </div>
   </div>
   `
-})
+}

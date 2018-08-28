@@ -16,6 +16,7 @@ export function initiateTampan(Vue, mixin) {
         dialogList: [],
         loadingCount: 0,
         isSidebarShow: !client.isSmallScreen,
+        overideSidebar: 'auto',
       }
     },
 

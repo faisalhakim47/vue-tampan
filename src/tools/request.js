@@ -1,9 +1,7 @@
-let worker
 let messageId = 0
 const queues = {}
 
-if (typeof window !== 'undefined') {
-  const workerScript = `
+const workerScript = `
   self.addEventListener('message', (event) => {
     var data = event.data || {};
     var options = data.options || {};
@@ -36,7 +34,8 @@ if (typeof window !== 'undefined') {
       if (request.readyState === 4) {
         if (request.status < 400) {
           resolveStatus();
-        } else  {
+        }
+        else {
           resolveStatus(true);
         }
       }
@@ -47,27 +46,26 @@ if (typeof window !== 'undefined') {
         : options.data
     );
   });
-  `
+`
 
-  const workerBlob = new Blob([workerScript], {
-    type: 'text/javascript',
+const workerBlob = new Blob([workerScript], {
+  type: 'text/javascript',
+})
+
+const worker = new Worker(URL.createObjectURL(workerBlob, {
+  oneTimeOnly: true,
+}))
+
+worker.addEventListener('message', (event) => {
+  const result = event.data
+  const { resolve, reject } = queues[result.id]
+  if (result.ok) resolve({
+    status: result.status,
+    data: result.data,
   })
-
-  worker = new Worker(URL.createObjectURL(workerBlob, {
-    oneTimeOnly: true
-  }))
-
-  worker.addEventListener('message', (event) => {
-    const result = event.data
-    const { resolve, reject } = queues[result.id]
-    if (result.ok) resolve({
-      status: result.status,
-      data: result.data,
-    })
-    else reject(result)
-    queues[result.id] = undefined
-  })
-}
+  else reject(result)
+  queues[result.id] = undefined
+})
 
 export function request(method, url, options = {}) {
   return new Promise((resolve, reject) => {

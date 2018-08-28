@@ -26,7 +26,21 @@ export default {
       return false
     },
 
+    sidebarForced() {
+      if (this.$tampan.overideSidebar === 'show') {
+        return 1
+      }
+      else if (this.$tampan.overideSidebar === 'hide') {
+        return -1
+      }
+      else {
+        return 0
+      }
+    },
+
     sidebarOffset() {
+      if (this.sidebarForced === 1) return 0
+      if (this.sidebarForced === -1) return -this.sidebarWidth
       if (this.isSliding) {
         const touchXDiff = this.touchX - this.touchXStart
         if (this.isSidebarVisible) {

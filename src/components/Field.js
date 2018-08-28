@@ -4,6 +4,7 @@ export default {
   props: {
     label: String,
     info: String,
+    labelDescription: String,
   },
 
   data() {
@@ -29,7 +30,7 @@ export default {
   template: `
     <div class="field">
       <div v-if="label" class="field-label">
-        <label :for="id">{{ label }}</label>
+        <label :for="id" :title="labelDescription">{{ label }}</label>
       </div>
       <div ref="field_input" class="field-input">
         <slot></slot>
