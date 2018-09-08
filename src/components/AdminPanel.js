@@ -112,7 +112,8 @@ export default {
         window.addEventListener('touchmove', this.touchmove, { passive: true })
         window.addEventListener('touchend', this.touchend, { passive: true })
         window.addEventListener('touchcancel', this.touchclear, { passive: true })
-      } else {
+      }
+      else {
         window.removeEventListener('touchstart', this.touchstart)
         window.removeEventListener('touchmove', this.touchmove)
         window.removeEventListener('touchend', this.touchend)
@@ -151,20 +152,30 @@ export default {
   },
 
   template: `
-    <div class="tampan admin-panel" :style="{ width: $tampan.client.width + 'px', height: $tampan.client.height + 'px' }">
-
+    <div
+      class="tampan admin-panel"
+      :style="{
+        width: $tampan.client.width + 'px',
+        height: $tampan.client.height + 'px'
+      }"
+    >
       <main
         role="main"
         class="tampan-content"
-        :style="{ paddingLeft: ($tampan.isSidebarToggleable ? 0 : sidebarWidth) + 'px' }"
+        :style="{
+          paddingLeft: ((sidebarForced === -1 || $tampan.isSidebarToggleable)
+            ? 0 : sidebarWidth) + 'px'
+        }"
       >
         <slot name="content"></slot>
       </main>
-
       <transition name="fade-overlay">
-        <div v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable" class="tampan-sidebar-overlay" @click="$tampan.toggleSidebar"></div>
+        <div
+          v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable"
+          class="tampan-sidebar-overlay"
+          @click="$tampan.toggleSidebar"
+        ></div>
       </transition>
-
       <aside ref="sidebar" class="tampan-sidebar" :style="{ width: sidebarWidth + 'px' }">
         <header v-if="$slots.header" class="tampan-header">
           <slot name="header"></slot>

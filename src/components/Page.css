@@ -7,9 +7,6 @@
 
 .page-header {
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;  cursor: default;
   box-sizing: border-box;
   height: 4rem;
   min-height: 4rem;
@@ -65,13 +62,13 @@
 }
 
 .is-smallscreen .page-content.padding {
-  padding: .75rem;
+  padding: .5rem;
 }
 
 .page-footer {
   box-sizing: border-box;
-  min-height: 3rem;
-  max-height: 3rem;
+  min-height: 3.6rem;
+  max-height: 3.6rem;
   display: flex;
   align-items: center;
   align-content: center;

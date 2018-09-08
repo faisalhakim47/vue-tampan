@@ -1,4 +1,5 @@
 .button-group {
+  display: flex;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -7,19 +8,18 @@
 }
 
 span.button-group {
-  display: inline-block;
+  display: inline-flex;
 }
 
 .button-group.align-right {
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .button-group.align-center {
-  text-align: center;
+  justify-content: center;
 }
 
 .button-group.justify-between {
-  display: flex;
   justify-content: space-between;
 }
 

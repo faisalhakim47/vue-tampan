@@ -1,8 +1,10 @@
+import { objectToQueryString } from './url.js'
+
 let messageId = 0
 const queues = {}
 
 const workerScript = `
-  self.addEventListener('message', (event) => {
+  self.addEventListener('message', function (event) {
     var data = event.data || {};
     var options = data.options || {};
     var headers = options.headers || {};
@@ -67,7 +69,15 @@ worker.addEventListener('message', (event) => {
   queues[result.id] = undefined
 })
 
-export function request(method, url, options = {}) {
+export function request(method, url = '', options = {}) {
+  if (url[0] === '/') {
+    url = location.origin + url
+  }
+  if (options.query && typeof options.query === 'object') {
+    const query = objectToQueryString(options.query)
+    const sparator = url.indexOf('?') === -1 ? '?' : '&'
+    url = `${url}${sparator}${query}`
+  }
   return new Promise((resolve, reject) => {
     const id = messageId++
     queues[id] = { resolve, reject }
