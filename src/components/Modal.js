@@ -2,6 +2,7 @@ export default {
   props: {
     show: { type: Boolean, default: false },
     overflowX: { type: Boolean, default: false },
+    overflowY: { type: Boolean, default: true },
     transition: { type: String, default: 'zoom' },
     maxWidth: { type: [String, Number], default: 480 },
   },
@@ -76,9 +77,14 @@ export default {
         <div v-if="show" class="modal-wrapper" @click.self="close">
           <div class="modal-container" :style="{ maxWidth: maxWidth + 'px' }">
             <slot name="header"></slot>
-            <div ref="modal_content" class="modal-content" :style="{ overflowX: overflowX ? 'auto' : 'hidden' }">
-              <slot></slot>
-            </div>
+            <div
+              ref="modal_content"
+              class="modal-content"
+              :style="{
+                overflowX: overflowX ? 'auto' : 'hidden',
+                overflowY: overflowY ? 'auto' : 'hidden',
+              }"
+            ><slot></slot></div>
             <slot name="footer"></slot>
           </div>
         </div>
