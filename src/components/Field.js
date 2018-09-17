@@ -32,12 +32,12 @@ export default {
       <div v-if="label" class="field-label">
         <label :for="id" :title="labelDescription">{{ label }}</label>
       </div>
-      <div ref="field_input" class="field-input">
-        <slot></slot>
-      </div>
       <p v-if="info" class="field-info">
         {{ info }}
       </p>
+      <div ref="field_input" class="field-input">
+        <slot></slot>
+      </div>
     </div>
   `
 }
