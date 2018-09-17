@@ -16,13 +16,13 @@ const workerScript = `
       } catch (e) {
         result = request.responseText;
       }
-      self.postMessage({
+      self.postMessage(JSON.stringify({
         ok: !error,
         id: data.id,
         status: request.status,
         data: result,
         error: error,
-      });
+      }));
     }
     request.open(data.method, data.url);
     Object.keys(headers).forEach(function (name) {
@@ -59,7 +59,7 @@ const worker = new Worker(URL.createObjectURL(workerBlob, {
 }))
 
 worker.addEventListener('message', (event) => {
-  const result = event.data
+  const result = JSON.parse(event.data)
   const { resolve, reject } = queues[result.id]
   if (result.ok) resolve({
     status: result.status,
