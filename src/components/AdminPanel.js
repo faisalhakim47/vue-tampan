@@ -183,18 +183,36 @@ export default {
 
         <nav class="tampan-navigation" role="navigation">
           <ul class="menu-groups">
-            <li class="menu-group" v-for="menuGroup in menuGroups" :key="menuGroup.name">
+            <li
+              class="menu-group"
+              v-for="menuGroup in menuGroups"
+              :key="menuGroup.name"
+            >
               <span class="menu-group-title">{{ menuGroup.name }}</span>
               <ul v-for="menu in menuGroup.menus" class="menus" :key="menu.route ? menu.route.name : menu.name">
                 <li class="menu" @click="isBypassNavigationGuard = true">
-                  <router-link v-if="menu.route" class="menu-link" :to="menu.route" :exact="menu.exact">
-                    <i class="menu-icon" :class="menu.iconClass || 'material-icons'">{{ menu.iconText }}</i>
+                  <router-link
+                    v-if="menu.route"
+                    class="menu-link"
+                    :to="menu.route"
+                    :exact="menu.exact"
+                  >
+                    <i
+                      class="menu-icon"
+                      :class="menu.iconClass || 'material-icons'"
+                    >{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
                   </router-link>
-                  <a v-else class="menu-link exteral-link" :href="menu.href" target="_blank">
-                    <i class="menu-icon" :class="menu.iconClass || 'material-icons'">
-                      {{ menu.iconText }}
-                    </i>
+                  <a
+                    v-else
+                    class="menu-link exteral-link"
+                    :href="menu.href"
+                    @click="menu.onclick"
+                  >
+                    <i
+                      class="menu-icon"
+                      :class="menu.iconClass || 'material-icons'"
+                    >{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
                   </a>
                 </li>
