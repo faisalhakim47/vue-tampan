@@ -1,13 +1,13 @@
-import ButtonBase from './ButtonBase.js'
+import ButtonBase from './ButtonBase.js';
 
 export default {
   props: {
-    type: { type: String, default: 'button' },
-    disabled: { type: Boolean },
-    color: { type: String, default: '' },
-    display: { type: String, default: '' },
-    iconClass: { type: String, default: 'material-icons' },
-    iconText: { type: String },
+    type: {type: String, default: 'button'},
+    disabled: {type: Boolean},
+    color: {type: String, default: ''},
+    display: {type: String, default: ''},
+    iconClass: {type: String, default: 'material-icons'},
+    iconText: {type: String},
   },
 
   components: {
@@ -24,7 +24,7 @@ export default {
       :icon-class="iconClass"
       :disabled="disabled"
       @click="$emit('click')"
-    ></button-base>
+    ><slot></slot></button-base>
   </div>
-  `
-}
+  `,
+};
