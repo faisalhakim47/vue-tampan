@@ -27,10 +27,6 @@
   border: 1px solid #E0E0E0;
 }
 
-.box-content:first-child > tbody:first-child > tr:first-child > td {
-  border-top: none;
-}
-
 .box-content:last-child > tbody:last-child > tr:last-child > td {
   border-bottom: none;
 }
@@ -65,10 +61,6 @@
 .is-smallscreen .table > tbody > tr,
 .is-smallscreen .table > tfoot > tr {
   height: 4rem;
-}
-
-.is-smallscreen .table > thead > tr {
-  height: 3.5rem;
 }
 
 /* === === === TABLE ATTRIBUTES === === === */

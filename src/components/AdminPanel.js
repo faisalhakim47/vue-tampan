@@ -26,7 +26,21 @@ export default {
       return false
     },
 
+    sidebarForced() {
+      if (this.$tampan.overideSidebar === 'show') {
+        return 1
+      }
+      else if (this.$tampan.overideSidebar === 'hide') {
+        return -1
+      }
+      else {
+        return 0
+      }
+    },
+
     sidebarOffset() {
+      if (this.sidebarForced === 1) return 0
+      if (this.sidebarForced === -1) return -this.sidebarWidth
       if (this.isSliding) {
         const touchXDiff = this.touchX - this.touchXStart
         if (this.isSidebarVisible) {
@@ -98,7 +112,8 @@ export default {
         window.addEventListener('touchmove', this.touchmove, { passive: true })
         window.addEventListener('touchend', this.touchend, { passive: true })
         window.addEventListener('touchcancel', this.touchclear, { passive: true })
-      } else {
+      }
+      else {
         window.removeEventListener('touchstart', this.touchstart)
         window.removeEventListener('touchmove', this.touchmove)
         window.removeEventListener('touchend', this.touchend)
@@ -137,20 +152,30 @@ export default {
   },
 
   template: `
-    <div class="tampan admin-panel" :style="{ width: $tampan.client.width + 'px', height: $tampan.client.height + 'px' }">
-
+    <div
+      class="tampan admin-panel"
+      :style="{
+        width: $tampan.client.width + 'px',
+        height: $tampan.client.height + 'px'
+      }"
+    >
       <main
         role="main"
         class="tampan-content"
-        :style="{ paddingLeft: ($tampan.isSidebarToggleable ? 0 : sidebarWidth) + 'px' }"
+        :style="{
+          paddingLeft: ((sidebarForced === -1 || $tampan.isSidebarToggleable)
+            ? 0 : sidebarWidth) + 'px'
+        }"
       >
         <slot name="content"></slot>
       </main>
-
       <transition name="fade-overlay">
-        <div v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable" class="tampan-sidebar-overlay" @click="$tampan.toggleSidebar"></div>
+        <div
+          v-if="$tampan.isSidebarShow && $tampan.isSidebarToggleable"
+          class="tampan-sidebar-overlay"
+          @click="$tampan.toggleSidebar"
+        ></div>
       </transition>
-
       <aside ref="sidebar" class="tampan-sidebar" :style="{ width: sidebarWidth + 'px' }">
         <header v-if="$slots.header" class="tampan-header">
           <slot name="header"></slot>
@@ -158,18 +183,36 @@ export default {
 
         <nav class="tampan-navigation" role="navigation">
           <ul class="menu-groups">
-            <li class="menu-group" v-for="menuGroup in menuGroups" :key="menuGroup.name">
+            <li
+              class="menu-group"
+              v-for="menuGroup in menuGroups"
+              :key="menuGroup.name"
+            >
               <span class="menu-group-title">{{ menuGroup.name }}</span>
               <ul v-for="menu in menuGroup.menus" class="menus" :key="menu.route ? menu.route.name : menu.name">
                 <li class="menu" @click="isBypassNavigationGuard = true">
-                  <router-link v-if="menu.route" class="menu-link" :to="menu.route" :exact="menu.exact">
-                    <i class="menu-icon" :class="menu.iconClass || 'material-icons'">{{ menu.iconText }}</i>
+                  <router-link
+                    v-if="menu.route"
+                    class="menu-link"
+                    :to="menu.route"
+                    :exact="menu.exact"
+                  >
+                    <i
+                      class="menu-icon"
+                      :class="menu.iconClass || 'material-icons'"
+                    >{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
                   </router-link>
-                  <a v-else class="menu-link exteral-link" :href="menu.href" target="_blank">
-                    <i class="menu-icon" :class="menu.iconClass || 'material-icons'">
-                      {{ menu.iconText }}
-                    </i>
+                  <a
+                    v-else
+                    class="menu-link exteral-link"
+                    :href="menu.href"
+                    @click="menu.onclick"
+                  >
+                    <i
+                      class="menu-icon"
+                      :class="menu.iconClass || 'material-icons'"
+                    >{{ menu.iconText }}</i>
                     <span class="menu-text">{{ menu.name }}</span>
                   </a>
                 </li>

@@ -1,10 +1,10 @@
-let worker
+import { objectToQueryString } from './url.js'
+
 let messageId = 0
 const queues = {}
 
-if (typeof window !== 'undefined') {
-  const workerScript = `
-  self.addEventListener('message', (event) => {
+const workerScript = `
+  self.addEventListener('message', function (event) {
     var data = event.data || {};
     var options = data.options || {};
     var headers = options.headers || {};
@@ -16,13 +16,13 @@ if (typeof window !== 'undefined') {
       } catch (e) {
         result = request.responseText;
       }
-      self.postMessage({
+      self.postMessage(JSON.stringify({
         ok: !error,
         id: data.id,
         status: request.status,
         data: result,
         error: error,
-      });
+      }));
     }
     request.open(data.method, data.url);
     Object.keys(headers).forEach(function (name) {
@@ -36,7 +36,8 @@ if (typeof window !== 'undefined') {
       if (request.readyState === 4) {
         if (request.status < 400) {
           resolveStatus();
-        } else  {
+        }
+        else {
           resolveStatus(true);
         }
       }
@@ -47,29 +48,36 @@ if (typeof window !== 'undefined') {
         : options.data
     );
   });
-  `
+`
 
-  const workerBlob = new Blob([workerScript], {
-    type: 'text/javascript',
+const workerBlob = new Blob([workerScript], {
+  type: 'text/javascript',
+})
+
+const worker = new Worker(URL.createObjectURL(workerBlob, {
+  oneTimeOnly: true,
+}))
+
+worker.addEventListener('message', (event) => {
+  const result = JSON.parse(event.data)
+  const { resolve, reject } = queues[result.id]
+  if (result.ok) resolve({
+    status: result.status,
+    data: result.data,
   })
+  else reject(result)
+  queues[result.id] = undefined
+})
 
-  worker = new Worker(URL.createObjectURL(workerBlob, {
-    oneTimeOnly: true
-  }))
-
-  worker.addEventListener('message', (event) => {
-    const result = event.data
-    const { resolve, reject } = queues[result.id]
-    if (result.ok) resolve({
-      status: result.status,
-      data: result.data,
-    })
-    else reject(result)
-    queues[result.id] = undefined
-  })
-}
-
-export function request(method, url, options = {}) {
+export function request(method, url = '', options = {}) {
+  if (url[0] === '/') {
+    url = location.origin + url
+  }
+  if (options.query && typeof options.query === 'object') {
+    const query = objectToQueryString(options.query)
+    const sparator = url.indexOf('?') === -1 ? '?' : '&'
+    url = `${url}${sparator}${query}`
+  }
   return new Promise((resolve, reject) => {
     const id = messageId++
     queues[id] = { resolve, reject }

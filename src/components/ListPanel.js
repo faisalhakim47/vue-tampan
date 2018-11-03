@@ -161,7 +161,7 @@ export default {
           <div class="page-header">
             <slot name="header"></slot>
           </div>
-          <div ref="page_content" class="page-content">
+          <div ref="page_content" class="page-content padding">
             <ul
               class="list-panel-list"
               :style="{

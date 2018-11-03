@@ -1,5 +1,6 @@
 export default {
   props: {
+    type: { type: String, default: 'button' },
     disabled: { type: Boolean },
     color: { type: String, default: '' },
     display: { type: String, default: '' },
@@ -28,7 +29,14 @@ export default {
         </span>
       </span>
     </router-link>
-    <button v-else class="button" :class="classes" :disabled="disabled" @click="$emit('click')">
+    <button
+      v-else
+      :disabled="disabled"
+      :type="type"
+      class="button"
+      :class="classes"
+      @click="$emit('click')"
+    >
       <span class="button-shell">
         <span class="button-icon" :class="iconClass">{{ iconText }}</span>
         <span v-if="$slots.default" class="button-text">

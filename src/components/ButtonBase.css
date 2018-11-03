@@ -5,9 +5,7 @@
   We use it for accessibility reason. */
   cursor: pointer;
   user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;  border: none;
+  border: none;
   background: none;
   outline: none;
   margin: 0;
@@ -38,7 +36,7 @@
 }
 
 .is-smallscreen .button > .button-shell {
-  padding: .35rem .7rem;
+  padding: .5rem .75rem;
 }
 
 input + .button > .button-shell {

@@ -50,3 +50,16 @@
 .button-action .button-icon {
   font-size: 2rem;
 }
+
+/* === POSITIVE DISABLED === */
+
+.button-action .button.button-positive:disabled > .button-shell,
+.button-action .button.button-positive:disabled:hover > .button-shell,
+.button-action .button.button-positive:disabled:focus > .button-shell,
+.button-action .button.button-positive:disabled:active > .button-shell {
+  background-color: #CDCDCD;
+  color: #999999;
+  box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14),
+  0 3px 14px 2px rgba(0,0,0,0.12),
+  0 5px 5px -3px rgba(0,0,0,0.2);
+}

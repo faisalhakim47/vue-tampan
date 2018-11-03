@@ -55,6 +55,12 @@ td > .field {
   border-radius: .2rem;
 }
 
+.is-smallscreen .field-input input,
+.is-smallscreen .field-input textarea,
+.is-smallscreen .field-input select {
+  padding: .75rem;
+}
+
 .field-input textarea {
   min-width: 100%;
   max-width: 100%;
@@ -129,7 +135,7 @@ td > .field {
 
 .field-info {
   margin: 0;
-  margin-top: .25rem;
+  margin-bottom: .25rem;
   font-size: .9rem;
   font-style: italic;
 }
