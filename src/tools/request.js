@@ -69,6 +69,20 @@ worker.addEventListener('message', (event) => {
   queues[result.id] = undefined
 })
 
+/**
+ * @typedef {object} RequestOption
+ * @property {import("http").IncomingHttpHeaders} headers 
+ * @property {any} query 
+ * @property {any} data 
+ */
+
+/**
+ * @template Value
+ * @param {string} method 
+ * @param {string} url 
+ * @param {RequestOption} options 
+ * @returns {Promise<Value>}
+ */
 export function request(method, url = '', options = {}) {
   if (url[0] === '/') {
     url = location.origin + url
