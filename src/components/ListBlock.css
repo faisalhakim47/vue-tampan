@@ -3,10 +3,6 @@
   overflow-y: scroll;
 }
 
-.page-content > .list-block {
-  padding: 0 1rem;
-}
-
 .is-smallscreen .page-content > .list-block {
   padding: 0 .875rem;
 }
@@ -25,7 +21,6 @@
   box-sizing: border-box;
   display: block;
   float: left;
-  padding: .25rem;
 }
 
 .is-smallscreen .list-block-item {
