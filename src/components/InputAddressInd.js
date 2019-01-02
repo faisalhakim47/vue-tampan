@@ -1,24 +1,51 @@
-import { throttle } from '../tools/throttle.js'
+import { throttle } from '../tools/throttle.js';
 
-import Field from './Field.js'
-import Row from './Row.js'
-import Column from './Column.js'
+import Field from './Field.js';
+import Row from './Row.js';
+import Column from './Column.js';
 
 function addressToObject(address) {
   if (address && typeof address === 'object') {
-    return address
+    return address;
   }
   try {
-    const { street, rt, rw, village, district, regency, province, postalcode } = JSON.parse(address)
-    return { street, rt, rw, village, district, regency, province, postalcode }
+    const {
+      street,
+      rt,
+      rw,
+      village,
+      district,
+      regency,
+      province,
+      postalcode,
+    } = JSON.parse(address);
+    return { street, rt, rw, village, district, regency, province, postalcode };
   } catch (e) {
-    console.warn('wrong address format', e)
-    return {}
+    console.warn('wrong address format', e);
+    return {};
   }
 }
 
-function objectToAddress({ street, rt, rw, village, district, regency, province, postalcode }) {
-  return JSON.stringify({ street, rt, rw, village, district, regency, province, postalcode })
+function objectToAddress({
+  street,
+  rt,
+  rw,
+  village,
+  district,
+  regency,
+  province,
+  postalcode,
+}) {
+  return JSON.stringify({
+    street,
+    rt,
+    rw,
+    village,
+    district,
+    regency,
+    province,
+    postalcode,
+  });
 }
 
 export default {
@@ -38,23 +65,23 @@ export default {
     return {
       addressObject: addressToObject(this.value),
       provinceProvider: throttle(({ query }) => {
-        return new Promise
-      }, 500)
-    }
+        return new Promise();
+      }, 500),
+    };
   },
 
   watch: {
     value: {
       deep: true,
       handler(value) {
-        this.addressObject = addressToObject(value)
-      }
+        this.addressObject = addressToObject(value);
+      },
     },
     addressObject: {
       deep: true,
       handler(addressObject) {
-        this.$emit('input', JSON.stringify(addressObject))
-      }
+        this.$emit('input', JSON.stringify(addressObject));
+      },
     },
   },
 
@@ -103,5 +130,5 @@ export default {
         </Column>
       </Row>
     </div>
-  `
-}
+  `,
+};

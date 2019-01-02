@@ -1,5 +1,6 @@
 .field {
   margin: 1.25rem;
+  flex: 1;
 }
 
 .column > .field,
@@ -28,6 +29,9 @@ td > .field {
 
 .field-label {
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   margin-bottom: 0.25rem;
   font-size: 0.85rem;
   font-weight: 500;
@@ -53,6 +57,8 @@ td > .field {
   transition-property: border-color, background-color;
   transition-duration: 150ms;
   border-radius: 0.2rem;
+  color: #424242;
+  height: 2.5rem;
 }
 
 .is-smallscreen .field-input input,
@@ -114,6 +120,9 @@ td > .field {
 
 .input-sets .field > .field-label {
   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   font-size: 0.85rem;
   font-weight: 500;
   text-transform: none;

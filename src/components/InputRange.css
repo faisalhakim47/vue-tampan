@@ -1,8 +1,8 @@
- .input-range {
+.input-range {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .input-range > input {
@@ -11,19 +11,22 @@
 }
 
 .input-range > .icon {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   width: 32px;
   height: 24px;
   font-size: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
 }
 
 .input-range > .prefix.icon {
-  margin-right: .25rem;
+  margin-right: 0.25rem;
 }
 
 .input-range > .suffix.icon {
-  margin-left: .25rem;
+  margin-left: 0.25rem;
 }

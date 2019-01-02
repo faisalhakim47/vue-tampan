@@ -2,7 +2,8 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;  display: block;
+  -ms-user-select: none;
+  display: block;
   width: inherit;
 }
 
@@ -21,7 +22,7 @@
   padding: 0 1.5rem;
   height: 3rem;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
 }
@@ -43,51 +44,51 @@
 
 .is-smallscreen .page-content.padding > .tabs.primary {
   position: relative;
-  top: -.75rem;
-  margin-left: -.75rem;
-  margin-right: -.75rem;
+  top: -0.75rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 
 .tabs.primary .tab-cover {
-  background-color: #43A047;
+  background-color: #43a047;
 }
 
 .tabs.primary .tab-item {
-  background-color: #43A047;
-  color: #FFFFFF;
-  border-left: 1px solid #43A047;
-  border-right: 1px solid #43A047;
+  background-color: #43a047;
+  color: #ffffff;
+  border-left: 1px solid #43a047;
+  border-right: 1px solid #43a047;
 }
 
 .tabs.primary .tab-item:hover {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .tabs.primary .tab-item.active {
-  background-color: #FFFFFF;
-  color: #2E7D32;
+  background-color: #ffffff;
+  color: #2e7d32;
   font-weight: 500;
   position: relative;
   bottom: -1px;
-  border-color: #FFFFFF;
+  border-color: #ffffff;
 }
 
 .tabs.primary .tab-item.previous-active {
-  border-bottom-right-radius: .5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .tabs.primary .tab-item.active + .tab-item,
 .tabs.primary .tab-item.active + .tab-cover {
-  border-bottom-left-radius: .5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
 .tabs.primary:last-of-type .tab-item.active {
-  background-color: rgba(0, 0, 0, 0);;
-  border-color: rgba(0, 0, 0, 0);;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
 }
 
 .tabs.secondary {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #424242;
 }
 
@@ -100,18 +101,18 @@
 
 .is-smallscreen .page-content.padding > .tabs.secondary {
   position: relative;
-  top: -.75rem;
-  margin-left: -.75rem;
-  margin-right: -.75rem;
+  top: -0.75rem;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 
 .tabs.secondary .tab-item {
-  border-top: .3rem solid #FFF;
-  border-bottom: .3rem solid #FFF;
+  border-top: 0.3rem solid #fff;
+  border-bottom: 0.3rem solid #fff;
 }
 
 .tabs.secondary .tab-item:hover {
-  border-bottom-color: #BDBDBD;
+  border-bottom-color: #bdbdbd;
 }
 
 .tabs.secondary .tab-item.active {

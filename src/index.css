@@ -1,10 +1,7 @@
 @import './vendor/normalize.css';
 @import './vendor/material-icons.css';
 
-@import './tampan.css';
-@import './typography.css';
-@import './tools.css';
-@import './transition.css';
+@import './default.css';
 
 @import './elements/form.css';
 @import './elements/input.css';
@@ -17,6 +14,7 @@
 @import './components/ButtonGroup.css';
 @import './components/Column.css';
 @import './components/Field.css';
+@import './components/Icon.css';
 @import './components/InputAutotext.css';
 @import './components/InputRange.css';
 @import './components/InputTime.css';

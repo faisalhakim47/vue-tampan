@@ -1,4 +1,6 @@
-input, textarea, select {
+input,
+textarea,
+select {
   font: inherit;
 }
 

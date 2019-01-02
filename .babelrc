@@ -1,12 +1,13 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "android": "4.4"
+    [
+      "env",
+      {
+        "targets": {
+          "android": "4.4"
+        }
       }
-    }]
+    ]
   ],
-  "plugins": [
-    "transform-vue-inline-template"
-  ]
+  "plugins": ["transform-vue-inline-template"]
 }

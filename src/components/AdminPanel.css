@@ -23,12 +23,12 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .tampan-navigation {
   height: inherit;
-  border-right: 1px solid #FFFFFF;
+  border-right: 1px solid #ffffff;
   overflow-y: auto;
 }
 
@@ -50,8 +50,8 @@
   display: flex;
   height: 1.75rem;
   align-items: center;
-  padding: 0 .6rem;
-  font-size: .8rem;
+  padding: 0 0.6rem;
+  font-size: 0.8rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -68,29 +68,30 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;  display: flex;
-  height: 3.5rem;;
+  -ms-user-select: none;
+  display: flex;
+  height: 3.5rem;
   align-items: center;
   font-size: 1rem;
   text-decoration: none;
-  transition-property: background-color;
-  transition-duration: 150ms;
-  border-top: 1px solid #FFFFFF;
-  border-bottom: 1px solid #FFFFFF;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  background-color: #ffffff;
 }
 
 .is-smallscreen .menu-link {
-  height: 4rem;;
+  height: 4rem;
 }
 
 .menu-link:hover {
-  background-color: #F5F5F5;
-  border-top-color: #F5F5F5;
-  border-bottom-color: #F5F5F5;
+  background-color: #f5f5f5;
+  border-top-color: #f5f5f5;
+  border-bottom-color: #f5f5f5;
 }
 
 .menu-link:active,
 .menu-link:focus {
+  background-color: #ffffff;
   font-weight: 500;
 }
 
@@ -98,8 +99,8 @@
 .menu-link.router-link-active {
   cursor: default;
   font-weight: 500;
-  border-top-color: #E0E0E0;
-  border-bottom-color: #E0E0E0;
+  border-top-color: #e0e0e0;
+  border-bottom-color: #e0e0e0;
 }
 
 .menu-icon {
@@ -123,5 +124,5 @@
 }
 
 .is-sidebar-toggleable .tampan-content {
-  padding-left:0;
+  padding-left: 0;
 }

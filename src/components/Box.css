@@ -1,25 +1,26 @@
 .box {
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   margin-top: 1.2rem;
   margin-bottom: 1.2rem;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 
 .is-smallscreen .box {
-  margin-top: .8rem;
-  margin-bottom: .8rem;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 .page-content > .box:first-child,
 .page-content > .row:first-child > .column > .box:first-child {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .box-header {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;  cursor: default;
+  -ms-user-select: none;
+  cursor: default;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -29,13 +30,13 @@
 }
 
 .is-smallscreen .box-header {
-  padding: 1.2rem .8rem;
+  padding: 1.2rem 0.8rem;
 }
 
 .box-title {
   font-size: 1.25rem;
   font-weight: 400;
-  margin:0;
+  margin: 0;
 }
 
 .box-controls {
@@ -44,11 +45,11 @@
 }
 
 .box-content > p {
-  margin: .6rem 1.2rem;
+  margin: 0.6rem 1.2rem;
 }
 
 .is-smallscreen .box-content > p {
-  margin: .6rem .8rem;
+  margin: 0.6rem 0.8rem;
 }
 
 .box-content a {
@@ -65,9 +66,9 @@
 }
 
 .box-content ul:first-child {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .box-content ul > li {
-  padding: .6rem 0;
+  padding: 0.6rem 0;
 }
