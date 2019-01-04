@@ -5,8 +5,8 @@ export default {
   props: {
     /**
      * props src is an endpoint that
-     * - ?size returns the length of the data
-     * - ?skip={skip}&limit={limit} return the data
+     * - ?get=size&... returns the length of the data
+     * - ?get=data&skip={skip}&limit={limit}&... return the data
      */
     src: { type: [String, Array] },
     query: { type: [String], default: '' },
@@ -14,7 +14,7 @@ export default {
     activeKey: { type: [Number, String] },
     rowHeight: { type: [Number], default: 48 },
     numberOfColumn: { type: [Number], default: 1 },
-    numberOfGroup: { type: [Number], default: 5 },
+    numberOfGroup: { type: [Number], default: 3 },
     loadDelay: { type: [Number], default: 300 },
     paddingTop: { type: [Number], default: 0 },
     paddingBottom: { type: [Number], default: 0 },
@@ -76,10 +76,10 @@ export default {
   },
 
   methods: {
-    fetchNumberOfItem() {
+    async fetchNumberOfItem() {
       if (this.isStaticSrc) {
         this.numberOfItem = this.src.length;
-        return;
+        return Promise.resolve();
       }
       const query = `?get=size${this.query ? `&${this.query}` : ''}`;
       const fetching = request('GET', this.src + query)
@@ -93,16 +93,16 @@ export default {
         .catch((error) => {
           console.warn(error);
         });
-      this.$tampan.useLoadingState(fetching);
+      await this.$tampan.useLoadingState(fetching);
     },
 
-    fetchList(skip = 0) {
+    async fetchList(skip = 0) {
       if (this.isStaticSrc) {
         const data = this.src.slice(skip, skip + this.limit);
         this.items = data;
         this.skip = skip;
         this.$emit('data', data);
-        return;
+        return Promise.resolve();
       }
       const numberOfItem = this.numberOfItem;
       this.loadingSkip = skip;
@@ -128,39 +128,37 @@ export default {
         .catch((error) => {
           console.warn(error);
         });
-      this.$tampan.useLoadingState(fetching);
+      await this.$tampan.useLoadingState(fetching);
     },
 
-    refreshList() {
+    async refreshList() {
       const scrollTop = this.$refs.list_block.scrollTop;
       const offset = scrollTop - this.listBlockHeight * this.prevNumberOfGroup;
       let skip =
         Math.floor(between(offset, 0, offset) / this.rowHeight) *
         this.numberOfColumn;
       skip = between(skip, 0, this.maxSkip);
-      if (this.skip === skip && !this.forceRefresh) {
-        return Promise.resolve();
-      }
-      return this.fetchList(skip);
+      if (this.skip === skip && !this.forceRefresh) return;
+      await this.fetchList(skip);
     },
 
-    reloadList() {
+    async reloadList() {
       this.forceRefresh = true;
-      this.refreshList();
+      await this.refreshList();
       this.forceRefresh = false;
     },
 
-    computeLayout() {
+    async computeLayout() {
       this.listBlockHeight = parseInt(
         getComputedStyle(this.$refs.list_block).height,
         10
       );
       this.limit = this.groupSize * this.numberOfGroup;
-      this.$nextTick()
-        .then(this.fetchNumberOfItem)
-        .then(this.fetchList)
-        .then(this.$nextTick)
-        .then(() => (this.$refs.list_block.scrollTop = this.scrollPosition));
+      await this.$nextTick();
+      await this.fetchNumberOfItem();
+      await this.fetchList();
+      await this.$nextTick();
+      this.$refs.list_block.scrollTop = this.scrollPosition;
     },
 
     dataScope(index, item) {
@@ -174,19 +172,20 @@ export default {
     },
   },
 
-  mounted() {
-    this.refreshListInterval = setInterval(this.refreshList, this.loadDelay);
+  async mounted() {
     this.$tampan.$on('screen_resize', this.computeLayout);
     this.$watch(
       'query',
       throttle(() => {
-        this.reloadList();
+        this.computeLayout();
       }, 300)
     );
     this.$watch('skip', (skip) => {
       this.$emit('scroll', (skip + this.groupSize) * this.rowHeight);
     });
-    this.computeLayout();
+
+    await this.computeLayout();
+    this.refreshListInterval = setInterval(this.refreshList, this.loadDelay);
   },
 
   beforeDestroy() {
