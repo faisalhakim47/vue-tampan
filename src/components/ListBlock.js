@@ -27,6 +27,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       listBlockHeight: 0,
       numberOfItem: 0,
       limit: 0,
@@ -104,6 +105,7 @@ export default {
         this.$emit('data', data);
         return Promise.resolve();
       }
+      this.isLoading = true;
       const numberOfItem = this.numberOfItem;
       this.loadingSkip = skip;
       const query = `?get=data&skip=${skip}&limit=${this.limit}${
@@ -127,6 +129,9 @@ export default {
         })
         .catch((error) => {
           console.warn(error);
+        })
+        .then(() => {
+          this.isLoading = false;
         });
       await this.$tampan.useLoadingState(fetching);
     },
@@ -186,6 +191,8 @@ export default {
 
     await this.computeLayout();
     this.refreshListInterval = setInterval(this.refreshList, this.loadDelay);
+
+    this.$on('reload', this.reloadList);
   },
 
   beforeDestroy() {
@@ -195,6 +202,7 @@ export default {
 
   template: `
   <section ref="list_block" class="list-block">
+    <slot v-if="items.length === 0 && !isLoading" name="content-empty"></slot>
     <ul
       v-if="items.length !== 0"
       class="list-block-list"
@@ -218,8 +226,10 @@ export default {
         }"
         @click="$emit('select', item)"
       ><slot name="content" :data="dataScope(index, item)"></slot></li>
+      <li v-if="isLoading">
+        <slot name="content-loading"></slot>
+      </li>
     </ul>
-    <slot v-else name="content-empty"></slot>
   </section>
   `,
 };
