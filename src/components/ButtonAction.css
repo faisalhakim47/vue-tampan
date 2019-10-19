@@ -13,9 +13,9 @@
   box-sizing: border-box;
   border-radius: 4rem;
   border: none;
-  height: 4rem;
-  width: 4rem;
-  padding: 0;
+  /* height: 4rem; */
+  /* width: 4rem; */
+  padding: .75rem;
   background-color: #2E7D32;
   color: #FEFEFE;
   box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14),
@@ -49,6 +49,10 @@
 
 .button-action .button-icon {
   font-size: 2rem;
+}
+
+.button-action .button-text {
+  margin-right: .5rem;
 }
 
 /* === POSITIVE DISABLED === */
