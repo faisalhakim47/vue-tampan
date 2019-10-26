@@ -5,7 +5,7 @@ export default {
     options: { type: Array, default: () => [] },
     value: { type: [String, Number] },
     disabled: { type: Boolean, default: false },
-  },    
+  },
 
 
   methods: {
@@ -22,8 +22,18 @@ export default {
   },
 
   template: `
-    <select ref="input_select" class="input input-select" :disabled="disabled" :value="value" @change="change">
-      <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
+    <select
+      ref="input_select"
+      class="input input-select"
+      :disabled="disabled"
+      :value="value"
+      @change="change"
+    >
+      <option
+        v-for="option in options"
+        :key="option.value"
+        :value="option.value"
+      >{{ option.label }}</option>
     </select>
   `
 }

@@ -61,6 +61,12 @@ td > .field {
   height: 2.5rem;
 }
 
+.field-input input:disabled,
+.field-input textarea:disabled,
+.field-input select:disabled {
+  background-color: #f0f0f0;
+}
+
 .is-smallscreen .field-input input,
 .is-smallscreen .field-input textarea,
 .is-smallscreen .field-input select {
@@ -145,6 +151,12 @@ td > .field {
   border: none;
   border-bottom: 1px dotted #9e9e9e;
   background-color: unset;
+}
+
+.input-sets .field > .field-input input:disabled,
+.input-sets .field > .field-input textarea:disabled,
+.input-sets .field > .field-input select:disabled {
+  background-color: #f0f0f0;
 }
 
 .input-sets .field > .field-input input:focus,
